@@ -48,4 +48,34 @@ function add_question($id, $keyword, $type, $text, $points, $section) {
   }
 }
 
+function edit_question($id) {
+  global $db;
+
+  try {
+    $query = "SELECT QuestionType, QuestionText, PointsAvailable, section 
+              FROM Questions
+              WHERE QuestionId = $id";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+      db_disconnect();
+      exit("Aborting: There was an error when retrieving the question.");
+  }
+}
+
+function delete_question($id) {
+  global $db;
+
+  try{
+    $query = "DELETE FROM Questions WHERE QuestionId="$id";
+    echo "Question$id successfully deleted from database.";
+    return true;
+  } catch (PDOException $e) {
+      db_disconnect();
+      exit("Aborting: There was an error when deleting the question. " .
+        "Please try again later.");
+  }
+}
+
 ?>
