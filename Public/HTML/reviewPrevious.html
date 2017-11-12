@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>UWO WebCLICKER</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
+      rel="stylesheet"/>
+  </head>
+
+  <body>
+    <div>
+      <div>
+        <ul class="navigation">
+          <li><a href="studentHome.html" id="nextQuestion">Next Question</a></li>
+          <li><a href="reviewPrevious.html" id="reviewPrevious">
+            Review Previous Questions</a></li>
+          <li><a href="changePassword.html" id="changePassword">Change
+            Password</a></li>
+          <li><a href="logout.html" id="logout">Log Out</a></li>
+        </ul>
+      </div>
+      <div class="border">
+        <div id="pageHeader">
+          <h1 id="headerTitle"><span id="mainU">U</span>W<span id="mainO">O
+          </span><span id="mainW"> W</span>eb<span id="mainC">C</span>licker</h1>
+        </div>
+        <div class="flexContainer">
+          <div class="searchContainer" id="reviewSearch">
+            <form action="searchResults.html">
+              <div id="keyword">
+                <input type="text" name="keywordSearch" id="keywordSearch"/>
+                <input type="submit" value="Search By Keywords" id="keywordButton"/>
+              </div>
+              <div id="searchOptions">
+                <select name="questiontype[]" size="4" class="options"
+                  multiple>
+                  <option>HTML</option>
+                  <option>CSS</option>
+                  <option>PHP</option>
+                  <option>Javascript</option>
+                  <option>SQL</option>
+                  <option>Other</option>
+                </select>
+                <select name="chapter[]" size="4" class="options"
+                  multiple>
+                  <option>Ch 1</option>
+                  <option>Ch 2</option>
+                  <option>Ch 3</option>
+                  <option>Ch 4</option>
+                  <option>Ch 5</option>
+                  <option>Ch 6</option>
+                  <option>Ch 8</option>
+                  <option>Ch 9</option>
+                  <option>Ch 12</option>
+                </select>
+                <select name="totalpoints[]" size="4" class="options"
+                  multiple>
+                  <option>2 points</option>
+                  <option>3 points</option>
+                  <option>4 points</option>
+                  <option>5 or more points</option>
+                </select>
+                <select name="pointsreceived[]" size="4" class="options"
+                  multiple>
+                  <option>0 points</option>
+                  <option>1 point</option>
+                  <option>2 points</option>
+                  <option>3 points</option>
+                  <option>4 points</option>
+                  <option>5 or more points</option>
+                  <option>partial credit</option>
+                  <option>full credit</option>
+                </select>
+                <input type="submit" value="Search" id="searchButton"/>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <p>
+          <a href="http://jigsaw.w3.org/css-validator/check/referer">
+              <img style="border:0;width:88px;height:31px"
+                  src="http://jigsaw.w3.org/css-validator/images/vcss"
+                  alt="Valid CSS!" />
+          </a>
+          <a href="http://validator.w3.org/check/referer">
+            <img src="../Images/HTML5_Logo.png"
+              width="63" height="64" alt="HTML5 Powered" title="Valid HTML" />
+          </a>
+          </p>
+      </div>
+    </div>
+  </body>
+</html>

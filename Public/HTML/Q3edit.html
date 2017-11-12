@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>UWO WebCLICKER</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
+      rel="stylesheet"/>
+  </head>
+  <body>
+    <div>
+      <ul class="navigation">
+        <li><a href="instructorHome.html" id="home">Home</a></li>
+        <li><a href="editQuestions.html">
+          Edit\Delete Questions</a></li>
+        <li><a href="addQuestions.html">Add Question</a></li>
+        <li><a href="activateQuestion.html">Activate\Deactivate Question</a></li>
+        <li><a href="classStatistics.html">Class Statitistics</a></li>
+        <li><a href="changePasswordInst.html">Change Password</a></li>
+        <li><a href="logout.html">Log Out</a></li>
+      </ul>
+    </div>
+    <div class="border">
+      <div id="pageHeader">
+        <h1 id="headerTitle"><span id="mainU">U</span>W<span id="mainO">O
+        </span><span id="mainW"> W</span>eb<span id="mainC">C</span>licker</h1>
+      </div>
+      <div id="flexContainer">
+        <form action="confirmSave.html">
+          <div class="question" id="q3">
+            <h1>Edit Question</h1>
+            <p>Question ID:</p>
+            <input type="text" name="questionTitle" value="Q3 (2 points)">
+            <div>
+              <p>Type your question below:</p>
+<textarea class="questionText">Given the index.html and styles.css files below,
+what font type will the word "The Hundred Thousand Kingdoms" be?
+<pre><code>
+  &lt;!DOCTYPE html&gt;
+  &lt;html&gt;
+    &lt;head&gt;
+      &lt;meta charset=&quot;utf-8&quot;&gt;
+      &lt;title&gt;My Books &lt;/title&gt;
+      &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot; /&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&quot;Name of the Wind&quot;&lt;/li&gt;
+        &lt;li&gt;&quot;The Fifth Season&quot;&lt;/li&gt;
+        &lt;li&gt;&quot;To Kill a Mocking Bird&quot;&lt;/li&gt;
+        &lt;li&gt;&quot;Before the Fall&quot;&lt;/li&gt;
+        &lt;li&gt;&quot;The Fireman&quot;&lt;/li&gt;
+        &lt;li&gt;&quot;The Hundred Thousand Kingdoms&quot;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  <br/>
+  body {
+    background-color: white;
+    font-family: &quot;Arial&quot;, monospace;
+  }
+
+  ul {
+    font-size: 14pt;
+    font-family: &quot;Verdana&quot;, sans-serif;
+  }
+
+  li:last-child {
+    font-family: Times New Roman;
+  }
+
+  li:nth-child(2n+2) {
+    font-family: cursive;
+  }
+</code></pre>
+              </textarea>
+              <select id="answerTypes">
+                <option value="radio" selected>Multiple Choice</option>
+                <option value="checkbox">Checkboxes</option>
+                <option value="dropdown">Dropdown</option>
+                <option value="short">Short answer</option>
+              </select>
+              <div>
+                <label>a)
+                  <input type="radio" name="q3" value="sans" /></label>
+                <textarea>sans-serif</textarea>
+                <br />
+                <label>b) <input type="radio" name="q3" value="times" />
+                </label>
+                <textarea>Times New Roman</textarea>
+                <br />
+                <label>c) <input type="radio" name="q3" value="verdana"/>
+                </label>
+                <textarea>Verdana</textarea>
+                <br />
+                <label>d) <input type="radio" name="q3" value="cursive" />
+                </label>
+                <textarea>cursive</textarea>
+                <br />
+                <label>e) <input type="radio" name="q3" value="none" />
+                </label>
+                <textarea>None of the above.</textarea>
+                <br/>
+              </div>
+              <p>
+              <button type="button">Add more answer choices</button>
+              </p>
+            </div>
+            <br />
+            <div>
+              Answer key:<br/>
+              <label>
+                <input type="radio" name="answerKey" value="a" /> a</label>
+              <label>
+                <input type="radio" name="answerKey" value="b"/> b</label>
+              <label>
+                <input type="radio" name="answerKey" value="c"/> c</label>
+              <label>
+                <input type="radio" name="answerKey" value="d" checked/>d
+              </label>
+              <label>
+                <input type="radio" name="answerKey" value="e"/>e</label>
+            </div>
+            <input type="submit" value="Save"/>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="footer">
+      <p>
+        <a href="http://jigsaw.w3.org/css-validator/check/referer">
+          <img style="border:0;width:88px;height:31px"
+            src="http://jigsaw.w3.org/css-validator/images/vcss"
+            alt="Valid CSS!" />
+        </a>
+        <a href="http://validator.w3.org/check/referer">
+          <img src="../Images/HTML5_Logo.png"
+            width="63" height="64" alt="HTML5 Powered" title="\'Valid\' HTML" />
+        </a>
+      </p>
+    </div>
+  </body>
+</html>
