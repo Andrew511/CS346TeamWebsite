@@ -77,7 +77,8 @@ function delete_question($id) {
   global $db;
 
   try{
-    $query = "DELETE FROM Questions WHERE QuestionId="$id";
+    $query = "DELETE FROM Questions 
+              WHERE QuestionId=$id";
     echo "Question$id successfully deleted from database.";
     return true;
   } catch (PDOException $e) {
