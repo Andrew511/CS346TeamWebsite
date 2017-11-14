@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <title>UWO WebCLICKER</title>
-    <link rel="stylesheet" type="text/css" href="p1indiva.css" />
+    <link rel="stylesheet" type="text/css" href="../p1indiva.css" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
       rel="stylesheet" />
     <?php
@@ -20,5 +20,4 @@
     ?>
 
   </head>
-
 </html>
