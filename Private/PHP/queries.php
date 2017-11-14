@@ -1,4 +1,5 @@
 <?php
+
   /*
   // Returns an array containing arrays whic have the indexs 'Username' and 'Score'
   // which contain their respective values
@@ -85,5 +86,4 @@ function delete_question($id) {
         "Please try again later.");
   }
 }
-
 ?>
