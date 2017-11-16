@@ -9,16 +9,7 @@
   </head>
 
   <body>
-    <div>
-      <ul class="navigation">
-        <li><a href="studentHome.html" id="nextQuestion">Next Question</a></li>
-        <li><a href="reviewPrevious.html" id="reviewPrevious">
-          Review Previous Questions</a></li>
-        <li><a href="changePassword.html" id="changePassword">Change
-          Password</a></li>
-        <li><a href="logout.html" id="logout">Log Out</a></li>
-      </ul>
-    </div>
+    require_once(studentnavigation.php);
     <div class="border">
       <div id="pageHeader">
         <h1 id="headerTitle"><span id="mainU">U</span>W<span id="mainO">O
