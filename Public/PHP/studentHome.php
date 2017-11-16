@@ -11,10 +11,7 @@
   <body>
     require_once(studentnavigation.php);
     <div class="border">
-      <div id="pageHeader">
-        <h1 id="headerTitle"><span id="mainU">U</span>W<span id="mainO">O
-        </span><span id="mainW"> W</span>eb<span id="mainC">C</span>licker</h1>
-      </div>
+      require_once(header.php);
       <div id="flexContainer">
         <div id="errorMessage">
           Let the instructor know that there are no active questions in the
