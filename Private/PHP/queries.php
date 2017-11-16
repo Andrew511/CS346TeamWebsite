@@ -87,4 +87,22 @@ function delete_question($id) {
         "Please try again later.");
   }
 }
+
+function search($keyword) {
+    global $db;
+
+    try {
+      $query = "SELECT * FROM Questions
+                WHERE Keywords = keyword
+                INNER JOIN Questions.QuestionId ON Keywords.QuestionId ";
+      $stmt = $db->prepare($query);
+      $stmt->execute(["keyword" => $keyword]);
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        db_disconnect();
+        exit("Aborting: There was a database error when retrieving " .
+             "the score.");
+    }
+}
+
 ?>
