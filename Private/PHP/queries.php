@@ -88,15 +88,21 @@ function delete_question($id) {
   }
 }
 
-function search($keyword) {
+function search($keyword, $section, $topic , $score, $pointsAvailable) {
     global $db;
 
     try {
       $query = "SELECT * FROM Questions
-                WHERE Keywords = keyword
-                INNER JOIN Questions.QuestionId ON Keywords.QuestionId ";
+                WHERE (Keywords IS NULL OR Keywords = :keyword) 
+				AND (Section IS NULL OR Section = :section)
+				AND (Topic IS NULL OR Topic = :topic )
+				AND (Score IS NULL OR Score + :score)
+				AND (PointsAvailable IS NULL OR PointsAvailable = :pointsAvailable)
+                INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId 
+				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
-      $stmt->execute(["keyword" => $keyword]);
+      $stmt->execute(["keyword" => $keyword]["section" => $section]["topic"=>$topic]
+					 ["score"=>$score]["pointsAvailable"=>$pointsAvailable]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
