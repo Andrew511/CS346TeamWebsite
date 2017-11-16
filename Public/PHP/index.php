@@ -12,10 +12,10 @@
       rel="stylesheet" />
     <?php
       if($role == 'student') {
-        echo "<meta http-equiv=\"refresh\" content=\"0; URL=studentHome.html\">";
+        echo "<meta http-equiv=\"refresh\" content=\"0; URL=studentHome.php\">";
       }
       else if ($role == 'instructor') {
-        echo "<meta http-equiv=\"refresh\" content=\"0; URL=instructorHome.html\">";
+        echo "<meta http-equiv=\"refresh\" content=\"0; URL=instructorHome.php\">";
       }
     ?>
 

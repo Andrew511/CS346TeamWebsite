@@ -9,9 +9,9 @@
   </head>
 
   <body>
-    require_once(studentnavigation.php);
+    <?php include 'student_navigation.php';?>
     <div class="border">
-      require_once(header.php);
+      <?php include 'header.php' ?>
       <div id="flexContainer">
         <div id="errorMessage">
           Let the instructor know that there are no active questions in the
@@ -31,18 +31,6 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      <p>
-        <a href="http://jigsaw.w3.org/css-validator/check/referer">
-          <img style="border:0;width:88px;height:31px"
-            src="http://jigsaw.w3.org/css-validator/images/vcss"
-            alt="Valid CSS!" />
-        </a>
-        <a href="http://validator.w3.org/check/referer">
-          <img src="../Images/HTML5_Logo.png"
-            width="63" height="64" alt="HTML5 Powered" title="\'Valid\' HTML" />
-        </a>
-      </p>
-    </div>
+    <?php include 'footer.php';?>
   </body>
 </html>
