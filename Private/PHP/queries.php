@@ -101,8 +101,8 @@ function search($keyword, $section, $topic , $score, $pointsAvailable) {
                 INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId 
 				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
-      $stmt->execute(["keyword" => $keyword]["section" => $section]["topic"=>$topic]
-					 ["score"=>$score]["pointsAvailable"=>$pointsAvailable]);
+      $stmt->execute(["keyword" => $keyword ,"section" => $section ,"topic"=>$topic ,
+					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
