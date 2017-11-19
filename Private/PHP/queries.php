@@ -76,15 +76,16 @@ function deactivate_all() {
 
 
 
-function add_question($id, $keyword, $type, $text, $points, $section) {
+function add_question($id, $status, $type, $text, $points, $section) {
   global $db;
 
   try {
-    $query = "INSERT INTO Questions VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"
+    $query = "INSERT INTO Questions (QuestionId, Status, QuestionType, QuestionText, PoinsAvailable, Section) 
+              VALUES (?, ?, ?, ?, ?, ?);"
     $stmt = $db->prepare($query);
-    $stmt->execute([$id, 2, $type, $text, $points, $section, 0, 0, 0]); /*Database auto generates a unique ID for each question if not passed in,
-    Defaults also do not need values passed in as they will default to null, this is true for activation start, end and class average
-    the database will only generate these values if the other values are explicitly named as I did above, where :sqlvariable => $phpvariable */
+    $stmt->execute([$id, $status, $type, $text, $points, $section]); /*Updated b/c we agreed that we would no longer auto increment the question id
+    and by specifying what columns need to be filled the query should work*/
+    echo "Your question was successfully added to the database!";
     return true;
   } catch (PDOException $e) {
       db_disconnect();
@@ -93,15 +94,52 @@ function add_question($id, $keyword, $type, $text, $points, $section) {
   }
 }
 
-function edit_question($id) {
+//checks if the id the instructor is inserting already exist, if it does not exist, then insert it into the database
+function check_id($id, $status, $type, $text, $points, $section){
+  global $db;
+  
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE QuestionId = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute($id);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if($result){ /*If there is a question already, output a message to the instructor*/
+      echo "There was an error inserting your question into the data. A question with the id $id already exists. Please try a different id."
+    }
+  } catch (PDOException $e){
+      db_disconnect();
+      exit("Aborting: there was a database error when inserting a new " . 
+            "question.");
+  }
+}
+
+function insert_keywords($id, $keyword){ //call this function after the function to add the question to the database to make sure we also update the keywords table
+  global $db;
+  
+  try {
+    $query = "INSERT INTO Keywords
+              VALUES (?, ?);"
+    $stmt = $db->prepare($query);
+    $stmt->execute($id, $keyword);
+    return true;
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("Aborting: there was a database error when inserting a new " . 
+          "question.");
+  }
+}
+
+function edit_question($id) { //to retrieve question information for editing
   global $db;
 
   try {
     $query = "SELECT QuestionType, QuestionText, PointsAvailable, section 
               FROM Questions
-              WHERE QuestionId = $id";
+              WHERE QuestionId = ?";
     $stmt = $db->prepare($query);
-    $stmt->execute();
+    $stmt->execute($id);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
       db_disconnect();
@@ -114,7 +152,9 @@ function delete_question($id) {
 
   try{
     $query = "DELETE FROM Questions 
-              WHERE QuestionId=$id";
+              WHERE QuestionId=?";
+    $stmt = $db->prepare($query);
+    $stmt->execute($id);
     echo "Question$id successfully deleted from database.";
     return true;
   } catch (PDOException $e) {
@@ -123,6 +163,23 @@ function delete_question($id) {
         "Please try again later.");
   }
 }
+
+function get_question_list() { //function to populate all the questions the instructor has in the database
+  global $db;
+  
+  try{
+    $query = "SELECT *
+              FROM Questions;"
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to edit.")
+  }
+}
+
+
 
 function search($keyword, $section, $topic , $score, $pointsAvailable) {
     global $db;
@@ -143,7 +200,7 @@ function search($keyword, $section, $topic , $score, $pointsAvailable) {
     } catch (PDOException $e) {
         db_disconnect();
         exit("Aborting: There was a database error when retrieving " .
-             "the score.");
+             "the search results.");
     }
 }
 
