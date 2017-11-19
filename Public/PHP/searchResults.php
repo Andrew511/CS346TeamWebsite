@@ -10,7 +10,7 @@
        2) disconnect from the database
     */
     
-    $q = retrieve_question($_POST['keyword'], $_POST['section'], 
+    $q = search($_POST['keyword'], $_POST['section'], 
 							$_POST['topic'] , $_POST['score'], $_POST['pointsAvailable']);   
 		 foreach($q as $q) {
       "{{$q['QuestionId']}, {$q['QuestionText']}}";
