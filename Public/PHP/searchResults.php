@@ -13,7 +13,7 @@
     $q = retrieve_question($_POST['keyword'], $_POST['section'], 
 							$_POST['topic'] , $_POST['score'], $_POST['pointsAvailable']);   
 		 foreach($q as $q) {
-      "{$q['keyword']}, {$q['section']}, {$q['topic']}, {$q['score']}, {$q['ID']}, {$q['pointsAvailable']}";
+      "{{$q['QuestionId']}, {$q['QuestionText']}}";
     }
 
   } else {
@@ -46,16 +46,17 @@
           <div class="searchContainer">
             <h1>Search Results</h1>
             <div>
-			<?php foreach($q as $q)
+			<?php
 			{ echo "<ul>
-						<li>Keyword: $_POST['keyword']</li>
-						<li>Section: $_POST['section']</li>
-						<li>Topic: $_POST['topic']</li>
-						<li>Your score: $_POST['score']</li>
-						<li>Total score: $_POST['pointsAvailable']</li>
-						<li>Question id: $q['QuestionId']</li>
-						<li>Question : $q['QuestionText']</li>
-					</ul>"}
+					<li>Keyword: $_POST['keyword']</li>
+					<li>Section: $_POST['section']</li>
+					<li>Topic: $_POST['topic']</li>
+					<li>Your score: $_POST['score']</li>
+					<li>Total score: $_POST['pointsAvailable']</li>"}
+			foreach($q as $q)
+				{echo "<li>Question id: $q['QuestionId']</li>
+				       <li>Question : $q['QuestionText']</li>"}
+			echo {"</ul>"}
 			  ?>
             </div>
           </div>
