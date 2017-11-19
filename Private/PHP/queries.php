@@ -8,9 +8,9 @@
     global $db;
 
     try {
-      $query = "SELECT Username, Score FROM Scores
+      $query = "SELECT Students.Username, Scores.Score FROM Scores
                 WHERE QuestionId = :questionId
-                INNER JOIN Students ON Students.StudentId = Score.UserId";
+                INNER JOIN Students ON Score.UserId = Students.StudentId";
       $stmt = $db->prepare($query);
       $stmt->execute(["questionId" => $questionId]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -39,6 +39,42 @@ function get_avg($questionId) {
            "the class average for the question.");
   }
 }
+
+function set_status($questionId, $statusId) { // can be used to set to draft or activate as well as deactivate a single question
+  global $db;
+  
+    try {
+      $query = "UPDATE Questions
+                SET Status = :status
+                WHERE QuestionId = :questionId";
+      $stmt = $db->prepare($query);
+      $stmt->execute(["questionId" => $questionId, "status" => $statusId ]);
+      return  true;
+    } catch (PDOException $e) {
+        db_disconnect();
+        exit("Aborting: There was a database error when changing " .
+             "the question status.");
+    }
+}
+
+function deactivate_all() {
+  global $db;
+  
+    try {
+      $query = "UPDATE Questions
+                SET Status = 4
+                WHERE Status = 3";
+      $stmt = $db->prepare($query);
+      $stmt->execute();
+      return true;
+    } catch (PDOException $e) {
+        db_disconnect();
+        exit("Aborting: There was a database error when deactivating " .
+             "the questions.");
+    }
+}
+
+
 
 function add_question($id, $keyword, $type, $text, $points, $section) {
   global $db;
