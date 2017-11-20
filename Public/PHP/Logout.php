@@ -11,8 +11,10 @@
 	{
 		try
 		{
-			$query = "UPDATE Students SET LastLogout = '$lastLogout' WHERE StudentId = '$id'" ;
-			$db->exec($query) ;
+			$query = "UPDATE Students SET LastLogout = :lastLogout WHERE StudentId = :id" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["lastLogout" => $lastLogout , "id" => $id]) ;
+			
 		}
 		catch(PDOException $e)
 		{
@@ -23,8 +25,9 @@
 	{
 		try
 		{
-			$query = "UPDATE Instructors SET LastLogout = '$lastLogout' WHERE InstructorId = '$id'" ;
-			$db->exec($query) ;
+			$query = "UPDATE Instructors SET LastLogout = :lastLogout WHERE InstructorId = :id" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["lastLogout" => $lastLogout , "id" => $id]) ;
 		}
 		catch(PDOException $e)
 		{
