@@ -31,8 +31,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 	{
 		try
 		{
-			$query = "UPDATE Students SET HashPassword = '$newPass' WHERE StudentId = '$id' AND HashPassword = '$oldPass'" ;
-			$db->exec($query) ;
+			$query = "UPDATE Students SET HashPassword = :newPass WHERE StudentId = :id AND HashPassword = :oldPass" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
 		}
 		catch(PDOException $e)
 		{
@@ -43,8 +44,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 	{
 		try
 		{
-			$query = "UPDATE Instructors SET HashPassword = '$newPass' WHERE InstructorId = '$id' AND HashPassword = '$oldPass'" ;
-			$db->exec($query) ;
+			$query = "UPDATE Instructors SET HashPassword = :newPass WHERE InstructorId = :id AND HashPassword = :oldPass" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
 		}
 		catch
 		{
