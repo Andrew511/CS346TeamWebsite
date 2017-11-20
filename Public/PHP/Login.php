@@ -18,13 +18,15 @@ require_once('initalize.php') ;
 		{
 			try
 			{
-				$query = "SELECT StudentId FROM Students WHERE Username = '$UN' AND HashPassword = '$PW'" ;
-				$id = $db->query($query) ;
+				$query = "SELECT StudentId FROM Students WHERE Username = :Username AND HashPassword = :Password" ;
+				$stmt = $db->prepare($query) ;	
+				$id = $stmt->execute(["Username" => $UN , "Password" => $PW]) ;
 				$_SESSION['ID'] = $id ;
 				$_SESSION['role'] = $role ;
 				$lastLogin = date('m/d/Y h:i:s a' , time()) ;
-				$query = "UPDATE Students SET LastLogin = '$lastLogin' WHERE StudentId = '$id'" ;
-				$db->exec($query) ;
+				$query = "UPDATE Students SET LastLogin = :lastLogin WHERE StudentId = :id" ;
+				$stmt = $db->prepare($query) ;
+				$stmt->execute(["lastLogin" => $lastLogin , "id" => $id]) ;
 				//redirect to student page
 			}
 			catch(PDOException $e)
@@ -36,13 +38,15 @@ require_once('initalize.php') ;
 		{
 			try
 			{
-				$query = "SELECT InstructorId FROM Instructors WHERE Username = '$UN' AND HashPassword = '$PW'" ;
-				$id = $db->query($query) ;
+				$query = "SELECT InstructorId FROM Instructors WHERE Username = :Username AND HashPassword = :Password" ;
+				$stmt = $db->prepare($query) ;	
+				$id = $stmt->execute(["Username" => $UN , "Password" => $PW]) ;
 				$_SESSION['ID'] = $id ;
 				$_SESSION['role'] = $role ;
 				$lastLogin = date('m/d/Y h:i:s a' , time()) ;
-				$query = "UPDATE Instructors SET LastLogin = '$lastLogin' WHERE InstructorId = '$id'" ;
-				$db->exec($query) ;
+				$query = "UPDATE Instructors SET LastLogin = :lastLogin WHERE InstructorId = :id" ;
+				$stmt = $db->prepare($query) ;
+				$stmt->execute(["lastLogin" => $lastLogin , "id" => $id]) ;
 				//redirect to instructor page
 			}
 			catch(PDOException $e)
