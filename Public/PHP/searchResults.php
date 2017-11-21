@@ -10,8 +10,8 @@
        2) disconnect from the database
     */
     
-    $q = search($_POST['keyword'], $_POST['section'], 
-							$_POST['topic'] , $_POST['score'], $_POST['pointsAvailable']);   
+    $q = search($_POST['keywordSearch'], $_POST['section'], 
+			    $_POST['score'], $_POST['pointsAvailable']);   
 		 foreach($q as $q) {
       "{{$q['QuestionId']}, {$q['QuestionText']}}";
     }
@@ -49,8 +49,7 @@
 			<?php
 			{ echo "<ul>
 					<li>Keyword: $_POST['keyword']</li>
-					<li>Section: $_POST['section']</li>
-					<li>Topic: $_POST['topic']</li>
+					<li>Section: $_POST['section']</li>					
 					<li>Your score: $_POST['score']</li>
 					<li>Total score: $_POST['pointsAvailable']</li>"}
 			foreach($q as $q)

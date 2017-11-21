@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-changePassword",
+      "appliesTo": "Public/PHP/changePassword.php",
+      "type": "launch"
+    }
+  ]
+}
