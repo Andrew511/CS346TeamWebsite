@@ -180,22 +180,22 @@ function get_question_list() { //function to populate all the questions the inst
 }
 
 
-
-function search($keyword, $section, $topic , $score, $pointsAvailable) {
+//function to search by given parameters and return to the Students only deactivated Questions
+function search($keyword, $section , $score, $pointsAvailable) {
     global $db;
 
     try {
       $query = "SELECT * FROM Questions
                 WHERE (Keywords IS NULL OR Keywords = :keyword) 
 				AND (Section IS NULL OR Section = :section)
-				AND (Topic IS NULL OR Topic = :topic )
 				AND (Score IS NULL OR Score + :score)
 				AND (PointsAvailable IS NULL OR PointsAvailable = :pointsAvailable)
+				AND (Status = :status)
                 INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId 
 				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
-      $stmt->execute(["keyword" => $keyword ,"section" => $section ,"topic"=>$topic ,
-					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable]);
+      $stmt->execute(["keyword" => $keyword ,"section" => $section ,
+					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" = 2);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
