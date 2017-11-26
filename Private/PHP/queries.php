@@ -21,6 +21,23 @@
     }
 }
 
+
+function get_question_answers($questionId) {
+  global $db;
+
+  try {
+    $query = "SELECT AnswerText, Correct, ShortAnswer FROM Answers
+              WHERE QuestionId = :questionId"
+    $stmt = $db->prepare($query);
+    $stmt->execute(["questionId" => $questionId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+      db_disconnect();
+      exit("Aborting: There was a database error when retrieving " .
+           "the questions answers.");
+  }
+}
+
 /*
 // returns an array which should have the average score stored at index 'Score' UNTESTED
 */
@@ -28,7 +45,7 @@ function get_avg($questionId) {
   global $db;
 
   try {
-    $query = "SELECT AVG(Score) FROM Scores
+    $query = "SELECT AVG(Score) AS Average FROM Scores
               WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
     $stmt->execute(["questionId" => $questionId]);
