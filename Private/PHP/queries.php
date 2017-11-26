@@ -195,13 +195,58 @@ function search($keyword, $section , $score, $pointsAvailable) {
 				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
       $stmt->execute(["keyword" => $keyword ,"section" => $section ,
-					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" = 2);
+					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" =>2);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
         exit("Aborting: There was a database error when retrieving " .
              "the search results.");
     }
+	
+function display_Q_table() { //function to populate all the questions that has been activated
+  global $db;
+  
+  try{
+    $query = "SELECT *
+              FROM Questions WHERE Status = :status;"
+    $stmt = $db->prepare($query);
+    $stmt->execute("status" =>2);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to review.")
+  }
+}
+
+function display_S_table() { //function to populate all the scores in the database.
+  global $db;
+  
+  try{
+    $query = "SELECT Score
+              FROM Scores;"
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of scores.")
+  }
+}
+
+function display_K_table() { //function to populate all the keywords in the database
+  global $db;
+  
+  try{
+    $query = "SELECT Keyword
+              FROM Keywords;"
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of keywords available to edit.")
+  }
+}
 }
 
 ?>

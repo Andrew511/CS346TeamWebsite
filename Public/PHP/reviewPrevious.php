@@ -10,16 +10,17 @@
        2) disconnect from the database
     */
     
-    $q = displayQtable();   
+    $q = display_Q_table();   
 		 foreach($q as $q) {
       "{{$q['Section']}, {$q['PointsAvailable']}, {$q['QuestionType']}}";
 	  }
-	$p = displayStable();
+	  
+	$p = display_S_table();
 		foreach($p as $p) {
 		"{$p['Score']}";
 		}
 
-	$k = displayKtable();
+	$k = display_K_table();
 	foreach($k as $k) {
 	"{$p['Keyword']}";
 		}
@@ -61,7 +62,7 @@
               <div id="searchOptions">
                 <select name="keywordSearch" size="4" class="options"
                   multiple>
-				  <?php foreach ($q as $q)
+				  <?php foreach ($k as $k)
 							echo "<option> $k['Keyword']</option>"
 							?>               
                 </select>
