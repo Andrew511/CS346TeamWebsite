@@ -13,7 +13,7 @@
       <?php include 'header.php';?>
       <div id="flexContainer">
         <div class="confirm">
-          <form action="logout.html" method="post">
+          <form action=".\HTML\logout.html" method="post">
             <p> Are you sure you want to logout?</p>
             <input type="submit" value="Yes, I'm sure!"/>
           </form>
