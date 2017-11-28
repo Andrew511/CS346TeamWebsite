@@ -22,13 +22,13 @@
           <form action ="confirmSave.php" method="post">
             <h1>Add Question</h1>
             <p>Question ID: </p>
-            <input type="text" name="ID"><br/>
+            <input type="text" name="ID" required><br/>
             <p>Keywords (Please separate keywords by ,)</p>
-            <input type="text" name="keywords"/><br/>
+            <input type="text" name="keywords" required/><br/>
             <p>Book Section:</p>
-            <input type="text" name="section"/>
+            <input type="text" name="section" required/>
             <p>Points</p>
-            <input type="text" name="points"/>
+            <input type="text" name="points" required/>
             <div>
               <p>Type your question below:</p>
               <textarea class="questionText" name="question_text"></textarea>
