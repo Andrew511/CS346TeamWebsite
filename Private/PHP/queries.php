@@ -242,7 +242,7 @@ function search($keyword, $section , $score, $pointsAvailable) {
 				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
       $stmt->execute(["keyword" => $keyword ,"section" => $section ,
-					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" =>2);
+					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" =>4);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
@@ -255,9 +255,9 @@ function display_Q_table() { //function to populate all the questions that has b
   
   try{
     $query = "SELECT *
-              FROM Questions WHERE Status = :status;"
+              FROM Questions"
     $stmt = $db->prepare($query);
-    $stmt->execute("status" =>2);
+    $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     db_disconnect();
