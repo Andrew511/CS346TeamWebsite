@@ -11,9 +11,15 @@
     */
     
     $q = search($_POST['keywordSearch'], $_POST['section'], 
-			    $_POST['score'], $_POST['pointsAvailable']);   
-		 foreach($q as $q) {
-      "{{$q['QuestionId']}, {$q['QuestionText']}}";
+			    $_POST['score'], $_POST['pointsAvailable']); 
+	if($q == null)
+	{
+	echo "No Result, please modify your seach.";
+	}
+	else
+	{
+	foreach($q as $q) {
+	 "{{$q['QuestionId']}, {$q['QuestionText']}}";}
     }
 
   } else {
