@@ -296,4 +296,45 @@ function display_K_table() { //function to populate all the keywords in the data
 }
 }
 
+function change_password($UN , $role , $oldPass , $newPass1 , $newPass2)
+{	
+	if($newPass1 == $newPass2 && strpos($newPass1 , $UN) == false)
+	{
+		$newPass = $newPass1 ;
+		//$newPass = hash function
+	}
+	else
+	{
+		echo "Your new password does not meet the standards." ;
+		header('changePassword.php') ;
+	}
+	
+	if($role == "student")
+	{
+		try
+		{
+			$query = "UPDATE Students SET HashPassword = :newPass WHERE StudentId = :id AND HashPassword = :oldPass" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
+		}
+		catch(PDOException $e)
+		{
+			echo "Error updating password" ;
+		}
+	}
+	else
+	{
+		try
+		{
+			$query = "UPDATE Instructors SET HashPassword = :newPass WHERE InstructorId = :id AND HashPassword = :oldPass" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
+		}
+		catch
+		{
+			echo "Error updating password" ;
+		}
+	}
+}
+
 ?>
