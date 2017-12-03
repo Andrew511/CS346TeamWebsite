@@ -16,11 +16,7 @@
 	{
 	echo "No Result, please modify your seach.";
 	}
-	else
-	{
-	foreach($q as $q) {
-	 "{{$q['QuestionId']}, {$q['QuestionText']}}";}
-    }
+	
 
   } else {
     // this is a GET request: no form data to process
@@ -58,7 +54,7 @@
 					<li>Section: $_POST['section']</li>					
 					<li>Your score: $_POST['score']</li>
 					<li>Total score: $_POST['pointsAvailable']</li>"}
-			foreach($q as $q)
+			foreach($q as $key => $value)
 				{echo "<li>Question id: $q['QuestionId']</li>
 				       <li>Question : $q['QuestionText']</li>"}
 			echo {"</ul>"}

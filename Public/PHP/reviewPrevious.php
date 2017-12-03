@@ -76,7 +76,7 @@
                   multiple>
 				  <?php array_unique($p)
 						foreach ($p as $key => $value)
-							echo "<option> $q['Score']</option>"?>
+							echo "<option> $p['Score']</option>"?>
                   <option></option>
                 </select>
                 <input type="submit" value="Search" id="searchButton"/>
