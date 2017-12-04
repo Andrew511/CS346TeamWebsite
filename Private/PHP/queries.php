@@ -94,20 +94,21 @@ function deactivate_all() {
 
 
 //tested & works on webdev server
-function add_question($id, $status, $type, $text, $points, $section) {
+function add_question($id, $status, $type, $text, $points, $section, $description) {
   global $db;
 
   try {
     $query = "INSERT INTO Questions(QuestionId, Status, QuestionType,
-                                     QuestionText, PointsAvailable, Section)
-              VALUES (?, ?, ?, ?, ?, ?)";
+                                     QuestionText, PointsAvailable, Section,
+                                     Description)
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $db->prepare($query);
-    $stmt->execute([$id, $status, $type, $text, $points, $section]);
+    $stmt->execute([$id, $status, $type, $text, $points, $section, $description]);
     return true;
   } catch (PDOException $e) {
       db_disconnect();
       exit("Aborting: there was a database error when inserting a new " .
-            "question.");
+            "question. in function Add_question");
   }
 }
 
