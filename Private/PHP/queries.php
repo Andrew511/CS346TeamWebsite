@@ -239,7 +239,7 @@ function get_keyword_list($id) {
   }
   catch(PDOException $e) {
     db_disconnect();
-    exit("There was an error fetching the list of questions available to eidt.");
+    exit("There was an error fetching the list of questions available to edit.");
   }
 }
 
