@@ -296,12 +296,11 @@ function display_K_table() { //function to populate all the keywords in the data
 }
 }
 
-function change_password($UN , $role , $oldPass , $newPass1 , $newPass2)
+function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 {	
 	if($newPass1 == $newPass2 && strpos($newPass1 , $UN) == false)
 	{
 		$newPass = $newPass1 ;
-		//$newPass = hash function
 	}
 	else
 	{
@@ -313,6 +312,11 @@ function change_password($UN , $role , $oldPass , $newPass1 , $newPass2)
 	{
 		try
 		{
+			$query = "SELECT Salt FROM Students WHERE StudentId = :id" ;
+			$stmt = $db->prepare($query) ;
+			$salt = $stmt->execute(["id" => $id]) ;
+			$oldPass = hash_password($oldPass , $salt) ;
+			$newPass = hash_password($newPass , $salt) ;
 			$query = "UPDATE Students SET HashPassword = :newPass WHERE StudentId = :id AND HashPassword = :oldPass" ;
 			$stmt = $db->prepare($query) ;
 			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
@@ -326,6 +330,11 @@ function change_password($UN , $role , $oldPass , $newPass1 , $newPass2)
 	{
 		try
 		{
+			$query = "SELECT Salt FROM Instructors WHERE InstructorId = :id" ;
+			$stmt = $db->prepare($query) ;
+			$salt = $stmt->execute(["id" => $id]) ;
+			$oldPass = hash_password($oldPass , $salt) ;
+			$newPass = hash_password($newPass , $salt) ;
 			$query = "UPDATE Instructors SET HashPassword = :newPass WHERE InstructorId = :id AND HashPassword = :oldPass" ;
 			$stmt = $db->prepare($query) ;
 			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
