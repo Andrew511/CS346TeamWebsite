@@ -11,19 +11,13 @@
     */
     
     $q = display_Q_table();   
-		 foreach($q as $q) {
-      "{{$q['Section']}, {$q['PointsAvailable']}, {$q['QuestionType']}}";
-	  }
+		 
 	  
 	$p = display_S_table();
-		foreach($p as $p) {
-		"{$p['Score']}";
-		}
+		
 
 	$k = display_K_table();
-	foreach($k as $k) {
-	"{$p['Keyword']}";
-		}
+	
     }
 
   } else {
@@ -62,27 +56,27 @@
               <div id="searchOptions">
                 <select name="keywordSearch" size="4" class="options"
                   multiple>
-				  <?php foreach ($k as $k)
+				  <?php foreach ($k as $key => $value)
 							echo "<option> $k['Keyword']</option>"
 							?>               
                 </select>
                 <select name="section" size="4" class="options"
                   multiple>
-				  <?php foreach ($q as $q)
+				  <?php foreach ($q as $key => $value)
 							echo "<option> $q['Section']</option>"
 							?>        
                 </select>
                 <select name="pointsAvailable" size="4" class="options"
                   multiple>
-				  <?php foreach ($q as $q)
+				  <?php foreach ($q as $key => $value)
 							echo "<option> $q['PointsAvailable']</option>"
 							?>
                 </select>
                 <select name="score" size="4" class="options"
                   multiple>
 				  <?php array_unique($p)
-						foreach ($p as $p)
-							echo "<option> $q['Score']</option>"?>
+						foreach ($p as $key => $value)
+							echo "<option> $p['Score']</option>"?>
                   <option></option>
                 </select>
                 <input type="submit" value="Search" id="searchButton"/>

@@ -11,10 +11,12 @@
     */
     
     $q = search($_POST['keywordSearch'], $_POST['section'], 
-			    $_POST['score'], $_POST['pointsAvailable']);   
-		 foreach($q as $q) {
-      "{{$q['QuestionId']}, {$q['QuestionText']}}";
-    }
+			    $_POST['score'], $_POST['pointsAvailable']); 
+	if($q == null)
+	{
+	echo "No Result, please modify your seach.";
+	}
+	
 
   } else {
     // this is a GET request: no form data to process
@@ -52,7 +54,7 @@
 					<li>Section: $_POST['section']</li>					
 					<li>Your score: $_POST['score']</li>
 					<li>Total score: $_POST['pointsAvailable']</li>"}
-			foreach($q as $q)
+			foreach($q as $key => $value)
 				{echo "<li>Question id: $q['QuestionId']</li>
 				       <li>Question : $q['QuestionText']</li>"}
 			echo {"</ul>"}

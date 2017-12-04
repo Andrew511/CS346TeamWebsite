@@ -94,20 +94,21 @@ function deactivate_all() {
 
 
 //tested & works on webdev server
-function add_question($id, $status, $type, $text, $points, $section) {
+function add_question($id, $status, $type, $text, $points, $section, $description) {
   global $db;
 
   try {
     $query = "INSERT INTO Questions(QuestionId, Status, QuestionType,
-                                     QuestionText, PointsAvailable, Section)
-              VALUES (?, ?, ?, ?, ?, ?)";
+                                     QuestionText, PointsAvailable, Section,
+                                     Description)
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $db->prepare($query);
-    $stmt->execute([$id, $status, $type, $text, $points, $section]);
+    $stmt->execute([$id, $status, $type, $text, $points, $section, $description]);
     return true;
   } catch (PDOException $e) {
       db_disconnect();
       exit("Aborting: there was a database error when inserting a new " .
-            "question.");
+            "question. in function Add_question");
   }
 }
 
@@ -226,6 +227,36 @@ function get_question_list() { //function to populate all the questions the inst
 }
 
 
+function get_keyword_list($id) {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Keywords WHERE QuestionId = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to edit.");
+  }
+}
+
+function get_answer_choices($id){
+  global $db;
+  try{
+    $query = "SELECT *
+              FROM Answers WHERE QuestionId = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("Aborting: There was an error when retrieving the question.");
+  }
+}
 
 //function to search by given parameters and return to the Students only deactivated Questions
 function search($keyword, $section , $score, $pointsAvailable) {
@@ -242,7 +273,7 @@ function search($keyword, $section , $score, $pointsAvailable) {
 				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
       $stmt->execute(["keyword" => $keyword ,"section" => $section ,
-					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" =>2);
+					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" =>4);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
@@ -255,9 +286,9 @@ function display_Q_table() { //function to populate all the questions that has b
   
   try{
     $query = "SELECT *
-              FROM Questions WHERE Status = :status;"
+              FROM Questions"
     $stmt = $db->prepare($query);
-    $stmt->execute("status" =>2);
+    $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     db_disconnect();
@@ -294,6 +325,65 @@ function display_K_table() { //function to populate all the keywords in the data
     exit("There was an error fetching the list of keywords available to edit.")
   }
 }
+}
+
+function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
+{	
+	if($newPass1 == $newPass2 && strpos($newPass1 , $UN) == false)
+	{
+		$newPass = $newPass1 ;
+	}
+	else
+	{
+		echo "Your new password does not meet the standards." ;
+		header('changePassword.php') ;
+	}
+	
+	if($role == "student")
+	{
+		try
+		{
+			$query = "SELECT Salt FROM Students WHERE StudentId = :id" ;
+			$stmt = $db->prepare($query) ;
+			$salt = $stmt->execute(["id" => $id]) ;
+			$oldPass = hash_password($oldPass , $salt) ;
+			$newPass = hash_password($newPass , $salt) ;
+			$query = "UPDATE Students SET HashPassword = :newPass WHERE StudentId = :id AND HashPassword = :oldPass" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
+		}
+		catch(PDOException $e)
+		{
+			echo "Error updating password" ;
+		}
+	}
+	else
+	{
+		try
+		{
+			$query = "SELECT Salt FROM Instructors WHERE InstructorId = :id" ;
+			$stmt = $db->prepare($query) ;
+			$salt = $stmt->execute(["id" => $id]) ;
+			$oldPass = hash_password($oldPass , $salt) ;
+			$newPass = hash_password($newPass , $salt) ;
+			$query = "UPDATE Instructors SET HashPassword = :newPass WHERE InstructorId = :id AND HashPassword = :oldPass" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
+		}
+		catch
+		{
+			echo "Error updating password" ;
+		}
+	}
+}
+
+function hash_password($password , $salt)
+{
+	$iv = mcrypt_create_iv(22,MCRYPT_DEV_URANDOM) ;
+	$encoded_iv = str_replace('+' , '.' , base64_encode($iv)) ;
+	$salt = $salt . $encoded_iv . '$' ;
+	$hashed_password = crypt($password , $salt) ;
+	return $hashed_password ;
 }
 
 ?>
