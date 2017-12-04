@@ -18,6 +18,11 @@ require_once('initalize.php') ;
 		{
 			try
 			{
+				$query = "SELECT Salt FROM Students WHERE Username = :Username" ;
+				$stmt = $db->prepare($query) ;
+				$salt = $stmt->execute(["Username" => $UN]) ;
+				$hashedPassword = hash_password($PW , $salt) ;
+				$PW = crypt($PW , $hashedPassword) ;
 				$query = "SELECT StudentId FROM Students WHERE Username = :Username AND HashPassword = :Password" ;
 				$stmt = $db->prepare($query) ;	
 				$id = $stmt->execute(["Username" => $UN , "Password" => $PW]) ;
@@ -38,6 +43,11 @@ require_once('initalize.php') ;
 		{
 			try
 			{
+				$query = "SELECT Salt FROM Instructors WHERE Username = :Username" ;
+				$stmt = $db->prepare($query) ;
+				$salt = $stmt->execute(["Username" => $UN]) ;
+				$hashedPassword = hash_password($PW , $salt) ;
+				$PW = crypt($PW , $hashedPassword) ;
 				$query = "SELECT InstructorId FROM Instructors WHERE Username = :Username AND HashPassword = :Password" ;
 				$stmt = $db->prepare($query) ;	
 				$id = $stmt->execute(["Username" => $UN , "Password" => $PW]) ;
