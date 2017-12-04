@@ -227,6 +227,22 @@ function get_question_list() { //function to populate all the questions the inst
 }
 
 
+function get_keyword_list($id) {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Keywords WHERE QuestionId = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to eidt.");
+  }
+}
+
 
 //function to search by given parameters and return to the Students only deactivated Questions
 function search($keyword, $section , $score, $pointsAvailable) {
