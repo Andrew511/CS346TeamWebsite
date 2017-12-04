@@ -337,4 +337,13 @@ function change_password($UN , $role , $oldPass , $newPass1 , $newPass2)
 	}
 }
 
+function hash_password($password , $salt)
+{
+	$iv = mcrypt_create_iv(22,MCRYPT_DEV_URANDOM) ;
+	$encoded_iv = str_replace('+' , '.' , base64_encode($iv)) ;
+	$salt = $salt . $encoded_iv . '$' ;
+	$hashed_password = crypt($password , $salt) ;
+	return $hashed_password ;
+}
+
 ?>
