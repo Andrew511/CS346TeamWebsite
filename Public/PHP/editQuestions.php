@@ -21,9 +21,9 @@
       <?php include 'header.php';?>
       <div id="flexContainer">
         <h1>Questions in Directory</h1>
-        <form action="edit.php" method="post">
+        <form method="post">
           <div id="directoryQuestions">
-            <select id="question_list">
+            <select id="question_list" name="question_list">
               <?php
                 $q = get_question_list();
                 if(empty($q)){
@@ -31,12 +31,14 @@
                 }
                 else {
                   foreach($q as $q){
-                    echo "<option value=\"{$q['QuestionID']}\"> {$q['QuestionId']}: {$q['Description']}</option>";
+                    echo "<option value=\"{$q['QuestionId']}\">
+                      {$q['QuestionId']}: {$q['Description']}</option>";
                   }
                 }
               ?>
             </select>
-            <input type="submit" value="Edit"/>
+            <button type="submit" formaction="edit.php">Edit</button>
+            <button type="submit" formaction="deleteConfirm.php">Delete</button>
           </div>
         </form>
       </div>

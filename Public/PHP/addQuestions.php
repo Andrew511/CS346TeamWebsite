@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
       rel="stylesheet"/>
-    <script type="text/javascript" src="../JavaScript/add_question.js"></script>
+    <script src="../JavaScript/add_question.js"></script>
   </head>
   <body>
     <div>
@@ -22,7 +22,7 @@
           <form action ="confirmSave.php" method="post">
             <h1>Add Question</h1>
             <p>Question ID: </p>
-            <input type="text" name="ID"><br/>
+            <input type="number" name="ID"><br/>
             <p>Description</p>
             <input type="text" name="description"/>
             <p>Keywords (Please separate keywords by ,)</p>
@@ -30,7 +30,7 @@
             <p>Book Section:</p>
             <input type="text" name="section"/>
             <p>Points</p>
-            <input type="text" name="points"/>
+            <input type="number" name="points"/>
             <div>
               <p>Type your question below:</p>
               <textarea class="questionText" name="question_text"></textarea>

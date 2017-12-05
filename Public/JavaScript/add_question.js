@@ -6,8 +6,7 @@ var count = 0;
 
 
 function update_dropdown(){
-  var menu_option, select_list, character;
-  character = String.fromCharCode(96 + count);
+  var menu_option, select_list;
   select_list = document.getElementById("answer");
   menu_option = document.createElement("option");
   menu_option.value = document.getElementById('text').value;
@@ -16,35 +15,46 @@ function update_dropdown(){
 }
 
 function edit_answer() {
-  var menu_option, select_list, character, text, textbox;
+  var menu_option, select_list, text, textbox;
   select_list = document.getElementById("answer");
   menu_option = select_list.options[select_list.selectedIndex];
   text = menu_option.value;
-  select_list.remove(menu_option);
+  select_list.remove(select_list.selectedIndex);
   textbox = document.getElementById('text');
   textbox.value = text;
-
 }
 
 function update_answers(){
   var e = document.getElementById("answerTypes"),
-  type = e.options[e.selectedIndex].value,
-  options = document.getElementById("answer_options"), i,
-  input, textbox, id,
-  character;
+  type = e.options[e.selectedIndex].value, i, hidden, select,
+  input, textbox;
 
   if(type === "radio"){
     textbox = document.getElementsByName("answer_choices");
-    input = document.getElementsByName("answer")
+    input = document.getElementsByName("answer");
+    hidden = document.getElementsByName("choices[]");
     for(i = 0; i < input.length; i+=1){
       input[i].value = textbox[i].value;
+      hidden[i].value = textbox[i].value;
     }
   }
   else if(type === "checkbox" ){
     textbox = document.getElementsByName("answer_choices");
-    input = document.getElementsByName("answer[]")
+    input = document.getElementsByName("answer[]");
+    hidden = document.getElementsByName("choices[]");
     for(i = 0; i < textbox.length; i+=1){
       input[i].value = textbox[i].value;
+      hidden[i].value = textbox[i].value;
+    }
+  }
+  else if(type === "dropdown"){
+    select = document.getElementById("answer");
+    for(i = 0; i < select.options.length; i+=1){
+      hidden = document.createElement("input");
+      hidden.type = "hidden";
+      hidden.name ="choices[]";
+      hidden.value = select.options[i].value;
+      document.getElementById("answer_options").appendChild(hidden);
     }
   }
 }
@@ -53,7 +63,7 @@ function add_answer_options(){
   var e = document.getElementById("answerTypes"),
   type = e.options[e.selectedIndex].value,
   options = document.getElementById("answer_options"), label, input, textbox,
-  label_text, character, select, update, edit, tab;
+  label_text, character, select, update, edit, tab, hidden;
 
   count+=1;
   character = String.fromCharCode(96 + count);
@@ -63,27 +73,34 @@ function add_answer_options(){
   textbox = document.createElement("textarea");
   update = document.createElement("button");
   edit = document.createElement("button");
+  hidden = document.createElement("input");
 
   if(type === "radio"){
     input.type = "radio";
     input.name = "answer";
     input.id = character;
-    textbox.name ="answer_choices"
+    hidden.type="hidden";
+    hidden.name="choices[]";
+    textbox.name ="answer_choices";
     label.setAttribute("for", character);
     label.append(label_text);
     options.append(label);
     options.appendChild(input);
+    options.appendChild(hidden);
     options.appendChild(textbox);
   }
   else if(type === "checkbox" ){
     input.type = "checkbox";
     input.name =  "answer[]";
     input.id = character;
-    textbox.name = "answer_choices"
+    hidden.type="hidden";
+    hidden.name="choices[]";
+    textbox.name = "answer_choices";
     label.setAttribute("for", character);
     label.append(label_text);
     options.append(label);
     options.appendChild(input);
+    options.appendChild(hidden);
     options.appendChild(textbox);
   }
   else if(type === "dropdown"){
