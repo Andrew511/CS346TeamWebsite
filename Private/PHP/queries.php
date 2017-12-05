@@ -27,7 +27,7 @@ function get_question_answers($questionId) {
 
   try {
     $query = "SELECT AnswerText, Correct, ShortAnswer FROM Answers
-              WHERE QuestionId = :questionId"
+              WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
     $stmt->execute(["questionId" => $questionId]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -59,7 +59,7 @@ function get_avg($questionId) {
 
 function set_status($questionId, $statusId) { // can be used to set to draft or activate as well as deactivate a single question
   global $db;
-  
+
     try {
       $query = "UPDATE Questions
                 SET Status = :status
@@ -76,7 +76,7 @@ function set_status($questionId, $statusId) { // can be used to set to draft or 
 
 function deactivate_all() {
   global $db;
-  
+
     try {
       $query = "UPDATE Questions
                 SET Status = 4
@@ -127,7 +127,7 @@ function check_id($id){
     $stmt = $db->prepare($query);
     $stmt->execute([$id]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if($result){ //If there is a question already, output a message to the instructor
+    if($result){ /*If there is a question already, output a message to the instructor*/
       echo "There was an error inserting your question into the database.".
       " A question with the id $id already exists. Please try a different id.";
       return true;
@@ -202,12 +202,44 @@ function delete_question($id) {
               WHERE QuestionId=?";
     $stmt = $db->prepare($query);
     $stmt->execute([$id]);
-    echo "Question$id successfully deleted from database.";
+    echo "Question $id successfully deleted from database.";
     return true;
   } catch (PDOException $e) {
       db_disconnect();
       exit("Aborting: There was an error when deleting the question. " .
         "Please try again later.");
+  }
+}
+
+function delete_keywords($id){
+  global $db;
+
+  try{
+    $query = "DELETE FROM Keywords
+              WHERE QuestionId=?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id]);
+  }
+  catch (PDOException $e){
+    db_disconnect();
+    exit("Aborting: There was an error when deleting the question. " .
+      "Please try again later.");
+  }
+}
+
+function delete_answers($id){
+  global $db;
+
+  try{
+    $query = "DELETE FROM Answers
+              WHERE QuestionId=?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id]);
+  }
+  catch (PDOException $e){
+    db_disconnect();
+    exit("Aborting: There was an error when deleting the question. " .
+      "Please try again later.");
   }
 }
 
@@ -257,34 +289,48 @@ function get_answer_choices($id){
     exit("Aborting: There was an error when retrieving the question.");
   }
 }
-
+/*
 //function to search by given parameters and return to the Students only deactivated Questions
 function search($keyword, $section , $score, $pointsAvailable) {
     global $db;
 
     try {
       $query = "SELECT * FROM Questions
-                WHERE (Keywords IS NULL OR Keywords = :keyword) 
+                WHERE (Keywords IS NULL OR Keywords = :keyword)
 				AND (Section IS NULL OR Section = :section)
-				AND (Score IS NULL OR Score = :score)
+				AND (Score IS NULL OR Score + :score)
 				AND (PointsAvailable IS NULL OR PointsAvailable = :pointsAvailable)
 				AND (Status = :status)
-                INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId 
+                INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId
 				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
       $stmt->execute(["keyword" => $keyword ,"section" => $section ,
-					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable, "status" =>4]);
+					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" =>4);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
         exit("Aborting: There was a database error when retrieving " .
              "the search results.");
     }
-	
+
+function display_Q_table() { //function to populate all the questions that has been activated
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions"
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to review.")
+  }
+}
 
 function display_S_table() { //function to populate all the scores in the database.
   global $db;
-  
+
   try{
     $query = "SELECT Score
               FROM Scores;"
@@ -299,7 +345,7 @@ function display_S_table() { //function to populate all the scores in the databa
 
 function display_K_table() { //function to populate all the keywords in the database
   global $db;
-  
+
   try{
     $query = "SELECT Keyword
               FROM Keywords;"
@@ -314,7 +360,7 @@ function display_K_table() { //function to populate all the keywords in the data
 }
 
 function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
-{	
+{
 	if($newPass1 == $newPass2 && strpos($newPass1 , $UN) == false)
 	{
 		$newPass = $newPass1 ;
@@ -324,7 +370,7 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 		echo "Your new password does not meet the standards." ;
 		header('changePassword.php') ;
 	}
-	
+
 	if($role == "student")
 	{
 		try
@@ -371,5 +417,6 @@ function hash_password($password , $salt)
 	$hashed_password = crypt($password , $salt) ;
 	return $hashed_password ;
 }
+*/
 
 ?>
