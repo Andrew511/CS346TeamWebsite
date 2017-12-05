@@ -23,7 +23,7 @@
             question?<br/>
             Then click this button right away.
           </p>
-          <form action="showQuestion.html" id="showQuestion" class="questions">
+          <form action="showActive.php" id="showQuestion" class="questions">
             <div>
               <input type="submit" value="Show Question"/>
             </div>
