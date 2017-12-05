@@ -198,7 +198,7 @@ function edit_question($id) { //to retrieve question information for editing
   global $db;
 
   try {
-    $query = "SELECT QuestionType, QuestionText, PointsAvailable, section
+    $query = "SELECT QuestionType, QuestionText, PointsAvailable, Section
               FROM Questions
               WHERE QuestionId = ?";
     $stmt = $db->prepare($query);
