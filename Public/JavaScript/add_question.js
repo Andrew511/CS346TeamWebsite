@@ -78,7 +78,6 @@ function add_answer_options(){
   if(type === "radio"){
     input.type = "radio";
     input.name = "answer";
-    input.id = character;
     hidden.type="hidden";
     hidden.name="choices[]";
     textbox.name ="answer_choices";
@@ -92,7 +91,6 @@ function add_answer_options(){
   else if(type === "checkbox" ){
     input.type = "checkbox";
     input.name =  "answer[]";
-    input.id = character;
     hidden.type="hidden";
     hidden.name="choices[]";
     textbox.name = "answer_choices";
