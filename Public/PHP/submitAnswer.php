@@ -42,6 +42,11 @@
         ?>
         <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo $score + "/" + $totalscore; ?>
         <p> <?php echo $question['QuestionText']; ?> </p>
+
+        <?php $_SESSION['username'];
+        $student = get_student_by_username($_SESSION['username']);
+        add_answer($_POST['QuestionId'], $student['StudentId'], $score);
+        ?>
       </div>
     </div>
     <?php include 'footer.php';?>
