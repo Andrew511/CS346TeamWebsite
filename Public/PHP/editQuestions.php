@@ -1,3 +1,10 @@
+
+<?php
+
+  define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
+  require_once(SITE_ROOT.'/Private/PHP/initialize.php');
+ ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,11 +21,22 @@
       <?php include 'header.php';?>
       <div id="flexContainer">
         <h1>Questions in Directory</h1>
-        <form>
+        <form action="edit.php" method="post">
           <div id="directoryQuestions">
-            <select>
-              <!-- php query to generate list goes here -->
+            <select id="question_list">
+              <?php
+                $q = get_question_list();
+                if(empty($q)){
+                  echo "<option>No Questions Available</option>";
+                }
+                else {
+                  foreach($q as $q){
+                    echo "<option value=\"{$q['QuestionID']}\"> {$q['QuestionId']}: {$q['Description']}</option>";
+                  }
+                }
+              ?>
             </select>
+            <input type="submit" value="Edit"/>
           </div>
         </form>
       </div>
