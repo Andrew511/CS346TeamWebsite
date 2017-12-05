@@ -136,6 +136,7 @@ function add_answer_options(){
                   " answers with a | sign (i.e. zero | 0)");
     options.append(label_text);
     options.append(textbox);
+    document.getElementById("add_answer").style.display = "none";
   }
 }
 
