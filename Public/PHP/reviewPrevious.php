@@ -1,6 +1,7 @@
 <?php
 
-  require_once('../Private/PHP/initialize.php');
+  define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
+  require_once(SITE_ROOT.'/Private/PHP/initialize.php');
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // this is a POST request and thus a form submission: process the form data
@@ -10,7 +11,7 @@
        2) disconnect from the database
     */
     
-    $q = display_Q_table();   
+    $q = get_question_list();   
 		 
 	  
 	$p = display_S_table();
@@ -20,7 +21,7 @@
 	
     }
 
-  } else {
+   else {
     // this is a GET request: no form data to process
 
     /* to be completed:
@@ -57,26 +58,30 @@
                 <select name="keywordSearch" size="4" class="options"
                   multiple>
 				  <?php foreach ($k as $key => $value)
-							echo "<option> $k['Keyword']</option>"
+							echo $k;
+							//echo "<option>$k['Keyword']</option>";
 							?>               
                 </select>
                 <select name="section" size="4" class="options"
                   multiple>
 				  <?php foreach ($q as $key => $value)
-							echo "<option> $q['Section']</option>"
+								echo $k;
+							//echo "<option> $q['Section']</option>";
 							?>        
                 </select>
                 <select name="pointsAvailable" size="4" class="options"
                   multiple>
 				  <?php foreach ($q as $key => $value)
-							echo "<option> $q['PointsAvailable']</option>"
+				  echo $k;
+							//echo "<option> $q['PointsAvailable']</option>";
 							?>
                 </select>
                 <select name="score" size="4" class="options"
                   multiple>
-				  <?php array_unique($p)
-						foreach ($p as $key => $value)
-							echo "<option> $p['Score']</option>"?>
+				  <?php array_unique($p);
+						//foreach ($p as $key => $value)
+						echo $k;
+							//echo "<option> $p['Score']</option>";?>
                   <option></option>
                 </select>
                 <input type="submit" value="Search" id="searchButton"/>
