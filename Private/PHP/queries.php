@@ -21,6 +21,37 @@
     }
 }
 
+function get_active() {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE Status = 3";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of active questions.");
+  }
+}
+
+function get_question($questionId) {
+  global $db;
+
+  try {
+    $query = "SELECT * FROM Questions
+              WHERE QuestionId = :questionId";
+    $stmt = $db->prepare($query);
+    $stmt->execute(["questionId" => $questionId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+      db_disconnect();
+      exit("Aborting: There was a database error when retrieving " .
+           "the questions answers.");
+  }
+}
 
 function get_question_answers($questionId) {
   global $db;
