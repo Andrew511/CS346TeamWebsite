@@ -10,13 +10,10 @@
   </head>
   <body>
     <div>
-      <?php include 'instructor_navigation.php';?>
+      <?php include_once 'instructor_navigation.php';?>
     </div>
     <div class="border">
-      <div id="pageHeader">
-        <h1 id="headerTitle"><span id="mainU">U</span>W<span id="mainO">O
-        </span><span id="mainW"> W</span>eb<span id="mainC">C</span>licker</h1>
-      </div>
+      <?php include_once 'header.php'?>
       <div id="flexContainer">
         <div class="question">
           <form action ="confirmSave.php" method="post">
@@ -55,6 +52,6 @@
         </div>
       </div>
     </div>
-    <?php include 'footer.php';?>
+    <?php include_once 'footer.php';?>
   </body>
 </html>

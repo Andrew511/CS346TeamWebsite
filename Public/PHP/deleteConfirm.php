@@ -18,9 +18,9 @@
 
   <body>
     <div>
-      <?php include 'instructor_navigation.php';?>
+      <?php include_once 'instructor_navigation.php';?>
       <div class="border">
-        <?php include 'header.php';?>
+        <?php include_once 'header.php';?>
         <div class="flexContainer">
           <div class="changePwContainer">
             <div class="confirm">
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <?php include 'footer.php';?>
+      <?php include_once 'footer.php';?>
     </div>
   </body>
 </html>

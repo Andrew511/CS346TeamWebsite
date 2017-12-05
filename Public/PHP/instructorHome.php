@@ -9,9 +9,9 @@
   </head>
 
   <body>
-    <?php include 'instructor_navigation.php';?>
+    <?php include_once 'instructor_navigation.php';?>
     <div class="border">
-      <?php include 'header.php';?>
+      <?php include_once 'header.php';?>
     <div id="flexContainer">
         <div id="instructorOptions">
           <ul class="homeOptions">
@@ -24,6 +24,6 @@
         </div>
       </div>
     </div>
-    <?php include 'footer.php';?>
+    <?php include_once 'footer.php';?>
   </body>
 </html>
