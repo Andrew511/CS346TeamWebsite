@@ -178,6 +178,22 @@ function add_answer($id, $text, $correct, $number) {
   }
 }
 
+function add_short($id, $text){
+  global $db;
+
+  try{
+    $query = "INSERT INTO Answers(QuestionId, ShortAnswer)
+              VALUES(?, ?)";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id, $text]);
+    return true;
+  }
+  catch (PDOException $e){
+    db_disconnect();
+    exit("Aborting: there was a database error when inserting a new question");
+  }
+}
+
 function edit_question($id) { //to retrieve question information for editing
   global $db;
 
