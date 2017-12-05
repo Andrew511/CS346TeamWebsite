@@ -21,6 +21,38 @@
     }
 }
 
+function get_student_by_username($username) {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Students
+              WHERE Username = :username";
+    $stmt = $db->prepare($query);
+    $stmt->execute(["username" => $username]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the student.");
+  }
+}
+
+function add_answer($questionId, $studentId, $score) {
+  global $db;
+
+  try{
+    $query = "INSERT INTO Scores
+              VALUES QuestionId = :questionId, UserId = :userId, Score = :score
+              ";
+    $stmt = $db->prepare($query);
+    $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of active questions.");
+  }
+}
+
 function get_active() {
   global $db;
 
