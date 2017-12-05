@@ -190,7 +190,7 @@ function check_id($id){
     $stmt = $db->prepare($query);
     $stmt->execute([$id]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    if($result){ /*If there is a question already, output a message to the instructor*/
+    if($result){ //If there is a question already, output a message to the instructor
       echo "There was an error inserting your question into the database.".
       " A question with the id $id already exists. Please try a different id.";
       return true;
@@ -377,35 +377,20 @@ function search($keyword, $section , $score, $pointsAvailable) {
       $query = "SELECT * FROM Questions
                 WHERE (Keywords IS NULL OR Keywords = :keyword)
 				AND (Section IS NULL OR Section = :section)
-				AND (Score IS NULL OR Score + :score)
+				AND (Score IS NULL OR Score = :score)
 				AND (PointsAvailable IS NULL OR PointsAvailable = :pointsAvailable)
 				AND (Status = :status)
                 INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId
 				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
       $stmt->execute(["keyword" => $keyword ,"section" => $section ,
-					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable], "status" =>4);
+					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable, "status" =>4]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
         exit("Aborting: There was a database error when retrieving " .
              "the search results.");
     }
-
-function display_Q_table() { //function to populate all the questions that has been activated
-  global $db;
-
-  try{
-    $query = "SELECT *
-              FROM Questions"
-    $stmt = $db->prepare($query);
-    $stmt->execute();
-    return $stmt->fetchall(PDO::FETCH_ASSOC);
-  } catch (PDOException $e) {
-    db_disconnect();
-    exit("There was an error fetching the list of questions available to review.")
-  }
-}
 
 function display_S_table() { //function to populate all the scores in the database.
   global $db;
