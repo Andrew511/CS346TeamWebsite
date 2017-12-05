@@ -1,6 +1,7 @@
 <?php
 
-  require_once('../Private/PHP/initialize.php');
+  define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
+  require_once(SITE_ROOT.'/Private/PHP/initialize.php');
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // this is a POST request and thus a form submission: process the form data
@@ -49,15 +50,24 @@
             <h1>Search Results</h1>
             <div>
 			<?php
-			{ echo "<ul>
-					<li>Keyword: $_POST['keyword']</li>
-					<li>Section: $_POST['section']</li>					
-					<li>Your score: $_POST['score']</li>
-					<li>Total score: $_POST['pointsAvailable']</li>"}
-			foreach($q as $key => $value)
-				{echo "<li>Question id: $q['QuestionId']</li>
-				       <li>Question : $q['QuestionText']</li>"}
-			echo {"</ul>"}
+					echo "<ul><li>Keyword:" ;
+					echo $_POST['keyword'];
+					echo"</li><li>Section:";
+					echo $_POST['section'];
+					echo "</li><li>Your score:";
+					echo $_POST['score'];
+					echo "</li><li>Total score:";
+					echo $_POST['pointsAvailable'];
+					echo"</li>";
+				foreach($q as $key => $value)
+			   {
+				    echo "<li>Question id:";
+					echo $q['QuestionId'];
+					echo "</li><li>Question :";
+					echo $q['QuestionText'];
+					echo "</li>";
+					echo "</ul>";
+				}
 			  ?>
             </div>
           </div>
