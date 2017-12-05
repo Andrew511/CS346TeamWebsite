@@ -368,7 +368,7 @@ function get_answer_choices($id){
     exit("Aborting: There was an error when retrieving the question.");
   }
 }
-/*
+
 //function to search by given parameters and return to the Students only deactivated Questions
 function search($keyword, $section , $score, $pointsAvailable) {
     global $db;
@@ -496,6 +496,6 @@ function hash_password($password , $salt)
 	$hashed_password = crypt($password , $salt) ;
 	return $hashed_password ;
 }
-*/
+
 
 ?>
