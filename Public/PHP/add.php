@@ -14,7 +14,7 @@
       foreach($keywords_arr as $keyword){
         insert_keywords($id, $keyword);
       }
-      if($types === 'radio'){
+      if($types === 'multiple'){
         $answer_options = $_POST['choices'];
         $number = count($answer_options);
         foreach($answer_options as $a){

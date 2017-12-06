@@ -32,7 +32,7 @@
               <p>Type your question below:</p>
               <textarea class="questionText" name="question_text"></textarea>
               <select id="answerTypes" name="types">
-                <option value="radio">Multiple Choice</option>
+                <option value="multiple">Multiple Choice</option>
                 <option value="checkbox">Checkboxes</option>
                 <option value="dropdown">Dropdown</option>
                 <option value="short">Short answer</option>

@@ -29,7 +29,7 @@ function update_answers(){
   type = e.options[e.selectedIndex].value, i, hidden, select,
   input, textbox;
 
-  if(type === "radio"){
+  if(type === "multiple"){
     textbox = document.getElementsByName("answer_choices");
     input = document.getElementsByName("answer");
     hidden = document.getElementsByName("choices[]");
@@ -75,7 +75,7 @@ function add_answer_options(){
   edit = document.createElement("button");
   hidden = document.createElement("input");
 
-  if(type === "radio"){
+  if(type === "multiple"){
     input.type = "radio";
     input.name = "answer";
     hidden.type="hidden";

@@ -37,6 +37,11 @@ function get_student_by_username($username) {
   }
 }
 
+/*
+Function name needs to be changed. One with this function name has already
+been declared and works on all the pages to add the questions.
+*/
+
 function add_answer($questionId, $studentId, $score) {
   global $db;
 
@@ -342,10 +347,10 @@ function get_keyword_list($id) {
   global $db;
 
   try{
-    $query = "SELECT *
+    $query = "SELECT Keyword
               FROM Keywords WHERE QuestionId = ?";
     $stmt = $db->prepare($query);
-    $stmt->execute([id]);
+    $stmt->execute([$id]);
     return $stmt->fetchall(PDO::FETCH_ASSOC);
   }
   catch(PDOException $e) {
@@ -358,7 +363,8 @@ function get_answer_choices($id){
   global $db;
   try{
     $query = "SELECT *
-              FROM Answers WHERE QuestionId = ?";
+              FROM Answers WHERE QuestionId = ?
+              AND Correct = 0";
     $stmt = $db->prepare($query);
     $stmt->execute([$id]);
     return $stmt->fetchall(PDO::FETCH_ASSOC);
@@ -368,6 +374,23 @@ function get_answer_choices($id){
     exit("Aborting: There was an error when retrieving the question.");
   }
 }
+
+function get_correct_answer_edit($id){
+  global $db;
+  try{
+    $query = "SELECT *
+              FROM Answers WHERE QuestionId = ?
+              AND Correct = 1";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("Aborting: There was an error when retrieving the question.");
+  }
+}
+
 
 //function to search by given parameters and return to the Students only deactivated Questions
 function search($keyword, $section , $score, $pointsAvailable) {
