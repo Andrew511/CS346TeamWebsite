@@ -2,7 +2,7 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $types = $_POST['types'];
     $id = $_POST['ID'];
-    $status = $_POST['status'];
+    $status = $_POST['submit'];
     if(!check_id($id)){
       add_question($id, $status, $types, $_POST['question_text'],
       $_POST['points'], $_POST['section'], $_POST['description']);

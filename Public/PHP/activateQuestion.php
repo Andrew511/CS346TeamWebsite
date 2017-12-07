@@ -1,6 +1,6 @@
-<?php    
+<?php
 define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
-require_once('../../Private/PHP/initialize.php'); 
+require_once('../../Private/PHP/initialize.php');
 $q = get_completed_question_list();
 ?>
 
@@ -19,7 +19,7 @@ $q = get_completed_question_list();
     <div class="border">
       <?php include_once 'header.php';?>
       <div id="flexContainer">
-        <form meethod="post">
+        <form method="post">
           <div id="activateQuestions">
             <select id="question_list" name="question_list">
               <?php
@@ -35,7 +35,7 @@ $q = get_completed_question_list();
               ?>
             </select>
             <button type="submit" formaction="inclass.php">Activate Question</button>
-            <button type="submit" formaction="confirmDeactivateAll.html">
+            <button type="submit" formaction="confirmDeactivateAll.php">
               Deactivate All</button>
           </div>
         </form>
