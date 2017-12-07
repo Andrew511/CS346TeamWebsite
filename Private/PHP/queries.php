@@ -45,8 +45,8 @@ function add_score($questionId, $studentId, $score) {
   global $db;
 
   try{
-    $query = "INSERT INTO Scores
-              VALUES QuestionId = :questionId, UserId = :userId, Score = :score
+    $query = "INSERT INTO Scores (QuestionId, UserId, Score)
+              VALUES (:questionId, :userId, :score)
               ";
     $stmt = $db->prepare($query);
     $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score]);
