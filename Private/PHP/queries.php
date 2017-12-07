@@ -179,6 +179,26 @@ function add_question($id, $status, $type, $text, $points, $section, $descriptio
   }
 }
 
+function update_question($id, $status, $type, $text, $points, $section, $description) {
+  global $db;
+
+  try {
+    $query = "UPDATE Questions
+              SET Status =:status, QuestionType =:type,
+                  QuestionText =:qtext, PointsAvailable =:points, Section =:section, 
+                  Description =:description
+              WHERE QuestionId =:qId";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":qId" => $id, ":status"=>$status, ":type"=>$type, ":qtext"=>$text, 
+                    ":points"=>$points, ":section"=>$section, ":description"=>$description]);
+    return true;
+  } catch (PDOException $e) {
+      db_disconnect();
+      exit("Aborting: there was a database error when updating the " .
+            "question.");
+  }
+}
+
 /*
 tested & works on webdev server
 checks if the id the instructor is inserting already exist,
@@ -389,7 +409,25 @@ function get_deactivated_question_list() {
     exit("There was an error fetching the list of questions available to edit.");
   }
 }
-/*
+
+//function to get all complete questions for instructor to view stats
+function get_completed_question_list() {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE Status=2";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to edit.");
+  }
+}
+
+
 //function to search by given parameters and return to the Students only deactivated Questions
 function search($keyword, $section , $score, $pointsAvailable) {
     global $db;
@@ -502,6 +540,6 @@ function hash_password($password , $salt)
 	$hashed_password = crypt($password , $salt) ;
 	return $hashed_password ;
 }
-*/
+
 
 ?>
