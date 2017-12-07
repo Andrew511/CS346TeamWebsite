@@ -499,11 +499,16 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 			$stmt->execute(["id" => $id]) ;
 			$stmt = $stmt->fetch(PDO::FETCH_ASSOC) ;
 			$salt = $stmt['Salt'] ;
+			$query = "SELECT PasswordChanges FROM Students WHERE StudentId = :id" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["id" => $id]) ;
+			$stmt = $stmt->fetch(PDO::FETCH_ASSOC) ;
+			$pwc = $stmt['PasswordChanges'] + 1 ;
 			$oldPass = hash_password($oldPass , $salt) ;
 			$newPass = hash_password($newPass , $salt) ;
-			$query = "UPDATE Students SET HashPassword = :newPass WHERE StudentId = :id AND HashPassword = :oldPass" ;
+			$query = "UPDATE Students SET HashPassword = :newPass AND PasswordChanges = :pwc WHERE StudentId = :id AND HashPassword = :oldPass" ;
 			$stmt = $db->prepare($query) ;
-			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
+			$stmt->execute(["newPass" => $newPass , "pwc" => $pwc , "id" => $id , "oldPass" => $oldPass]) ;
 		}
 		catch (PDOException $e)
 		{
@@ -519,11 +524,16 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 			$stmt->execute(["id" => $id]) ;
 			$stmt = $stmt->fetch(PDO::FETCH_ASSOC) ;
 			$salt = $stmt['Salt'] ;
+			$query = "SELECT PasswordChanges FROM Instructors WHERE InstructorId = :id" ;
+			$stmt = $db->prepare($query) ;
+			$stmt->execute(["id" => $id]) ;
+			$stmt = $stmt->fetch(PDO::FETCH_ASSOC) ;
+			$pwc = $stmt['PasswordChanges'] + 1 ;
 			$oldPass = hash_password($oldPass , $salt) ;
 			$newPass = hash_password($newPass , $salt) ;
-			$query = "UPDATE Instructors SET HashPassword = :newPass WHERE InstructorId = :id AND HashPassword = :oldPass" ;
+			$query = "UPDATE Instructors SET HashPassword = :newPass AND PasswordChanges = :pwc WHERE InstructorId = :id AND HashPassword = :oldPass" ;
 			$stmt = $db->prepare($query) ;
-			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
+			$stmt->execute(["newPass" => $newPass , "pwc" => $pwc , "id" => $id , "oldPass" => $oldPass]) ;
 		}
 		catch (Exception $e)
 		{
