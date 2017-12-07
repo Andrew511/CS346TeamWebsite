@@ -362,25 +362,8 @@ function get_keyword_list($id) {
 function get_answer_choices($id){
   global $db;
   try{
-    $query = "SELECT *
-              FROM Answers WHERE QuestionId = ?
-              AND Correct = 0";
-    $stmt = $db->prepare($query);
-    $stmt->execute([$id]);
-    return $stmt->fetchall(PDO::FETCH_ASSOC);
-  }
-  catch(PDOException $e) {
-    db_disconnect();
-    exit("Aborting: There was an error when retrieving the question.");
-  }
-}
-
-function get_correct_answer_edit($id){
-  global $db;
-  try{
-    $query = "SELECT *
-              FROM Answers WHERE QuestionId = ?
-              AND Correct = 1";
+    $query = "SELECT AnswerText, Correct, ShortAnswer
+              FROM Answers WHERE QuestionId = ?";
     $stmt = $db->prepare($query);
     $stmt->execute([$id]);
     return $stmt->fetchall(PDO::FETCH_ASSOC);

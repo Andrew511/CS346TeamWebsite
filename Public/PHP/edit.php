@@ -1,6 +1,7 @@
 
 <?php
-
+  $answersCount = 0;
+  $char = 97;
   define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
   require_once(SITE_ROOT.'/Private/PHP/initialize.php');
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -12,13 +13,6 @@
     }
     $keywords = get_keyword_list($id);
     $answers = get_answer_choices($id);
-    $correct = get_correct_answer_edit($id);
-    $array = array();
-    $i = 0;
-    foreach($correct as $correct){
-      $array[$i] = trim("{$correct['AnswerText']}");
-      $i++;
-    }
   }
  ?>
 
@@ -65,7 +59,8 @@
             <div>
               <p>Type your question below:</p>
               <textarea class="questionText" name="question_text">
-<?php echo $q['QuestionText'];?>
+<?php 
+echo $q['QuestionText'];?>
 </textarea>
               <select id="answerTypes" name="types">
                 <?php
@@ -100,94 +95,107 @@
                 Type the answer options and select the correct answer.
                 <br/><p>
                   <?php
+                  
                   if($q['QuestionType'] === "multiple") {
                     foreach($answers as $answers){
-                      $a = trim("{$answers['AnswerText']}");
-                      if($a == $array[0]){
+                      if("{$answers['Correct']}"){
+                        echo "<label>";
+                        echo chr($char + $answersCount);
                         echo "<input type=\"radio\" name=\"answer\" value=\"";
                         echo "{$answers['AnswerText']}";
-                        echo "\" checked\>";
+                        echo "\" checked>";
                         echo "<textarea name=\"answer_choices\">";
 echo "{$answers['AnswerText']}";
                         echo "</textarea>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
                         echo "{$answers['AnswerText']}";
-                        echo "\"\>";
+                        echo "\">";
                       }
                       else {
+                        echo chr($char + $answersCount);
                         echo "<input type=\"radio\" name=\"answer\" value=\"";
                         echo "{$answers['AnswerText']}";
-                        echo " \"\>";
+                        echo " \"><br>";
                         echo "<textarea name=\"answer_choices\">";
 echo "{$answers['AnswerText']}";
                         echo "</textarea>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
                         echo "{$answers['AnswerText']}";
-                        echo "\"\>";
+                        echo "\">";
                       }
+                      $answersCount++;
                     }
                   }
                   else if($q['QuestionType'] === "checkbox") {
                     foreach($answers as $answers){
-                      echo $answers;
-                      if($answers['Correct'] === 1){
+                      if("{$answers['Correct']}"){
                         echo "<input type=\"checkbox\" name=\"answer[]\" value=\"";
-                        echo $a['AnswerText'];
-                        echo " checked\>";
+                        echo "{$answers['AnswerText']}";
+                        echo "\" checked>";
+                        echo "<textarea name=\"answer_choices\">";
+echo "{$answers['AnswerText']}";
+                        echo "</textarea>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
-                        echo $a['AnswerText'];
-                        echo "\>";
+                        echo "{$answers['AnswerText']}";
+                        echo "\">";
                       }
                       else {
                         echo "<input type=\"checkbox\" name=\"answer[]\" value=\"";
-                        echo $a['AnswerText'];
-                        echo "\>";
+                        echo "{$answers['AnswerText']}";
+                        echo "\">";
+                        echo "<textarea name=\"answer_choices\">";
+echo "{$answers['AnswerText']}";
+                        echo "</textarea>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
-                        echo $a['AnswerText'];
-                        echo "\>";
+                        echo "{$answers['AnswerText']}";
+                        echo "\">";
                       }
+                      $answersCount++;
                     }
                   }
                   else if($q['QuestionType'] === "dropdown") {
                     echo "<select name=\"answer[]\" id=\"answer\" multiple>";
-                    foreach($answers as $a){
-                      if($a['Correct'] === 1){
+                    foreach($answers as $answers){
+                      if("{$answers['Correct']}"){
                         echo "<option value=\"";
-                        echo $a['AnswerText'];
+                        echo "{$answers['AnswerText']}";
                         echo " selected>";
-                        echo $a['AnswerText'];
+                        echo "{$answers['AnswerText']}";
                         echo "</option>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
-                        echo $a['AnswerText'];
+                        echo "{$answers['AnswerText']}";
                         echo "\>";
                       }
                       else {
                         echo "<option value=\"";
-                        echo $a['AnswerText'];
+                        echo "{$answers['AnswerText']}";
                         echo " selected>";
-                        echo $a['AnswerText'];
+                        echo "{$answers['AnswerText']}";
                         echo "</option>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
-                        echo $a['AnswerText'];
+                        echo "{$answers['AnswerText']}";
                         echo "\>";
                       }
+                      $answersCount++;
                     }
                   }
                   else if($q['QuestionType'] === "short"){
                     echo "<textarea name=\"answer\" id=\"answer\">";
                     $count = count($answers);
-                    foreach($answers as $a){
-                      echo $a['AnswerText'];
-                      $count--;
+                    foreach($answers as $answers){
+                      echo "{$answers['ShortAnswer']}";    
                       if($count > 1){
-                        echo " | ";
+                        echo " | ";    
                       }
+                      $count--;
                     }
                   }
                    ?>
+              </textarea>
               </div>
               <p>
               <button type="button" id="add_answer">Add more answer choices</button>
+              <input type="hidden" id="a_count" value="<?php echo $answersCount;?>">
               </p>
               <button type="submit" name="status" value="1">Save as Draft</button>
               <button type="submit" name="status" value="2">Save</button>

@@ -2,7 +2,7 @@
 /*jslint white: true */
 "use strict";
 
-var count = 0;
+var count;
 
 
 function update_dropdown(){
@@ -64,7 +64,6 @@ function add_answer_options(){
   type = e.options[e.selectedIndex].value,
   options = document.getElementById("answer_options"), label, input, textbox,
   label_text, character, select, update, edit, tab, hidden;
-
   count+=1;
   character = String.fromCharCode(96 + count);
   label_text = document.createTextNode(character);
@@ -140,8 +139,10 @@ function add_answer_options(){
 
 window.onload = function() {
   var submit = document.getElementsByName("status"), i;
+  count = parseInt(document.getElementById("a_count").value);
   document.getElementById("add_answer").onclick = add_answer_options;
   for(i = 0; i < submit.length; i+=1){
     submit[i].onclick = update_answers;
   }
+
 };
