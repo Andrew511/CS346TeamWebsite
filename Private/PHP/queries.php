@@ -468,8 +468,7 @@ function display_K_table() { //function to populate all the keywords in the data
   global $db;
 
   try{
-    $query = "SELECT Keyword
-              FROM Keywords";
+    $query = "SELECT DISTINCT Keyword FROM Keywords";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);

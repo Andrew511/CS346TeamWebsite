@@ -51,20 +51,20 @@
             <div>
 			<?php
 					echo "<ul><li>Keyword:" ;
-					echo $_POST['keyword'];
+					echo "{$_POST['keyword']}";
 					echo"</li><li>Section:";
-					echo $_POST['section'];
+					echo "{$_POST['section']}";
 					echo "</li><li>Your score:";
-					echo $_POST['score'];
+					echo "{$_POST['score']}";
 					echo "</li><li>Total score:";
-					echo $_POST['pointsAvailable'];
+					echo "{$_POST['pointsAvailable']}";
 					echo"</li>";
-				foreach($q as $key => $value)
+				foreach($q as $q)
 			   {
 				    echo "<li>Question id:";
-					echo $q['QuestionId'];
+					echo "{$q['QuestionId']}";
 					echo "</li><li>Question :";
-					echo $q['QuestionText'];
+					echo "{$q['QuestionText']}";
 					echo "</li>";
 				}
 					echo "</ul>";
