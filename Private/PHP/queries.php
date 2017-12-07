@@ -454,7 +454,7 @@ function display_S_table() { //function to populate all the scores in the databa
 
   try{
     $query = "SELECT Score
-              FROM Scores;";
+              FROM Scores";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
@@ -469,7 +469,7 @@ function display_K_table() { //function to populate all the keywords in the data
 
   try{
     $query = "SELECT Keyword
-              FROM Keywords;";
+              FROM Keywords";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
