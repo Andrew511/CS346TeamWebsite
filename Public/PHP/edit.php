@@ -37,25 +37,25 @@
           <form action ="confirm_update.php" method="post">
             <h1>Add Question</h1>
             <p>Question ID: </p>
-            <input type="number" name="ID" value="<?php echo $id; ?>"><br/>
+            <input type="number" name="ID" value="<?php echo $id; ?>">
             <p>Description</p>
-            <input type="text" name="description" value="<?php echo $q['Description']?>"/>
+            <input type="text" name="description" value="<?php echo $q['Description']?>">
             <p>Keywords (Please separate keywords by ,)</p>
             <input type="text" name="keywords" value="<?php
-            $count = count($keywords);
-            foreach($keywords as $keywords){
-              echo "{$keywords['Keyword']}";
-              if($count>1){
-                echo ", ";
-              }
-              $count--;
-            }
-            ?>"/>
-            <br/>
+$count = count($keywords);
+foreach($keywords as $keywords){
+  echo "{$keywords['Keyword']}";
+  if($count>1){
+    echo ", ";
+  }
+  $count--;
+}
+            ?>">
+            <br>
             <p>Book Section:</p>
-            <input type="text" name="section" value="<?php echo $q['Section'];?>"/>
+            <input type="text" name="section" value="<?php echo $q['Section'];?>">
             <p>Points</p>
-            <input type="number" name="points" value="<?php echo $q['PointsAvailable']; ?>"/>
+            <input type="number" name="points" value="<?php echo $q['PointsAvailable']; ?>">
             <div>
               <p>Type your question below:</p>
               <textarea class="questionText" name="question_text">
@@ -93,7 +93,7 @@ echo $q['QuestionText'];?>
               </select>
               <div id="answer_options">
                 Type the answer options and select the correct answer.
-                <br/><p>
+                <br><p>
                   <?php
                   
                   if($q['QuestionType'] === "multiple") {
@@ -104,6 +104,7 @@ echo $q['QuestionText'];?>
                         echo "<input type=\"radio\" name=\"answer\" value=\"";
                         echo "{$answers['AnswerText']}";
                         echo "\" checked>";
+                        echo "</labe>";
                         echo "<textarea name=\"answer_choices\">";
 echo "{$answers['AnswerText']}";
                         echo "</textarea>";
@@ -116,6 +117,7 @@ echo "{$answers['AnswerText']}";
                         echo "<input type=\"radio\" name=\"answer\" value=\"";
                         echo "{$answers['AnswerText']}";
                         echo " \"><br>";
+                        echo "</labe>";
                         echo "<textarea name=\"answer_choices\">";
 echo "{$answers['AnswerText']}";
                         echo "</textarea>";
@@ -129,9 +131,12 @@ echo "{$answers['AnswerText']}";
                   else if($q['QuestionType'] === "checkbox") {
                     foreach($answers as $answers){
                       if("{$answers['Correct']}"){
+                        echo "<label>";
+                        echo chr($char + $answersCount);
                         echo "<input type=\"checkbox\" name=\"answer[]\" value=\"";
                         echo "{$answers['AnswerText']}";
                         echo "\" checked>";
+                        echo "</label>";
                         echo "<textarea name=\"answer_choices\">";
 echo "{$answers['AnswerText']}";
                         echo "</textarea>";
@@ -140,9 +145,12 @@ echo "{$answers['AnswerText']}";
                         echo "\">";
                       }
                       else {
+                        echo "<label>";
+                        echo chr($char + $answersCount);
                         echo "<input type=\"checkbox\" name=\"answer[]\" value=\"";
                         echo "{$answers['AnswerText']}";
                         echo "\">";
+                        echo "</label>";
                         echo "<textarea name=\"answer_choices\">";
 echo "{$answers['AnswerText']}";
                         echo "</textarea>";

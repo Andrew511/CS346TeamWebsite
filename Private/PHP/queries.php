@@ -374,6 +374,22 @@ function get_answer_choices($id){
   }
 }
 
+//function to get all deactivated questions for instructor to view stats
+function get_deactivated_question_list() {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE Status=4";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to edit.");
+  }
+}
 
 //function to search by given parameters and return to the Students only deactivated Questions
 function search($keyword, $section , $score, $pointsAvailable) {

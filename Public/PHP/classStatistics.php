@@ -1,6 +1,11 @@
+<?php    
+define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
+require_once('../../Private/PHP/initialize.php'); 
 
-<!DOCTYPE html>
-    <?php    require_once('../../Private/PHP/initialize.php'); ?>
+$questions = get_deactivated_question_list();
+?>
+
+<!DOCTYPE html>    
 <html>
   <head>
     <meta charset="utf-8" />
@@ -16,32 +21,16 @@
         <?php include 'header.php';?>
         <div id="flexContainer">
             <?php
-            $questions = get_question_list();
+            
             foreach ($questions as $question)
             {
-                echo $question['QuestionId'] + "<br />";
-                $scores = get_scores($question['QuestionId']);
-                $avg = get_avg($question['QuestionId']);
-                echo $avg['Average'] + "<br />";
-                ?>
-                <table>
-                <?php    foreach ($scores as $score) { ?>
-                        <tr>
-                        <td> 
-                        <?php echo $score['Username'];  ?>
-                        </td>
-                        <td> 
-                        <?php echo $score['Score'] ; ?>
-                        </td>
-                        </tr>
-                 <?php   } ?>
-                </table>
-                <?php
+              echo "<a href=\"daily_statistics.php\">";
+              echo "{$questions['QuestionId']}: {$questions['Description']}";
+              echo "Activated on: ";
+              echo "{$questions['ActivateionStart']}";
             }
-
-
+            
             ?>
-
         </div>
     </div>
     <?php include 'footer.php';?>

@@ -16,10 +16,8 @@
         <div id="instructorOptions">
           <ul class="homeOptions">
             <li><a href="activateQuestion.html">Activate\Deactivate Question</a></li>
-            <li><a href="editQuestions.html">Add\Edit Question</a></li>
-            <li><a href="completedQuestions.html">Review Completed Questions</a>
-              </li>
-            <li><a href="classStatistics.html">Class Statistics</a></li>
+            <li><a href="editQuestions.php">Add\Edit\Review Questions</a></li>
+            <li><a href="classStatistics.php">Class Statistics</a></li>
           </ul>
         </div>
       </div>
