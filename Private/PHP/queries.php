@@ -459,7 +459,7 @@ function display_S_table() { //function to populate all the scores in the databa
     return $stmt->fetchall(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     db_disconnect();
-    exit("There was an error fetching the list of scores.")
+    exit("There was an error fetching the list of scores.");
   }
 }
 
@@ -474,7 +474,7 @@ function display_K_table() { //function to populate all the keywords in the data
     return $stmt->fetchall(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     db_disconnect();
-    exit("There was an error fetching the list of keywords available to edit.")
+    exit("There was an error fetching the list of keywords available to edit.");
   }
 }
 }
