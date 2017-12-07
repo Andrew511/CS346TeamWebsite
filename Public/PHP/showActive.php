@@ -29,23 +29,23 @@
                <label for="radio<?php echo $i;?>"> <?php echo $answer['AnswerText'];?> </label>
               <?php $i = $i + 1;
              }
-           } ?>
+           }
 
-           <?php else if ($question['QuestionType'] === "checkbox") { 
+            elseif ($question['QuestionType'] === "checkbox") { 
             $i = 0;
              foreach ($answers as $answer) { ?>
                <input type="checkbox" id="checkbox<?php echo $i;?>" name="checkbox" value="<?php echo $answer['AnswerText'];?>">
                <label for="checkbox<?php echo $i;?>"> <?php echo "$i. " + $answer['AnswerText'];?> </label>
               <?php $i = $i + 1;
              }
-           } ?>
+           }
 
-           <?php else if ($question['QuestionType'] === "short") { 
-            $i = 0;
+            elseif ($question['QuestionType'] === "short") { 
+            
              foreach ($answers as $answer) { ?>
-               <input type="text" id="text<?php echo $i;?>" name="text">
-               <label for="text<?php echo $i;?>"> <?php echo $answer['AnswerText'];?> </label>
-              <?php $i = $i + 1;
+               <input type="text" id="text" name="text">
+               <label for="text"> <?php echo $answer['AnswerText'];?> </label>
+              <?php 
              }
            } ?>
           <input type="submit" value="Submit">

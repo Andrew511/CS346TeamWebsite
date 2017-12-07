@@ -39,6 +39,35 @@
                 }
             }
         }
+		else if ($question['QuestionType'] === "checkbox") { 
+            for ($i = 0; $i < count($answers); $i += 1 ) {
+               if ($_POST["checkbox'$i'"].isset) {
+                    foreach ($answers as $answer) {
+                        if ($answer['AnswerText'] === $_POST["checkbox'$i'"]) {
+                            if ($answer['Correct'] === 1) {
+                           $score += $scorePerCorrect;
+                           $correctAnswers += "$i ";
+                            }
+                        } 
+                    }
+                }
+            }
+        }
+		else if ($question['QuestionType'] === "short") { 
+            for ($i = 0; $i < count($answers); $i += 1 ) {
+               if ($_POST["text"].isset) {
+                    foreach ($answers as $answer) {
+                        if ($answer['AnswerText'] === $_POST["text"]) {
+                            if ($answer['Correct'] === 1) {
+                           $score = $totalScore;
+                           $correctAnswers += $answer['AnswerText'];
+						   break;
+                            }
+                        } 
+                    }
+                }
+            }
+        }
         ?>
         <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo $score + "/" + $totalscore; ?>
         <p> <?php echo $question['QuestionText']; ?> </p>
