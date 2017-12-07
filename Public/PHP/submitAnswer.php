@@ -1,5 +1,10 @@
+<?php 
+require_once('../../Private/PHP/initialize.php');
+session_start();
+$student = get_student_by_username($_SESSION['username']);
+?>
+
 <!DOCTYPE html>
-<?php    require_once('../../Private/PHP/initialize.php'); ?>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -19,15 +24,19 @@
         $totalScore = $question['PointsAvailable'];
         $numcorrect = 0;
         $correctAnswers = "";
-        foreach ($answers as $answer) {
-         if ($answer['Correct'] === 1) {
-            $numcorrect = $numcorrect + 1;
-         }   
-        }
+		if ($question['QuestionType'] !== "short") {
+			foreach ($answers as $answer) {
+				if ($answer['Correct'] === 1) {
+				$numcorrect = $numcorrect + 1;
+				}   
+			}
+		} else {
+			$numcorrect = 1;
+		}
         $scorePerCorrect = ($totalScore - 1) / $numcorrect;
          if ($question['QuestionType'] === "multiple") { 
             for ($i = 0; $i < count($answers); $i += 1 ) {
-               if ($_POST["radio'$i'"].isset) {
+               if (isset($_POST["radio'$i'"])) {
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["radio'$i'"]) {
                             if ($answer['Correct'] === 1) {
@@ -41,7 +50,7 @@
         }
 		else if ($question['QuestionType'] === "checkbox") { 
             for ($i = 0; $i < count($answers); $i += 1 ) {
-               if ($_POST["checkbox'$i'"].isset) {
+               if (isset($_POST["checkbox'$i'"])) {
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["checkbox'$i'"]) {
                             if ($answer['Correct'] === 1) {
@@ -55,7 +64,7 @@
         }
 		else if ($question['QuestionType'] === "short") { 
             for ($i = 0; $i < count($answers); $i += 1 ) {
-               if ($_POST["text"].isset) {
+               if (isset($_POST["text"])) {
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["text"]) {
                             if ($answer['Correct'] === 1) {
@@ -69,11 +78,10 @@
             }
         }
         ?>
-        <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo $score + "/" + $totalscore; ?>
+        <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?>
         <p> <?php echo $question['QuestionText']; ?> </p>
 
-        <?php $_SESSION['username'];
-        $student = get_student_by_username($_SESSION['username']);
+        <?php
         add_score($_POST['QuestionId'], $student['StudentId'], $score);
         ?>
       </div>

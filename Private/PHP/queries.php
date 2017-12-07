@@ -33,7 +33,7 @@ function get_student_by_username($username) {
               WHERE Username = :username";
     $stmt = $db->prepare($query);
     $stmt->execute(["username" => $username]);
-    return $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     db_disconnect();
     exit("There was an error fetching the student.");
@@ -81,11 +81,11 @@ function get_question($questionId) {
               WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
     $stmt->execute(["questionId" => $questionId]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
       db_disconnect();
       exit("Aborting: There was a database error when retrieving " .
-           "the questions answers.");
+           "the questions.");
   }
 }
 
