@@ -38,9 +38,9 @@
                <label for="checkbox<?php echo $i;?>"> <?php echo "$i. " + $answer['AnswerText'];?> </label>
               <?php $i = $i + 1;
              }
-           } ?>
+           }
 
-           <?php elseif ($question['QuestionType'] === "short") { 
+            elseif ($question['QuestionType'] === "short") { 
             
              foreach ($answers as $answer) { ?>
                <input type="text" id="text" name="text">
