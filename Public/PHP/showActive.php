@@ -31,7 +31,7 @@
              }
            } ?>
 
-           <?php else if ($question['QuestionType'] === "checkbox") { 
+           <?php elseif ($question['QuestionType'] === "checkbox") { 
             $i = 0;
              foreach ($answers as $answer) { ?>
                <input type="checkbox" id="checkbox<?php echo $i;?>" name="checkbox" value="<?php echo $answer['AnswerText'];?>">
@@ -40,7 +40,7 @@
              }
            } ?>
 
-           <?php else if ($question['QuestionType'] === "short") { 
+           <?php elseif ($question['QuestionType'] === "short") { 
             
              foreach ($answers as $answer) { ?>
                <input type="text" id="text" name="text">
