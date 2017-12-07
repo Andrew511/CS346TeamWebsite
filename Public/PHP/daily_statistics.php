@@ -16,8 +16,10 @@ require_once('../../Private/PHP/initialize.php');
   <body>
     <?php include 'instructor_navigation.php';?>
     <div class="border">
-        <?php include 'header.php';?>
-        <div id="flexContainer">
+      <?php include 'header.php';?>
+      <div id="flexContainer">
+        <h1>Daily Statistics</h1>
+        <div class="tables">
           <?php
           if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $scores = get_scores($_POST['stats']);
@@ -27,46 +29,42 @@ require_once('../../Private/PHP/initialize.php');
           if(empty($scores)){
             echo "There are no student statistics available for this day.";
           }
-          ?>
-
-            <?php
-
-            if(!empty($scores)){
-              echo "<table>";
-                echo "<tr>";
-                echo  "<th>Last Name</th>";
-                echo "<th>First Name</th>";
-                echo "<th>Username</th>";
-                echo "<th>Q Id</th>";
-                echo "<th>Points Earned</th>";
-                echo "<th>Total Points</th>";
-              echo "</tr>";
-              foreach($scores as $scores){
-                echo "<tr>";
-                echo "<td>";
-                echo "{$scores['FirstName']}";
-                echo "</td>";
-                echo "<td>";
-                echo "{$scores['LastName']}";
-                echo "</td>";
-                echo "<td>";
-                echo "{$scores['UserId']}";
-                echo "</td>";
-                echo "<td>";
-                echo $id;
-                echo "</td>";
-                echo "<td>";
-                echo $total_points;
-                echo "</td>";
-                echo "<td>";
-                echo "{$scores['Score']}";
-                echo "</td>";
-              }
-              echo "</table>";
+          else{
+            echo "<table>";
+              echo "<tr>";
+              echo  "<th>Last Name</th>";
+              echo "<th>First Name</th>";
+              echo "<th>Username</th>";
+              echo "<th>Q Id</th>";
+              echo "<th>Points Earned</th>";
+              echo "<th>Total Points</th>";
+            echo "</tr>";
+            foreach($scores as $scores){
+              echo "<tr>";
+              echo "<td>";
+              echo "{$scores['FirstName']}";
+              echo "</td>";
+              echo "<td>";
+              echo "{$scores['LastName']}";
+              echo "</td>";
+              echo "<td>";
+              echo "{$scores['UserId']}";
+              echo "</td>";
+              echo "<td>";
+              echo $id;
+              echo "</td>";
+              echo "<td>";
+              echo $total_points;
+              echo "</td>";
+              echo "<td>";
+              echo "{$scores['Score']}";
+              echo "</td>";
             }
-            ?>
-
+            echo "</table>";
+          }
+          ?>
         </div>
+      </div>
     </div>
     <?php include 'footer.php';?>
   </body>

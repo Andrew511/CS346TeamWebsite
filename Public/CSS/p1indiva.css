@@ -129,12 +129,13 @@ colors:
   padding: 20px;
 }
 
-.flexContainer{
+#flexContainer{
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-content: center;
   width: 100%;
+  padding-bottom: 25%;
 }
 
 #studentHomePage, .question, .answerBox, .changePwContainer,
@@ -164,7 +165,7 @@ colors:
 }
 
 .question, .answer, .searchContainer, #instructorOptions, #directoryQuestions,
-#activateQuestions, #statistics {
+#activateQuestions, #statistics, .tables {
   text-align: left;
   padding-bottom: 35px;
 }
@@ -224,8 +225,8 @@ button {
   margin-bottom: 0px;
 }
 
-input[type='text']{
-  width: 35%;
+input[type='text'], input[type='number'] {
+  width: 100%;
   padding: 5px;
   margin-top: 5px;
 }
@@ -330,6 +331,7 @@ input[type='text']{
 textarea {
   width: 100%;
   box-sizing: border-box;
+  padding: 5px;
   height: 50px;
 }
 
@@ -373,6 +375,23 @@ a:visited {
 select {
   margin: 10px;
   margin-left: 0px;
-  width: 50%;
+  width: 100%;
   padding: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid black;
+  padding: 1%;
+}
+
+th {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  padding: 1%;
 }
