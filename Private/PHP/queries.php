@@ -1,19 +1,22 @@
 <?php
 
   /*
-  // Returns an array containing arrays whic have the indexs 'Username' and 'Score'
+  // Returns an array containing arrays which have the indexs 'Username' and 'Score'
   // which contain their respective values
   */
   function get_scores($questionId) {
     global $db;
 
     try {
-      $query = "SELECT Students.Username, Scores.Score FROM Scores
-                WHERE QuestionId = :questionId
-                INNER JOIN Students ON Score.UserId = Students.StudentId";
+      $query = "SELECT Scores.UserId, Scores.Score, Students.FirstName, Students.LastName
+                FROM Scores
+                INNER JOIN Students ON Scores.UserId = Students.StudentId
+                WHERE QuestionId=?
+                ORDER By Students.LastName;";
       $stmt = $db->prepare($query);
-      $stmt->execute(["questionId" => $questionId]);
-      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $stmt->execute([$questionId]);
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $result;
     } catch (PDOException $e) {
         db_disconnect();
         exit("Aborting: There was a database error when retrieving " .
@@ -41,7 +44,7 @@ function get_student_by_username($username) {
 Function name needs to be changed. One with this function name has already
 been declared and works on all the pages to add the questions.
 */
-
+/*
 function add_answer($questionId, $studentId, $score) {
   global $db;
 
@@ -57,7 +60,7 @@ function add_answer($questionId, $studentId, $score) {
     exit("There was an error fetching the list of active questions.");
   }
 }
-
+*/
 function get_active() {
   global $db;
 
@@ -390,7 +393,7 @@ function get_deactivated_question_list() {
     exit("There was an error fetching the list of questions available to edit.");
   }
 }
-
+/*
 //function to search by given parameters and return to the Students only deactivated Questions
 function search($keyword, $section , $score, $pointsAvailable) {
     global $db;
@@ -503,6 +506,6 @@ function hash_password($password , $salt)
 	$hashed_password = crypt($password , $salt) ;
 	return $hashed_password ;
 }
-
+*/
 
 ?>

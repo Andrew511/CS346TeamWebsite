@@ -18,20 +18,34 @@ $questions = get_deactivated_question_list();
   <body>
     <?php include 'instructor_navigation.php';?>
     <div class="border">
-        <?php include 'header.php';?>
-        <div id="flexContainer">
-            <?php
+      <?php include 'header.php';?>
+      <div id="flexContainer">
+        <h1>Class Statistics</h1>
+        <form method="post" action="daily_statistics.php">
+          <div id="directoryQuestions">
+            <select id="question_list" name="stats">
+              <?php
+                if(empty($questions)){
+                  echo "<option>No Questions Available</option>";
+                }
+                else {
+                  foreach ($questions as $questions)
+                  {
+                    echo "<option value=\"{$questions['QuestionId']}\">";
+                    echo "{$questions['QuestionId']}: {$questions['Description']}";
+                    echo " Activated on: ";
+                    echo "{$questions['ActivationStart']}";
+                    echo "</option>";
+                    echo "<input type=\"hidden\" name=\"total_points\" 
+                          value=\" {$questions['PointsAvailable']}\">";                  }
+                }  
+              ?>
+            </select>
             
-            foreach ($questions as $question)
-            {
-              echo "<a href=\"daily_statistics.php\">";
-              echo "{$questions['QuestionId']}: {$questions['Description']}";
-              echo "Activated on: ";
-              echo "{$questions['ActivateionStart']}";
-            }
-            
-            ?>
-        </div>
+            <input type="submit" value="View Daily Statistics">
+          </div>
+        </form>
+      </div>
     </div>
     <?php include 'footer.php';?>
   </body>

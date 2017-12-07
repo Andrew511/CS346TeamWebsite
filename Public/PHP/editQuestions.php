@@ -3,6 +3,7 @@
 
   define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
   require_once(SITE_ROOT.'/Private/PHP/initialize.php');
+  $q = get_question_list();
  ?>
 
 <!DOCTYPE html>
@@ -25,7 +26,6 @@
           <div id="directoryQuestions">
             <select id="question_list" name="question_list">
               <?php
-                $q = get_question_list();
                 if(empty($q)){
                   echo "<option>No Questions Available</option>";
                 }

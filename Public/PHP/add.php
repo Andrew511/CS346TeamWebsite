@@ -1,9 +1,8 @@
 <?php
-  $types = $_POST['types'];
-  $id = $_POST['ID'];
-  $status = $_POST['status'];
-
-  if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $types = $_POST['types'];
+    $id = $_POST['ID'];
+    $status = $_POST['status'];
     if(!check_id($id)){
       add_question($id, $status, $types, $_POST['question_text'],
       $_POST['points'], $_POST['section'], $_POST['description']);
@@ -17,21 +16,27 @@
       if($types === 'multiple'){
         $answer_options = $_POST['choices'];
         $number = count($answer_options);
-        foreach($answer_options as $a){
-          if($a === $_POST['answer']){
-            $correct = 1;
-            add_answer($id, $a, $correct, $number);
+        if(isset($_POST['submit'])){
+          foreach($answer_options as $a){
+            if($a === $_POST['answer'] ){
+              $correct = 1;
+              add_answer($id, $a, $correct, $number);
+            }
+            else {
+              $correct = 0;
+              add_answer($id, $a, $correct, $number);
+            }
           }
-          else {
-            $correct = 0;
-            add_answer($id, $a, $correct, $number);
-          }
-
         }
-
       }
       elseif ($types === 'checkbox'){
-        $unchecked = array_diff($_POST['choices'], $_POST['answer']);
+        if(isset($_POST['submit'])){
+          $array = $_POST['answer'];
+          $unchecked = array_diff($_POST['choices'], $_POST['answer']);
+        }
+        else{
+          $unchecked = $_POST['choices'];
+        }
         echo count($unchecked);
         foreach($unchecked as $c){
           add_answer($id, $c, 0, count($_POST['choices']));

@@ -45,8 +45,8 @@
               <p>
               <button type="button" id="add_answer">Add more answer choices</button>
               </p>
-              <button type="submit" name="status" value="1">Save as Draft</button>
-              <button type="submit" name="status" value="2">Save</button>
+              <button type="submit" name="submit" value="1">Save as Draft</button>
+              <button type="submit" name="submit" value="2">Save</button>
             </div>
           </form>
         </div>

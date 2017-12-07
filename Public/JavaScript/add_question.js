@@ -139,7 +139,12 @@ function add_answer_options(){
 
 window.onload = function() {
   var submit = document.getElementsByName("status"), i;
-  count = parseInt(document.getElementById("a_count").value);
+  if(document.getElementById("a_count")){
+    count = parseInt(document.getElementById("a_count").value);
+  }
+  else{
+    count = 0;
+  }
   document.getElementById("add_answer").onclick = add_answer_options;
   for(i = 0; i < submit.length; i+=1){
     submit[i].onclick = update_answers;
