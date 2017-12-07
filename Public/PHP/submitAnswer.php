@@ -82,9 +82,6 @@ $student = get_student_by_username($_SESSION['username']);
         <p> <?php echo $question['QuestionText']; ?> </p>
 
         <?php
-		echo $_POST['QuestionId'];
-		echo $student['StudentId'];
-		echo $score;
         add_score($_POST['QuestionId'], $student['StudentId'], $score);
         ?>
       </div>
