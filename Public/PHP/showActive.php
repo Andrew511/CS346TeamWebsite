@@ -29,9 +29,9 @@
                <label for="radio<?php echo $i;?>"> <?php echo $answer['AnswerText'];?> </label>
               <?php $i = $i + 1;
              }
-           } ?>
+           }
 
-           <?php elseif ($question['QuestionType'] === "checkbox") { 
+            elseif ($question['QuestionType'] === "checkbox") { 
             $i = 0;
              foreach ($answers as $answer) { ?>
                <input type="checkbox" id="checkbox<?php echo $i;?>" name="checkbox" value="<?php echo $answer['AnswerText'];?>">
