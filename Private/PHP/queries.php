@@ -50,10 +50,9 @@ function add_score($questionId, $studentId, $score) {
               ";
     $stmt = $db->prepare($query);
     $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score]);
-    return $stmt->fetchall(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     db_disconnect();
-    exit("There was an error fetching the list of active questions.");
+    exit("There was an error inserting the score to the database.");
   }
 }
 
