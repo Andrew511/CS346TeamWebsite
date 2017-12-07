@@ -56,7 +56,7 @@ function add_score($questionId, $studentId, $score) {
     exit("There was an error fetching the list of active questions.");
   }
 }
-*/
+
 function get_active() {
   global $db;
 
@@ -246,9 +246,6 @@ function insert_keywords($id, $keyword){
   }
 }
 
-/*
-still need to figure out how to get this into the form and update the table
-*/
 function add_answer($id, $text, $correct, $number) {
   global $db;
 
