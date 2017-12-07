@@ -33,7 +33,7 @@ function get_student_by_username($username) {
               WHERE Username = :username";
     $stmt = $db->prepare($query);
     $stmt->execute(["username" => $username]);
-    return $stmt->fetchall(PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     db_disconnect();
     exit("There was an error fetching the student.");
@@ -45,15 +45,14 @@ function add_score($questionId, $studentId, $score) {
   global $db;
 
   try{
-    $query = "INSERT INTO Scores
-              VALUES QuestionId = :questionId, UserId = :userId, Score = :score
+    $query = "INSERT INTO Scores (QuestionId, UserId, Score)
+              VALUES (:questionId, :userId, :score)
               ";
     $stmt = $db->prepare($query);
     $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score]);
-    return $stmt->fetchall(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     db_disconnect();
-    exit("There was an error fetching the list of active questions.");
+    exit("There was an error inserting the score to the database.");
   }
 }
 
@@ -81,11 +80,11 @@ function get_question($questionId) {
               WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
     $stmt->execute(["questionId" => $questionId]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
       db_disconnect();
       exit("Aborting: There was a database error when retrieving " .
-           "the questions answers.");
+           "the questions.");
   }
 }
 
@@ -491,13 +490,15 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 		header('changePassword.php') ;
 	}
 
-	if($role == "student")
+	if($role === "student")
 	{
 		try
 		{
 			$query = "SELECT Salt FROM Students WHERE StudentId = :id" ;
 			$stmt = $db->prepare($query) ;
-			$salt = $stmt->execute(["id" => $id]) ;
+			$stmt->execute(["id" => $id]) ;
+			$stmt = $stmt->fetch(PDO::FETCH_ASSOC) ;
+			$salt = $stmt['Salt'] ;
 			$oldPass = hash_password($oldPass , $salt) ;
 			$newPass = hash_password($newPass , $salt) ;
 			$query = "UPDATE Students SET HashPassword = :newPass WHERE StudentId = :id AND HashPassword = :oldPass" ;
@@ -515,7 +516,9 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 		{
 			$query = "SELECT Salt FROM Instructors WHERE InstructorId = :id" ;
 			$stmt = $db->prepare($query) ;
-			$salt = $stmt->execute(["id" => $id]) ;
+			$stmt->execute(["id" => $id]) ;
+			$stmt = $stmt->fetch(PDO::FETCH_ASSOC) ;
+			$salt = $stmt['Salt'] ;
 			$oldPass = hash_password($oldPass , $salt) ;
 			$newPass = hash_password($newPass , $salt) ;
 			$query = "UPDATE Instructors SET HashPassword = :newPass WHERE InstructorId = :id AND HashPassword = :oldPass" ;

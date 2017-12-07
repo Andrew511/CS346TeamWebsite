@@ -13,11 +13,11 @@
     <div class="border">
       <?php include 'header.php' ?>
       <div id="flexContainer">
-        <?php 
-        $question = get_active()[0]; 
-        $answers = get_question_answers($question['QuestionId']);
-
-        if ($question != null) {?>
+        <?php
+		$questions = get_active(); 
+        if (isset($questions[0])) {
+		$question = $questions[0];
+        $answers = get_question_answers($question['QuestionId']); ?>
         <form action="submitAnswer.php" method="post">
           <input type="hidden" name="QuestionId" value="<?php echo $question['QuestionId'] ?>" >
           <p> <?php echo $question['QuestionText']; ?> </p>
