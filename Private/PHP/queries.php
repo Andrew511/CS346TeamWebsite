@@ -447,6 +447,7 @@ function search($keyword, $section , $score, $pointsAvailable) {
         exit("Aborting: There was a database error when retrieving " .
              "the search results.");
     }
+}
 
 function display_S_table() { //function to populate all the scores in the database.
   global $db;
@@ -477,7 +478,7 @@ function display_K_table() { //function to populate all the keywords in the data
     exit("There was an error fetching the list of keywords available to edit.");
   }
 }
-}
+
 
 function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 {
@@ -504,7 +505,7 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 			$stmt = $db->prepare($query) ;
 			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
 		}
-		catch(PDOException $e)
+		catch (PDOException $e)
 		{
 			echo "Error updating password" ;
 		}
@@ -522,7 +523,7 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 			$stmt = $db->prepare($query) ;
 			$stmt->execute(["newPass" => $newPass , "id" => $id , "oldPass" => $oldPass]) ;
 		}
-		catch
+		catch (Exception $e)
 		{
 			echo "Error updating password" ;
 		}
