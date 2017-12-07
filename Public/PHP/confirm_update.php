@@ -21,7 +21,8 @@
       <div id="flexContainer">
         <div class="confirm">
           <p>
-            <?php include_once 'add.php'; ?>
+            <?php include_once 'update.php';?>
+            
           </p>
         </div>
       </div>

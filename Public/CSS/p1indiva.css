@@ -167,7 +167,7 @@ colors:
 .question, .answer, .searchContainer, #instructorOptions, #directoryQuestions,
 #activateQuestions, #statistics, .tables {
   text-align: left;
-  padding-bottom: 35px;
+  padding-bottom: 5%;
 }
 
 .searchContainer {

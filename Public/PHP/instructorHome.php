@@ -15,9 +15,9 @@
     <div id="flexContainer">
         <div id="instructorOptions">
           <ul class="homeOptions">
-            <li><a href="activateQuestion.html">Activate\Deactivate Question</a></li>
+            <li><a href="activateQuestion.php">Activate\Deactivate Question</a></li>
             <li><a href="editQuestions.php">Add\Edit\Review Questions</a></li>
-            <li><a href="classStatistics.php">Class Statistics</a></li>
+            <li><a href="classStatistics.php">Statistics</a></li>
           </ul>
         </div>
       </div>
