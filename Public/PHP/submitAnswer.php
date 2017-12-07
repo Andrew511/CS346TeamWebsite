@@ -45,7 +45,7 @@
 
         <?php $_SESSION['username'];
         $student = get_student_by_username($_SESSION['username']);
-        add_answer($_POST['QuestionId'], $student['StudentId'], $score);
+        add_score($_POST['QuestionId'], $student['StudentId'], $score);
         ?>
       </div>
     </div>

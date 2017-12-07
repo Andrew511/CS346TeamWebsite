@@ -40,12 +40,8 @@ function get_student_by_username($username) {
   }
 }
 
-/*
-Function name needs to be changed. One with this function name has already
-been declared and works on all the pages to add the questions.
-*/
-/*
-function add_answer($questionId, $studentId, $score) {
+
+function add_score($questionId, $studentId, $score) {
   global $db;
 
   try{
