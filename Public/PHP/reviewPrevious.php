@@ -57,30 +57,30 @@
               <div id="searchOptions">
                 <select name="keywordSearch" size="4" class="options"
                   multiple>
-				  <?php foreach ($k as $key => $value)
-							echo $k;
+				  <?php foreach ($k as $k => $value)
+							echo $k['Keyword'];
 							//echo "<option>$k['Keyword']</option>";
 							?>               
                 </select>
                 <select name="section" size="4" class="options"
                   multiple>
 				  <?php foreach ($q as $key => $value)
-								echo $k;
+								echo $q['Section'];
 							//echo "<option> $q['Section']</option>";
 							?>        
                 </select>
                 <select name="pointsAvailable" size="4" class="options"
                   multiple>
 				  <?php foreach ($q as $key => $value)
-				  echo $k;
+				  echo $q['PointsAvailable'];
 							//echo "<option> $q['PointsAvailable']</option>";
 							?>
                 </select>
                 <select name="score" size="4" class="options"
                   multiple>
 				  <?php array_unique($p);
-						//foreach ($p as $key => $value)
-						echo $k;
+						foreach ($p as $key => $value)
+						echo $$p['Score']k;
 							//echo "<option> $p['Score']</option>";?>
                   <option></option>
                 </select>

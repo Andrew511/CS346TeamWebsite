@@ -66,8 +66,9 @@
 					echo "</li><li>Question :";
 					echo $q['QuestionText'];
 					echo "</li>";
-					echo "</ul>";
 				}
+					echo "</ul>";
+				
 			  ?>
             </div>
           </div>
