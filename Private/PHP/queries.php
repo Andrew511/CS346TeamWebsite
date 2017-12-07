@@ -491,13 +491,15 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 		header('changePassword.php') ;
 	}
 
-	if($role == "student")
+	if($role === "student")
 	{
 		try
 		{
 			$query = "SELECT Salt FROM Students WHERE StudentId = :id" ;
 			$stmt = $db->prepare($query) ;
-			$salt = $stmt->execute(["id" => $id]) ;
+			$stmt->execute(["id" => $id]) ;
+			$stmt = $stmt->fetch(PDO::FETCH_ASSOC) ;
+			$salt = $stmt['Salt'] ;
 			$oldPass = hash_password($oldPass , $salt) ;
 			$newPass = hash_password($newPass , $salt) ;
 			$query = "UPDATE Students SET HashPassword = :newPass WHERE StudentId = :id AND HashPassword = :oldPass" ;
@@ -515,7 +517,9 @@ function change_password($id , $role , $oldPass , $newPass1 , $newPass2)
 		{
 			$query = "SELECT Salt FROM Instructors WHERE InstructorId = :id" ;
 			$stmt = $db->prepare($query) ;
-			$salt = $stmt->execute(["id" => $id]) ;
+			$stmt->execute(["id" => $id]) ;
+			$stmt = $stmt->fetch(PDO::FETCH_ASSOC) ;
+			$salt = $stmt['Salt'] ;
 			$oldPass = hash_password($oldPass , $salt) ;
 			$newPass = hash_password($newPass , $salt) ;
 			$query = "UPDATE Instructors SET HashPassword = :newPass WHERE InstructorId = :id AND HashPassword = :oldPass" ;
