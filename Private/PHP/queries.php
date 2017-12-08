@@ -504,8 +504,8 @@ function search($keyword, $section , $score, $pointsAvailable) {
 				AND (Score IS NULL OR Score = :score)
 				AND (PointsAvailable IS NULL OR PointsAvailable = :pointsAvailable)
 				AND (Status = :status)
-                INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId
-				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
+                INNER JOIN Keywords ON Question.QuestionId = Keywords.QuestionId
+				INNER JOIN Scores ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
       $stmt->execute(["keyword" => $keyword ,"section" => $section ,
 					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable, "status" =>4]);
