@@ -427,6 +427,22 @@ function get_keyword_list($id) {
   }
 }
 
+function get_student_anwers($id) {
+  global $db;
+
+  try{
+    $query = "SELECT StudentAnswer
+              FROM Scores WHERE QuestionId = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to edit.");
+  }
+}
+
 function get_answer_choices($id){
   global $db;
   try{

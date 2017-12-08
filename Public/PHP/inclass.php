@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <?php
             foreach($answers as $answers){
               echo "<input type=\"hidden\" name=\"answers\"
-                value=\"{$answers['AnswerText']}\">"
+                value=\"{$answers['AnswerText']}\">";
             }
            ?>
           <button type="sumbit" id="deactivate"
