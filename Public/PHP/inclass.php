@@ -51,10 +51,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="post">
           <input type="hidden" name="id" value="<?php echo $id?>">
           <?php
-            foreach($answers as $answers){
-              echo "<input type=\"hidden\" name=\"answers\"
-                value=\"{$answers['AnswerText']}\">";
+			if($question['QuestionType'] === "short"){
+				foreach($answers as $answers){
+				  echo "<input type=\"hidden\" class=\"answer\" name=\"answers[]\"
+					value=\"";
+					echo "{$answers['ShortAnswer']}";
+					echo "\">";
+				}
             }
+			else {
+				foreach($answers as $answers){
+				echo "<input type=\"hidden\" class=\"answers\" name=\"answers[]\"
+                value=\"";
+				echo "{$answers['AnswerText']}";
+				echo "\">";
+				 }
+			}
+			
+            
            ?>
           <button type="sumbit" id="deactivate"
               formaction="confirmDeactivate.php">Deactivate</button>

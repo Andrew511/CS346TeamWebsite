@@ -1,8 +1,7 @@
 /*jslint browser: true */
 /*jslint white: true */
 "use strict";
-var seconds = 0, minutes = 0, hours = 0, t, time_text, ctx, height = 0,
-answers, section;
+var seconds = 0, minutes = 0, hours = 0, t, time_text, ctx, height = 0, section;
 
 function timer() {
   t = setTimeout(add, 1000);
@@ -36,7 +35,6 @@ function update_graph() {
         var counts2 = counts.map( function (e) {
              return { "text" : e['word'], "size" : 10+2*parseInt(e['count'],10) };
         });
-        height+=5;
         draw_graph(height);
       }
     }
@@ -46,10 +44,12 @@ function update_graph() {
 }
 
 function draw_graph(h){
-  var columnSize = 50, margin = 10, step = 2, i;
+    var columnSize = 50, margin = 10, step = 2, i;
+   answers = document.getElementsByClassName("answers");
   sections = answers.length;
   ctx.font = "20pt Arial";
   ctx.textBaseline = "bottom";
+   
   for(i = 0; i<section; i+=1){
     ctx.fillText(answers[i], 10 * i, 10 * i);
   }
@@ -58,9 +58,9 @@ function draw_graph(h){
 }
 
 window.onload = function () {
-  var timeout_id, canvas = document.getElementById("live_stats"),
-  time_text = document.getElementById("timer"),
-  answers = document.getElementsByName("answers");
+    var timeout_id, canvas = document.getElementById("live_stats"),
+        time_text = document.getElementById("timer"),
+        answers = document.getElementsByClassName("answers");
   timeout_id = setInterval(update_graph, 1000);
   ctx = canvas.getContext('2d');
   timer();
