@@ -135,7 +135,7 @@ colors:
   flex-direction: column;
   align-content: center;
   width: 100%;
-  padding-bottom: 25%;
+  padding-bottom: 5%;
 }
 
 #studentHomePage, .question, .answerBox, .changePwContainer,
@@ -402,6 +402,15 @@ th {
   color: white;
   padding: 1%;
 }
+
+canvas {
+  padding-bottom: 5%;
+}
+
+#right, #wrong {
+  display: inline;
+}
+
 /*
 Responsive design things begin here.
 */
@@ -530,7 +539,7 @@ Responsive design things begin here.
   flex-direction: column;
   align-content: center;
   width: 100%;
-  padding-bottom: 25%;
+  padding-bottom: 5%;
 }
 
 #studentHomePage, .question, .answerBox, .changePwContainer,
@@ -922,7 +931,7 @@ th {
   flex-direction: column;
   align-content: center;
   width: 100%;
-  padding-bottom: 25%;
+  padding-bottom: 5%;
 }
 
 #studentHomePage, .question, .answerBox, .changePwContainer,

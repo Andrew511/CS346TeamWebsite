@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   activate_question($id, 3, $activate_start);
   $q = get_active_question($id);
   $answers = get_answer_choices($id);
+  $print = get_answer_choices($id);
 }
 ?>
 
@@ -43,13 +44,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               echo $question['QuestionText'];
               echo "</p>";
             }
+            
+          echo "<p>Answer Options:</p>";
+          echo "<ul>";
+          if($question['QuestionType'] === "short"){
+            foreach($print as $print){
+              echo "<li>";
+              echo "{$print["ShortAnswer"]}";
+              echo "</li>";
+            }    
+          }
+          else{
+            foreach($print as $print){
+              if("{$print['Correct']}"){
+                echo "<input type=\"hidden\" name=\"correct_answers[]\" 
+                      value=\"";
+                echo "{$print["AnswerText"]}";
+                echo "\">";
+              }
+              echo "<li>";
+              echo "{$print["AnswerText"]}";
+              echo "</li>";
+            }
+          }
+          echo "</ul>";
           ?>
-
           <h2 id="timer"><time>00:00:00</time></h2>
         </div>
-        <canvas id="live_stats" width="300" height="400"></canvas>
+        
         <form method="post">
           <input type="hidden" name="id" value="<?php echo $id?>">
+          <input type="hidden" name="type" value="<?php echo $question['QuestionType']?>">
           <?php
 
               if($question['QuestionType'] === "short"){
@@ -59,11 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   echo "{$answers['ShortAnswer']}";
                   echo "\">";
                 }
-                echo "{$answers['ShortAnswer']}";
               }
               else {
                 foreach($answers as $answers){
-                  echo "<input type=\"hidden\" class=\"answers\" name=\"answers[]\"
+                  echo "<input type=\"hidden\" class=\"answer\" name=\"answers[]\"
                   value=\"";
                   echo "{$answers['AnswerText']}";
                   echo "\">";
@@ -71,10 +95,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               }
 
            ?>
-          <button type="sumbit" id="deactivate"
+          <button type="sumbit" name="deactivate"
               formaction="confirmDeactivate.php">Deactivate</button>
         </form>
+        
+        <p id="right"> </p>
+        <p id="wrong"></p>
       </div>
+      
+      <canvas id="live_stats" width="1000" height="400"></canvas>
     </div>
     <?php include 'footer.php';?>
   </body>
