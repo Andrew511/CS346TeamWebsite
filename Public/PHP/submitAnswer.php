@@ -90,6 +90,9 @@ $student = get_student_by_username($_SESSION['username']);
 
         <?php
         add_score($_POST['QuestionId'], $student['StudentId'], $score, $studentAnswer );
+		if ($score === $totalScore) {
+			add_correct_submission($question['QuestionId']);
+		}
         ?>
       </div>
     </div>

@@ -56,6 +56,22 @@ function add_score($questionId, $studentId, $score, $studentAnswer) {
   }
 }
 
+function add_correct_submission($questionId) {
+	global $db;
+
+  try{
+    $query = "UPDATE Questions 
+              SET CorrectSubmissions = CorrectSubmissions + 1
+			  WHERE QuestionId = :questionId
+              ";
+    $stmt = $db->prepare($query);
+    $stmt->execute(["questionId" => $questionId]);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error incrementing the correct submissions.");
+  }
+}
+
 function get_active() {
   global $db;
 
