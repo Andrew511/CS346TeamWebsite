@@ -7,7 +7,7 @@ require_once($dir.'/initialize.php') ;
 global $db ;
 if(!isset($_SESSION['ID']))
 	{
-		header("Location:" . $pdir . "/login.php") ;
+		header("Location:" . $pdir . "/Login.php") ;
 	}
 	else
 	{
