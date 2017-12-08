@@ -3,7 +3,7 @@ define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
 require_once('../../Private/PHP/initialize.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id = $_POST['id'];
-  $end = date('m/d/Y h:i:s a' , time());
+  $end = date('Y/m/d h:i:s a' , time());
 
 }
 
