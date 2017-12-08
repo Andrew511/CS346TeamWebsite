@@ -12,6 +12,7 @@ $q = get_completed_question_list();
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
       rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
   </head>
 
   <body>
