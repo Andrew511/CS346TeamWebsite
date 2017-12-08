@@ -41,7 +41,7 @@ function update_graph() {
       }
     }
   };
-  ajax.open("GET", "get_student_anwers.php", true);
+  ajax.open("GET", "get_student_answers.php", true);
   ajax.send(null);
 }
 

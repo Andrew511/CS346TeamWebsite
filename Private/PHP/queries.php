@@ -427,7 +427,7 @@ function get_keyword_list($id) {
   }
 }
 
-function get_student_anwers($id) {
+function get_student_answers($id) {
   global $db;
 
   try{
