@@ -1,5 +1,19 @@
 <?php
-
+	session_start()  ;
+	$dir = '/var/www/students/team6/CS346TeamWebsite/Private/PHP' ;
+	$pdir = '/students/team6/CS346TeamWebsite/Public/PHP' ;
+	require_once($dir.'/initialize.php') ;
+	global $db ;
+	if(!isset($_SESSION['ID']))
+	{
+		header("Location:" . $pdir . "/Login.php") ;
+	}
+	else
+	{
+		$UN = $_SESSION['username'] ;
+		$id = $_SESSION['ID'] ;
+		$role = $_SESSION['role'] ;
+	}
   define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
   require_once(SITE_ROOT.'/Private/PHP/initialize.php');
 
@@ -10,9 +24,19 @@
        1) retrieve the question based on the form data
        2) disconnect from the database
     */
-    
-    $q = search($_POST['keywordSearch'], $_POST['section'], 
-			    $_POST['score'], $_POST['pointsAvailable']); 
+    $keyword = $_POST['keywordSearch'];
+	$section = $_POST['section'];
+	$score = $_POST['score'];
+	$pointsAv = $_POST['pointsAvailable'];
+	if(!isset($keyword))
+	{$keyword = 'Null';}
+	if(!isset($section))
+	{$section = 'Null';}
+	if(!isset($score))
+	{$score = 'Null';}
+	if(!isset($pointsAv))
+	{$pointsAv = 'Null';}
+    $q = search($keyword,$section,$score,$pointsAv); 
 	if($q == null)
 	{
 	echo "No Result, please modify your seach.";
@@ -37,6 +61,7 @@
     <meta charset="utf-8" />
     <title>UWO WebCLICKER</title>
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
       rel="stylesheet"/>
   </head>

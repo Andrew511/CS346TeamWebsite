@@ -402,3 +402,789 @@ th {
   color: white;
   padding: 1%;
 }
+/*
+Responsive design things begin here.
+*/
+@media screen and (max-width: 800px) 
+{
+#loginHeader, #resetHeader {
+  font-family: 'Abril Fatface', cursive;
+  font-size: 32pt;
+  font-variant: small-caps;
+  text-align: center;
+  margin: 0px;
+  margin-bottom: 25px;
+  color: #868F98;
+}
+
+#loginBox, #resetBox {
+  box-sizing: border-box;
+  border: 10px solid black;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  padding: 50px;
+  font-family: 'Arial Narrow', 'Arial', sans-serif;
+  color: #212930;
+  font-size: 13pt;
+  text-align: center;
+}
+
+#loginBox input[type='radio']{
+  transform: scale(2);
+}
+
+#loginBox input[type='submit'], #resetBox input[type='submit'] {
+  color: black;
+  background-color: #868F98;
+  padding: 5px 5px;
+  font-size: 15px;
+  margin-bottom: 15px;
+  width: 45%;
+  border: 2px solid black;
+  margin-top: 10px;
+}
+
+#loginBox input[type='text'], #resetBox input[type='email'], #loginBox input[type='password'] {
+  padding: 5px;
+  margin: 10px;
+  width: 30%;
+  height: 40px;
+  margin-right: 4px;
+  font-size: 15px;
+} 
+
+#resetLink:link, #loginLink:link {
+  color: #00344D;
+  font-size: 16pt;
+}
+
+#resetLink:visited, #loginLink:visited {
+  color: #868F98;
+}
+
+#loginfooter, #resetFooter {
+  box-sizing: border-box;
+  padding-top: 5%;
+  padding-right: 5%;
+  border: none;
+  background-color: white;
+}
+
+/*Login ends here Begin main page*/
+
+#pageHeader {
+  font-family: 'Abril Fatface', cursive;
+  font-size: 20pt;
+  font-variant: small-caps;
+  text-align: center;
+  margin: 0px;
+  margin-bottom: 0px;
+  color: #868F98;
+  padding-top: 10px;
+}
+.navigation {
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  font-family: sans-serif;
+  font-size: 10pt;
+  box-sizing: border-box;
+  margin: 0px;
+  top: 0;
+  padding: 7px;
+  width: 100%;
+  background-color: #212930;
+
+}
+
+.navigation a:link {
+  color: #C3C8CD;
+  text-decoration: none;
+}
+
+.navigation a:hover {
+  color: LightBlue;
+  text-decoration: underline;
+}
+
+.navigation a:visited {
+  color: LightBlue;
+  text-decoration: none;
+}
+
+#headerTitle {
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+  display:inline-block;
+  padding: 15px;
+}
+
+#flexContainer{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  width: 100%;
+  padding-bottom: 25%;
+}
+
+#studentHomePage, .question, .answerBox, .changePwContainer,
+.searchContainer, #instructorOptions,  #activateQuestions,
+#directoryQuestions, #statistics {
+  color: black;
+  padding-top: 20px;
+  box-sizing: border-box;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.question input[type="checkbox"] {
+  margin-left: 6px;
+}
+
+.border {
+  width: 75%;
+  border-left: 1px solid #C3C8CD;
+  border-right: 1px solid #C3C8CD;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.question, .answer, .searchContainer, #instructorOptions, #directoryQuestions,
+#activateQuestions, #statistics, .tables {
+  text-align: left;
+  padding-bottom: 5%;
+}
+
+.searchContainer {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 32%;
+}
+
+#reviewSearch {
+  padding-bottom: 25%;
+}
+
+.pwBox {
+  text-align: left;
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10%;
+}
+
+.pwBox label {
+  margin-left: 10px;
+}
+
+.pwBox input[type='text'] {
+  margin-left: 3px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.pwBox input[type='password'] {
+  margin-left: 3px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#q2, .answerBox, #activateQuestions, #example, #directoryQuestions,
+#statistics, #studentHomePage {
+  padding-bottom: 25%;
+}
+
+.confirm  {
+  padding-bottom: 33%;
+}
+
+#q1 {
+  padding-bottom: 10%;
+}
+
+input[type='submit'], button {
+  padding: 3px;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  background-color: #212930;
+  color: white;
+  border: 1px solid black;
+}
+
+button {
+  margin-bottom: 0px;
+}
+
+input[type='text'], input[type='number'] {
+  width: 100%;
+  padding: 3px;
+  margin-top: 3px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.footer {
+  background-color: black;
+  color: white;
+  text-align: right;
+  box-sizing: border-box;
+  margin: 0px;
+  height: 15%;
+  padding: 10px;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.questionNumbers {
+  display: inline;
+}
+
+#searchOptions, #keyword {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+#keyword {
+  padding-bottom: 10px;
+  justify-content: space-between;
+}
+
+#keyword input[type='text'], #keyword input[type='submit']{
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+#keyword input[type='text']{
+  width: 50%;
+}
+
+.options {
+  width: 20%;
+}
+
+#searchButton {
+  width: 25%;
+  box-sizing: border-box;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#keywordSearch  {
+  margin: 15px;
+  margin-left: auto;
+  margin-right: 3px;
+  box-sizing: border-box;
+}
+
+#keywordButton {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.homeOptions {
+  list-style-type: none;
+  box-sizing: border-box;
+  margin: 0px;
+  padding-bottom: 30%;
+}
+
+#activateQuestions p, #directoryQuestions p {
+  box-sizing: border-box;
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#home, #nextQuestion {
+  font-weight: bold;
+}
+
+.timer {
+  align-self: flex-end;
+  padding-bottom: 12%;
+}
+
+.questionText {
+  width: 100%;
+  box-sizing: border-box;
+  height: 300px;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 3px;
+  height: 50px;
+}
+
+#errorMessage {
+  display: none;
+}
+
+body {
+  margin: 0px;
+  font-family: 'Arial', sans-serif;
+  font-size: 10pt;
+  border: 3px solid black;
+}
+
+#mainU, #mainW, #mainC {
+  color: gold;
+}
+
+#mainO {
+  color: black;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+strong {
+  font-weight: bold;
+}
+
+a:link {
+  color: #00344D;
+}
+
+a:visited {
+  color: #212930;
+}
+
+select {
+  margin: 7px;
+  margin-left: 0px;
+  width: 100%;
+  padding: 7px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid black;
+  padding: 1%;
+}
+
+th {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  padding: 1%;
+}
+
+}/*800px style*/
+
+@media screen and (max-width: 450px) 
+{
+  #loginHeader, #resetHeader {
+  font-family: 'Abril Fatface', cursive;
+  font-size: 24pt;
+  font-variant: small-caps;
+  text-align: center;
+  margin: 0px;
+  margin-bottom: 15px;
+  color: #868F98;
+}
+
+#loginBox, #resetBox {
+  box-sizing: border-box;
+  border: 7px solid black;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  padding: 30px;
+  font-family: 'Arial Narrow', 'Arial', sans-serif;
+  color: #212930;
+  font-size: 10pt;
+  text-align: center;
+}
+
+#loginBox input[type='radio']{
+  transform: scale(2);
+}
+
+#loginBox input[type='submit'], #resetBox input[type='submit'] {
+  color: black;
+  background-color: #868F98;
+  padding: 5px 5px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  width: 45%;
+  border: 2px solid black;
+  margin-top: 7px;
+}
+
+#loginBox input[type='text'], #resetBox input[type='email'], #loginBox input[type='password'] {
+  padding: 5px;
+  margin: 10px;
+  width: 30%;
+  height: 40px;
+  margin-right: 4px;
+  font-size: 12px;
+} 
+
+#resetLink:link, #loginLink:link {
+  color: #00344D;
+  font-size: 10pt;
+}
+
+#resetLink:visited, #loginLink:visited {
+  color: #868F98;
+}
+
+#loginfooter, #resetFooter {
+  box-sizing: border-box;
+  padding-top: 5%;
+  padding-right: 5%;
+  border: none;
+  background-color: white;
+}
+
+/*Login stuff ends here Begin main styling*/
+#pageHeader {
+  font-family: 'Abril Fatface', cursive;
+  font-size: 16pt;
+  font-variant: small-caps;
+  text-align: center;
+  margin: 0px;
+  margin-bottom: 0px;
+  color: #868F98;
+  padding-top: 8px;
+}
+.navigation {
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  font-family: sans-serif;
+  font-size: 8pt;
+  box-sizing: border-box;
+  margin: 0px;
+  top: 0;
+  padding: 5px;
+  width: 100%;
+  background-color: #212930;
+
+}
+
+.navigation a:link {
+  color: #C3C8CD;
+  text-decoration: none;
+}
+
+.navigation a:hover {
+  color: LightBlue;
+  text-decoration: underline;
+}
+
+.navigation a:visited {
+  color: LightBlue;
+  text-decoration: none;
+}
+
+#headerTitle {
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+  display:inline-block;
+  padding: 10px;
+}
+
+#flexContainer{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  width: 100%;
+  padding-bottom: 25%;
+}
+
+#studentHomePage, .question, .answerBox, .changePwContainer,
+.searchContainer, #instructorOptions,  #activateQuestions,
+#directoryQuestions, #statistics {
+  color: black;
+  padding-top: 15px;
+  box-sizing: border-box;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.question input[type="checkbox"] {
+  margin-left: 3px;
+}
+
+.border {
+  width: 75%;
+  border-left: 1px solid #C3C8CD;
+  border-right: 1px solid #C3C8CD;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.question, .answer, .searchContainer, #instructorOptions, #directoryQuestions,
+#activateQuestions, #statistics, .tables {
+  text-align: left;
+  padding-bottom: 5%;
+}
+
+.searchContainer {
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 32%;
+}
+
+#reviewSearch {
+  padding-bottom: 25%;
+}
+
+.pwBox {
+  text-align: left;
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10%;
+}
+
+.pwBox label {
+  margin-left: 7px;
+}
+
+.pwBox input[type='text'] {
+  margin-left: 2px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.pwBox input[type='password'] {
+  margin-left: 2px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#q2, .answerBox, #activateQuestions, #example, #directoryQuestions,
+#statistics, #studentHomePage {
+  padding-bottom: 25%;
+}
+
+.confirm  {
+  padding-bottom: 33%;
+}
+
+#q1 {
+  padding-bottom: 10%;
+}
+
+input[type='submit'], button {
+  padding: 2px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  background-color: #212930;
+  color: white;
+  border: 1px solid black;
+}
+
+button {
+  margin-bottom: 0px;
+}
+
+input[type='text'], input[type='number'] {
+  width: 100%;
+  padding: 2px;
+  margin-top: 3px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.footer {
+  background-color: black;
+  color: white;
+  text-align: right;
+  box-sizing: border-box;
+  margin: 0px;
+  height: 15%;
+  padding: 7px;
+}
+
+.footer a {
+  text-decoration: none;
+}
+
+.questionNumbers {
+  display: inline;
+}
+
+#searchOptions, #keyword {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+#keyword {
+  padding-bottom: 7px;
+  justify-content: space-between;
+}
+
+#keyword input[type='text'], #keyword input[type='submit']{
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+#keyword input[type='text']{
+  width: 50%;
+}
+
+.options {
+  width: 20%;
+}
+
+#searchButton {
+  width: 25%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#keywordSearch  {
+  margin: 10px;
+  margin-left: auto;
+  margin-right: 2px;
+  box-sizing: border-box;
+}
+
+#keywordButton {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.homeOptions {
+  list-style-type: none;
+  box-sizing: border-box;
+  margin: 0px;
+  padding-bottom: 30%;
+}
+
+#activateQuestions p, #directoryQuestions p {
+  box-sizing: border-box;
+  margin: 0px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+#home, #nextQuestion {
+  font-weight: bold;
+}
+
+.timer {
+  align-self: flex-end;
+  padding-bottom: 12%;
+}
+
+.questionText {
+  width: 100%;
+  box-sizing: border-box;
+  height: 200px;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2px;
+  height: 35px;
+}
+
+#errorMessage {
+  display: none;
+}
+
+body {
+  margin: 0px;
+  font-family: 'Arial', sans-serif;
+  font-size: 8pt;
+  border: 2px solid black;
+}
+
+#mainU, #mainW, #mainC {
+  color: gold;
+}
+
+#mainO {
+  color: black;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+strong {
+  font-weight: bold;
+}
+
+a:link {
+  color: #00344D;
+}
+
+a:visited {
+  color: #212930;
+}
+
+select {
+  margin: 5px;
+  margin-left: 0px;
+  width: 100%;
+  padding: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid black;
+  padding: 1%;
+}
+
+th {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  padding: 1%;
+}
+}/*450px style*/

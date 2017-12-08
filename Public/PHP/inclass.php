@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
     <title>UWO WebCLICKER</title>
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
@@ -50,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="post">
           <input type="hidden" name="id" value="<?php echo $id?>">
           <?php
+
               if($question['QuestionType'] === "short"){
                 foreach($answers as $answers){
                   echo "<input type=\"hidden\" class=\"answer\" name=\"answers[]\"
@@ -67,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   echo "\">";
                 }
               }
+
            ?>
           <button type="sumbit" id="deactivate"
               formaction="confirmDeactivate.php">Deactivate</button>

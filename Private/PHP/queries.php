@@ -41,18 +41,34 @@ function get_student_by_username($username) {
 }
 
 
-function add_score($questionId, $studentId, $score) {
+function add_score($questionId, $studentId, $score, $studentAnswer) {
   global $db;
 
   try{
-    $query = "INSERT INTO Scores (QuestionId, UserId, Score)
-              VALUES (:questionId, :userId, :score)
+    $query = "INSERT INTO Scores (QuestionId, UserId, Score, StudentAnswer)
+              VALUES (:questionId, :userId, :score, :studentAnswer)
               ";
     $stmt = $db->prepare($query);
-    $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score]);
+    $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score, "studentAnswer" => $studentAnswer]);
   } catch (PDOException $e) {
     db_disconnect();
     exit("There was an error inserting the score to the database.");
+  }
+}
+
+function add_correct_submission($questionId) {
+	global $db;
+
+  try{
+    $query = "UPDATE Questions 
+              SET CorrectSubmissions = CorrectSubmissions + 1
+			  WHERE QuestionId = :questionId
+              ";
+    $stmt = $db->prepare($query);
+    $stmt->execute(["questionId" => $questionId]);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error incrementing the correct submissions.");
   }
 }
 
@@ -504,11 +520,10 @@ function search($keyword, $section , $score, $pointsAvailable) {
 				AND (Score IS NULL OR Score = :score)
 				AND (PointsAvailable IS NULL OR PointsAvailable = :pointsAvailable)
 				AND (Status = :status)
-                INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId
-				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
+                INNER JOIN Keywords ON Questions.QuestionId = Keywords.QuestionId
+				INNER JOIN Scores ON Questions.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
-      $stmt->execute(["keyword" => $keyword ,"section" => $section ,
-					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable, "status" =>4]);
+      $stmt->execute(["keyword"=>$keyword,"section"=>$section,"score"=>$score ,"pointsAvailable"=>$pointsAvailable,"status"=>4]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
@@ -517,12 +532,25 @@ function search($keyword, $section , $score, $pointsAvailable) {
     }
 }
 
+function display_PAV_table() { //function to populate all the scores in the database.
+  global $db;
+
+  try{
+    $query = "SELECT DISTINCT PointsAvailable FROM Questions";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of PointsAvailable.");
+  }
+}
+
 function display_S_table() { //function to populate all the scores in the database.
   global $db;
 
   try{
-    $query = "SELECT Score
-              FROM Scores";
+    $query = "SELECT DISTINCT Score FROM Scores";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
