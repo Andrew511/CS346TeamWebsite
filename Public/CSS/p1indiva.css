@@ -199,6 +199,13 @@ colors:
   width: 100%;
 }
 
+.pwBox input[type='password'] {
+  margin-left: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
 #q2, .answerBox, #activateQuestions, #example, #directoryQuestions,
 #statistics, #studentHomePage {
   padding-bottom: 25%;

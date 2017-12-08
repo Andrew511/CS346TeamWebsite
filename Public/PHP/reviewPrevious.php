@@ -1,7 +1,26 @@
 <?php
+	
+	session_start()  ;
+$dir = '/var/www/students/team6/CS346TeamWebsite/Private/PHP' ;
+$pdir = '/students/team6/CS346TeamWebsite/Public/PHP' ;
+require_once($dir.'/initialize.php') ;
+global $db ;
+if(!isset($_SESSION['ID']))
+	{
+		header("Location:" . $pdir . "/Login.php") ;
+	}
+	else
+	{
+		$UN = $_SESSION['username'] ;
+		$id = $_SESSION['ID'] ;
+		$role = $_SESSION['role'] ;
+	}
 
   define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
   require_once(SITE_ROOT.'/Private/PHP/initialize.php');
+
+
+
 
   /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // this is a POST request and thus a form submission: process the form data
@@ -11,26 +30,9 @@
        2) disconnect from the database
     */
     $q = get_question_list();
+	$points = get_question_list();
 	$p = display_S_table();
 	$k = display_K_table();
-    if(isset($q))
-	{echo "error retrieve the questions";
-	}  
-		 
-	if(isset($p))
-	{
-	echo "error retrieve the score";
-	}
-	
-		
-if(isset($k))
-	{
-	echo "error retrieve the keyword";
-	}
-	
-	
-    
-
   /* else {
     // this is a GET request: no form data to process
 
@@ -49,6 +51,7 @@ if(isset($k))
 <html>
   <head>
     <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UWO WebCLICKER</title>
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
@@ -65,33 +68,57 @@ if(isset($k))
               <div id="keyword">
               </div>
               <div id="searchOptions">
-                <select name="keywordSearch" size="4" class="options"
+			
+				
+                <select name="keywordSearch[]" size="4" class="options"
                   multiple>
-				  <?php foreach ($k as $k => $value)
-							
-							echo "<option>".$k['Keyword']."</option>";
+				  <?php
+				  foreach ($k as $k)
+							{
+							echo "<option value=\"";
+							echo "{$k['Keyword']}";
+							echo "\">";
+							echo "{$k['Keyword']}";
+							echo "</option>";
+							}
 							?>               
                 </select>
                 <select name="section" size="4" class="options"
                   multiple>
-				  <?php foreach ($q as $key => $value)
-								
-							echo "<option>". $q['Section']."</option>";
+				  <?php foreach ($q as $q)
+							{
+							echo "<option value=\"";
+							echo "{$q['Section']}";
+							echo "\">";
+							echo "{$q['Section']}";
+							echo "</option>";
+							}
 							?>        
                 </select>
                 <select name="pointsAvailable" size="4" class="options"
                   multiple>
-				  <?php foreach ($q as $key => $value)
-				  
-							echo "<option>" .$q['PointsAvailable']."</option>";
+				  <?php  foreach ($points as $points)
+							{
+							echo "<option value=\"";
+							echo "{$points['PointsAvailable']}";
+							echo "\">";
+							echo "{$points['PointsAvailable']}";
+							echo "</option>";
+							}
 							?>
                 </select>
                 <select name="score" size="4" class="options"
                   multiple>
-				  <?php array_unique($p);
-						foreach ($p as $key => $value)
-						
-							echo "<option>". $p['Score']."</option>";?>
+				  <?php 
+						foreach ($p as $p)
+						{
+							echo "<option value=\"";
+							echo "{$p['Score']}";
+							echo "\">";
+							echo "{$p['Score']}";
+							echo "</option>";
+							}
+							?>
                   <option></option>
                 </select>
                 <input type="submit" value="Search" id="searchButton"/>

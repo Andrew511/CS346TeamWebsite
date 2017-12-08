@@ -41,18 +41,34 @@ function get_student_by_username($username) {
 }
 
 
-function add_score($questionId, $studentId, $score) {
+function add_score($questionId, $studentId, $score, $studentAnswer) {
   global $db;
 
   try{
-    $query = "INSERT INTO Scores (QuestionId, UserId, Score)
-              VALUES (:questionId, :userId, :score)
+    $query = "INSERT INTO Scores (QuestionId, UserId, Score, StudentAnswer)
+              VALUES (:questionId, :userId, :score, :studentAnswer)
               ";
     $stmt = $db->prepare($query);
-    $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score]);
+    $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score, "studentAnswer" => $studentAnswer]);
   } catch (PDOException $e) {
     db_disconnect();
     exit("There was an error inserting the score to the database.");
+  }
+}
+
+function add_correct_submission($questionId) {
+	global $db;
+
+  try{
+    $query = "UPDATE Questions 
+              SET CorrectSubmissions = CorrectSubmissions + 1
+			  WHERE QuestionId = :questionId
+              ";
+    $stmt = $db->prepare($query);
+    $stmt->execute(["questionId" => $questionId]);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error incrementing the correct submissions.");
   }
 }
 
@@ -114,7 +130,7 @@ function get_avg($questionId) {
     $query = "SELECT AVG(Score) AS Average FROM Scores
               WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
-    $stmt->execute(["questionId" => $questionId]);
+    $stmt->execute([":questionId" => $questionId]);
     return  $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
       db_disconnect();
@@ -184,11 +200,11 @@ function update_question($id, $status, $type, $text, $points, $section, $descrip
   try {
     $query = "UPDATE Questions
               SET Status =:status, QuestionType =:type,
-                  QuestionText =:qtext, PointsAvailable =:points, Section =:section, 
+                  QuestionText =:qtext, PointsAvailable =:points, Section =:section,
                   Description =:description
               WHERE QuestionId =:qId";
     $stmt = $db->prepare($query);
-    $stmt->execute([":qId" => $id, ":status"=>$status, ":type"=>$type, ":qtext"=>$text, 
+    $stmt->execute([":qId" => $id, ":status"=>$status, ":type"=>$type, ":qtext"=>$text,
                     ":points"=>$points, ":section"=>$section, ":description"=>$description]);
     return true;
   } catch (PDOException $e) {
@@ -197,6 +213,59 @@ function update_question($id, $status, $type, $text, $points, $section, $descrip
             "question.");
   }
 }
+
+function activate_question($questionId, $statusId, $activate_start) { // can be used to set to draft or activate as well as deactivate a single question
+  global $db;
+
+    try {
+      $query = "UPDATE Questions
+                SET Status = :status, ActivationStart =:start
+                WHERE QuestionId = :questionId";
+      $stmt = $db->prepare($query);
+      $stmt->execute([":questionId" => $questionId, ":status" => $statusId,
+                      ":start" => $activate_start ]);
+      return  true;
+    } catch (PDOException $e) {
+        db_disconnect();
+        exit("Aborting: There was a database error when changing " .
+             "the question status.");
+    }
+}
+
+function deactivate_question($questionId, $statusId, $time) { // can be used to set to draft or activate as well as deactivate a single question
+  global $db;
+
+    try {
+      $query = "UPDATE Questions
+                SET Status = :status, ActivationEnd = :endTime
+                WHERE QuestionId = :questionId";
+      $stmt = $db->prepare($query);
+      $stmt->execute([":questionId" => $questionId, ":status" => $statusId,
+                      ":endTime" => $time ]);
+      return  true;
+    } catch (PDOException $e) {
+        db_disconnect();
+        exit("Aborting: There was a database error when changing " .
+             "the question status.");
+    }
+}
+
+function get_active_question($id) {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE Status = 3 AND QuestionId = :id";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of active questions.");
+  }
+}
+
 
 /*
 tested & works on webdev server
@@ -374,6 +443,22 @@ function get_keyword_list($id) {
   }
 }
 
+function get_student_answers($id) {
+  global $db;
+
+  try{
+    $query = "SELECT StudentAnswer
+              FROM Scores WHERE QuestionId = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions available to edit.");
+  }
+}
+
 function get_answer_choices($id){
   global $db;
   try{
@@ -435,8 +520,8 @@ function search($keyword, $section , $score, $pointsAvailable) {
 				AND (Score IS NULL OR Score = :score)
 				AND (PointsAvailable IS NULL OR PointsAvailable = :pointsAvailable)
 				AND (Status = :status)
-                INNER JOIN Questions ON Question.QuestionId = Keywords.QuestionId
-				INNER JOIN Questions ON Question.QuestionId = Scores.QuestionId";
+                INNER JOIN Keywords ON Question.QuestionId = Keywords.QuestionId
+				INNER JOIN Scores ON Question.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
       $stmt->execute(["keyword" => $keyword ,"section" => $section ,
 					  "score"=>$score ,"pointsAvailable"=>$pointsAvailable, "status" =>4]);
@@ -467,8 +552,7 @@ function display_K_table() { //function to populate all the keywords in the data
   global $db;
 
   try{
-    $query = "SELECT Keyword
-              FROM Keywords";
+    $query = "SELECT DISTINCT Keyword FROM Keywords";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);

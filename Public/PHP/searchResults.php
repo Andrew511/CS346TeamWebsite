@@ -1,5 +1,19 @@
 <?php
-
+	session_start()  ;
+	$dir = '/var/www/students/team6/CS346TeamWebsite/Private/PHP' ;
+	$pdir = '/students/team6/CS346TeamWebsite/Public/PHP' ;
+	require_once($dir.'/initialize.php') ;
+	global $db ;
+	if(!isset($_SESSION['ID']))
+	{
+		header("Location:" . $pdir . "/Login.php") ;
+	}
+	else
+	{
+		$UN = $_SESSION['username'] ;
+		$id = $_SESSION['ID'] ;
+		$role = $_SESSION['role'] ;
+	}
   define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
   require_once(SITE_ROOT.'/Private/PHP/initialize.php');
 
@@ -37,6 +51,7 @@
     <meta charset="utf-8" />
     <title>UWO WebCLICKER</title>
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
       rel="stylesheet"/>
   </head>
@@ -51,20 +66,20 @@
             <div>
 			<?php
 					echo "<ul><li>Keyword:" ;
-					echo $_POST['keyword'];
+					echo "{$_POST['keyword']}";
 					echo"</li><li>Section:";
-					echo $_POST['section'];
+					echo "{$_POST['section']}";
 					echo "</li><li>Your score:";
-					echo $_POST['score'];
+					echo "{$_POST['score']}";
 					echo "</li><li>Total score:";
-					echo $_POST['pointsAvailable'];
+					echo "{$_POST['pointsAvailable']}";
 					echo"</li>";
-				foreach($q as $key => $value)
+				foreach($q as $q)
 			   {
 				    echo "<li>Question id:";
-					echo $q['QuestionId'];
+					echo "{$q['QuestionId']}";
 					echo "</li><li>Question :";
-					echo $q['QuestionText'];
+					echo "{$q['QuestionText']}";
 					echo "</li>";
 				}
 					echo "</ul>";
