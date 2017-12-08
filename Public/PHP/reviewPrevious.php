@@ -1,7 +1,26 @@
 <?php
+	
+	session_start()  ;
+$dir = '/var/www/students/team6/CS346TeamWebsite/Private/PHP' ;
+$pdir = '/students/team6/CS346TeamWebsite/Public/PHP' ;
+require_once($dir.'/initialize.php') ;
+global $db ;
+if(!isset($_SESSION['ID']))
+	{
+		header("Location:" . $pdir . "/login.php") ;
+	}
+	else
+	{
+		$UN = $_SESSION['username'] ;
+		$id = $_SESSION['ID'] ;
+		$role = $_SESSION['role'] ;
+	}
 
   define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
   require_once(SITE_ROOT.'/Private/PHP/initialize.php');
+
+
+
 
   /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // this is a POST request and thus a form submission: process the form data
@@ -32,6 +51,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UWO WebCLICKER</title>
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
