@@ -1,7 +1,9 @@
 /*jslint browser: true */
 /*jslint white: true */
 "use strict";
-var seconds = 0, minutes = 0, hours = 0, t, time_text, ctx, height = 0, section;
+
+var seconds = 0, minutes = 0, hours = 0, t, time_text, ctx, height = 0;
+
 
 function timer() {
   t = setTimeout(add, 1000);
@@ -29,13 +31,16 @@ function add() {
 function update_graph() {
   var ajax = new XMLHttpRequest(), id = document.getElementsByName("id");
   ajax.onreadystatechange = function() {
-    if(ajax.readyState == 4){
-      if (ajax.readyState == 4) {
+    if(ajax.readyState === 4){
+      if (ajax.readyState === 4) {
         var counts = JSON.parse(ajax.responseText);
         var counts2 = counts.map( function (e) {
              return { "text" : e['word'], "size" : 10+2*parseInt(e['count'],10) };
         });
-        draw_graph(height);
+        
+        height+=5;
+        draw_graph(height, counts);
+
       }
     }
   };
@@ -44,24 +49,30 @@ function update_graph() {
 }
 
 function draw_graph(h){
-    var columnSize = 50, margin = 10, step = 2, i;
-   answers = document.getElementsByClassName("answers");
-  sections = answers.length;
-  ctx.font = "20pt Arial";
-  ctx.textBaseline = "bottom";
-   
-  for(i = 0; i<section; i+=1){
-    ctx.fillText(answers[i], 10 * i, 10 * i);
+  
+  var columnSize = 50, margin = 0, step = 2, i,
+  answers = document.getElementsByClassName("answer"),
+  canvas = document.getElementById("live_stats"), ctx = canvas.getContext('2d'),
+  sections = answers.length, width;
+  width = canvas.width;
+  ctx.fillStyle = "black";
+  ctx.font = "12px sans-serif";
+  ctx.textBaseline = "baseline";
+  for(i = 0; i<sections; i+=1){
+    ctx.fillText(answers[i].value, 10+margin, 300);
+    margin += 10;
+
   }
-  ctx.fillStyle = black;
-  grid.fillRect(10, 10, 15, h);
+
+//  ctx.fillRect(10, 10, 15, h);
 }
 
+
 window.onload = function () {
-    var timeout_id, canvas = document.getElementById("live_stats"),
-        time_text = document.getElementById("timer"),
-        answers = document.getElementsByClassName("answers");
+
+  var timeout_id,  time_text = document.getElementById("timer");
+
   timeout_id = setInterval(update_graph, 1000);
-  ctx = canvas.getContext('2d');
   timer();
+
 };

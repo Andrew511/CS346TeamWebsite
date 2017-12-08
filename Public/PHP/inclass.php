@@ -47,28 +47,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           <h2 id="timer"><time>00:00:00</time></h2>
         </div>
-        <canvas id="live_stats" width="300" height="300"></canvas>
+        <canvas id="live_stats" width="300" height="400"></canvas>
         <form method="post">
           <input type="hidden" name="id" value="<?php echo $id?>">
           <?php
-			if($question['QuestionType'] === "short"){
-				foreach($answers as $answers){
-				  echo "<input type=\"hidden\" class=\"answer\" name=\"answers[]\"
-					value=\"";
-					echo "{$answers['ShortAnswer']}";
-					echo "\">";
-				}
-            }
-			else {
-				foreach($answers as $answers){
-				echo "<input type=\"hidden\" class=\"answers\" name=\"answers[]\"
-                value=\"";
-				echo "{$answers['AnswerText']}";
-				echo "\">";
-				 }
-			}
-			
-            
+
+              if($question['QuestionType'] === "short"){
+                foreach($answers as $answers){
+                  echo "<input type=\"hidden\" class=\"answer\" name=\"answers[]\"
+                  value=\"";
+                  echo "{$answers['ShortAnswer']}";
+                  echo "\">";
+                }
+                echo "{$answers['ShortAnswer']}";
+              }
+              else {
+                foreach($answers as $answers){
+                  echo "<input type=\"hidden\" class=\"answers\" name=\"answers[]\"
+                  value=\"";
+                  echo "{$answers['AnswerText']}";
+                  echo "\">";
+                }
+              }
+
            ?>
           <button type="sumbit" id="deactivate"
               formaction="confirmDeactivate.php">Deactivate</button>
