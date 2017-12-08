@@ -30,7 +30,7 @@ if(!isset($_SESSION['ID']))
        2) disconnect from the database
     */
     $q = get_question_list();
-	$points = get_question_list();
+	$points = display_PAV_table();
 	$p = display_S_table();
 	$k = display_K_table();
   /* else {
@@ -70,7 +70,7 @@ if(!isset($_SESSION['ID']))
               <div id="searchOptions">
 			
 				
-                <select name="keywordSearch[]" size="4" class="options"
+                <select name="keywordSearch" id="keywordSearch" size="4" class="options"
                   multiple>
 				  <?php
 				  foreach ($k as $k)
@@ -83,7 +83,7 @@ if(!isset($_SESSION['ID']))
 							}
 							?>               
                 </select>
-                <select name="section" size="4" class="options"
+                <select name="section" id="section" size="4" class="options"
                   multiple>
 				  <?php foreach ($q as $q)
 							{
@@ -95,7 +95,7 @@ if(!isset($_SESSION['ID']))
 							}
 							?>        
                 </select>
-                <select name="pointsAvailable" size="4" class="options"
+                <select name="pointsAvailable" id="pointsAvailable" size="4" class="options"
                   multiple>
 				  <?php  foreach ($points as $points)
 							{
@@ -107,7 +107,7 @@ if(!isset($_SESSION['ID']))
 							}
 							?>
                 </select>
-                <select name="score" size="4" class="options"
+                <select name="score" id="score" size="4" class="options"
                   multiple>
 				  <?php 
 						foreach ($p as $p)

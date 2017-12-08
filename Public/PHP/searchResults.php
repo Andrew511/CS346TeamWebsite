@@ -24,9 +24,19 @@
        1) retrieve the question based on the form data
        2) disconnect from the database
     */
-    
-    $q = search($_POST['keywordSearch'], $_POST['section'], 
-			    $_POST['score'], $_POST['pointsAvailable']); 
+    $keyword = $_POST['keywordSearch'];
+	$section = $_POST['section'];
+	$score = $_POST['score'];
+	$pointsAv = $_POST['pointsAvailable'];
+	if(!isset($keyword))
+	{$keyword = 'Null';}
+	if(!isset($section))
+	{$section = 'Null';}
+	if(!isset($score))
+	{$score = 'Null';}
+	if(!isset($pointsAv))
+	{$pointsAv = 'Null';}
+    $q = search($keyword,$section,$score,$pointsAv); 
 	if($q == null)
 	{
 	echo "No Result, please modify your seach.";
