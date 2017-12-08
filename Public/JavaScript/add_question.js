@@ -138,7 +138,7 @@ function add_answer_options(){
 }
 
 window.onload = function() {
-  var submit = document.getElementsByName("status"), i;
+  var submit = document.getElementsByName("submit"), i;
   if(document.getElementById("a_count")){
     count = parseInt(document.getElementById("a_count").value);
   }

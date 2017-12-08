@@ -114,7 +114,7 @@ function get_avg($questionId) {
     $query = "SELECT AVG(Score) AS Average FROM Scores
               WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
-    $stmt->execute(["questionId" => $questionId]);
+    $stmt->execute([":questionId" => $questionId]);
     return  $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
       db_disconnect();
@@ -184,11 +184,11 @@ function update_question($id, $status, $type, $text, $points, $section, $descrip
   try {
     $query = "UPDATE Questions
               SET Status =:status, QuestionType =:type,
-                  QuestionText =:qtext, PointsAvailable =:points, Section =:section, 
+                  QuestionText =:qtext, PointsAvailable =:points, Section =:section,
                   Description =:description
               WHERE QuestionId =:qId";
     $stmt = $db->prepare($query);
-    $stmt->execute([":qId" => $id, ":status"=>$status, ":type"=>$type, ":qtext"=>$text, 
+    $stmt->execute([":qId" => $id, ":status"=>$status, ":type"=>$type, ":qtext"=>$text,
                     ":points"=>$points, ":section"=>$section, ":description"=>$description]);
     return true;
   } catch (PDOException $e) {
@@ -197,6 +197,59 @@ function update_question($id, $status, $type, $text, $points, $section, $descrip
             "question.");
   }
 }
+
+function activate_question($questionId, $statusId, $activate_start) { // can be used to set to draft or activate as well as deactivate a single question
+  global $db;
+
+    try {
+      $query = "UPDATE Questions
+                SET Status = :status, ActivationStart =:start
+                WHERE QuestionId = :questionId";
+      $stmt = $db->prepare($query);
+      $stmt->execute([":questionId" => $questionId, ":status" => $statusId,
+                      ":start" => $activate_start ]);
+      return  true;
+    } catch (PDOException $e) {
+        db_disconnect();
+        exit("Aborting: There was a database error when changing " .
+             "the question status.");
+    }
+}
+
+function deactivate_question($questionId, $statusId, $time) { // can be used to set to draft or activate as well as deactivate a single question
+  global $db;
+
+    try {
+      $query = "UPDATE Questions
+                SET Status = :status, ActivationEnd = :endTime
+                WHERE QuestionId = :questionId";
+      $stmt = $db->prepare($query);
+      $stmt->execute([":questionId" => $questionId, ":status" => $statusId,
+                      ":endTime" => $time ]);
+      return  true;
+    } catch (PDOException $e) {
+        db_disconnect();
+        exit("Aborting: There was a database error when changing " .
+             "the question status.");
+    }
+}
+
+function get_active_question($id) {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE Status = 3 AND QuestionId = :id";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of active questions.");
+  }
+}
+
 
 /*
 tested & works on webdev server

@@ -4,9 +4,11 @@ require_once('../../Private/PHP/initialize.php');
 date_default_timezone_set("America/Chicago");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id = $_POST['question_list'];
-  $activate_start = date('m/d/Y h:i:s a' , time());
+  $time = time();
+  $activate_start = date('Y/m/d h:i:s a', $time);
   activate_question($id, 3, $activate_start);
   $q = get_active_question($id);
+  $answers = get_answer_choices($id);
 }
 ?>
 
@@ -29,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Live Statistics</h1>
         <div class="question">
           <?php
+          echo $activate_start;
           if (isset($q[0])) {
   		        $question = $q[0];
               $answers = get_question_answers($id);
@@ -46,7 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <canvas id="live_stats" width="300" height="300"></canvas>
         <form method="post">
           <input type="hidden" name="id" value="<?php echo $id?>">
-          <button type="sumbit" formaction="confirmDeactivate.php">Deactivate</button>
+          <?php
+            foreach($answers as $answers){
+              echo "<input type=\"hidden\" name=\"answers\"
+                value=\"{$answers['AnswerText']}\">"
+            }
+           ?>
+          <button type="sumbit" id="deactivate"
+              formaction="confirmDeactivate.php">Deactivate</button>
         </form>
       </div>
     </div>
