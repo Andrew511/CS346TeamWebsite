@@ -1,7 +1,25 @@
 <?php
-define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
-require_once('../../Private/PHP/initialize.php');
-date_default_timezone_set("America/Chicago");
+session_start()  ;
+$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
+$pdir = dirname(__FILE__) ;
+$temp[] = preg_split("[/]" , $pdir) ;
+$pubDir = "";
+for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
+{
+	$pubDir = $pubDir . "/" . $temp[0][$i] ;
+}
+require_once($dir.'/initialize.php') ;
+global $db ;
+if(!isset($_SESSION['ID']))
+	{
+		header("Location:" . $pubDir . "/Login.php") ;
+	}
+	else
+	{
+		$UN = $_SESSION['username'] ;
+		$id = $_SESSION['ID'] ;
+		$role = $_SESSION['role'] ;
+	}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id = $_POST['question_list'];
   $time = time();
@@ -17,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UWO WebCLICKER</title>
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
@@ -43,8 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               echo "<p>";
               echo $question['QuestionText'];
               echo "</p>";
-            }
-            
+
           echo "<p>Answer Options:</p>";
           echo "<ul>";
           if($question['QuestionType'] === "short"){
@@ -52,26 +69,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               echo "<li>";
               echo "{$print["ShortAnswer"]}";
               echo "</li>";
-            }    
+            }
           }
           else{
             foreach($print as $print){
-              if("{$print['Correct']}"){
-                echo "<input type=\"hidden\" name=\"correct_answers[]\" 
-                      value=\"";
-                echo "{$print["AnswerText"]}";
-                echo "\">";
-              }
               echo "<li>";
               echo "{$print["AnswerText"]}";
               echo "</li>";
             }
           }
           echo "</ul>";
+        }
           ?>
           <h2 id="timer"><time>00:00:00</time></h2>
         </div>
-        
+
         <form method="post">
           <input type="hidden" name="id" value="<?php echo $id?>">
           <input type="hidden" name="type" value="<?php echo $question['QuestionType']?>">
@@ -98,11 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <button type="sumbit" name="deactivate"
               formaction="confirmDeactivate.php">Deactivate</button>
         </form>
-        
         <p id="right"> </p>
         <p id="wrong"></p>
       </div>
-      
+
       <canvas id="live_stats" width="1000" height="400"></canvas>
     </div>
     <?php include 'footer.php';?>

@@ -33,8 +33,9 @@ if(!isset($_SESSION['ID']))
     <div id="flexContainer">
         <div id="instructorOptions">
           <ul class="homeOptions">
-            <li><a href="activateQuestion.php">Activate\Deactivate Question</a></li>
-            <li><a href="editQuestions.php">Add\Edit\Review Questions</a></li>
+            <li><a href="activateQuestion.php">Activate\Deactivate\Review Question</a></li>
+            <li><a href="editQuestions.php">Edit\Delete Questions</a></li>
+            <li><a href="addQuestions.php">Add Questions</a></li>
             <li><a href="classStatistics.php">Statistics</a></li>
           </ul>
         </div>
