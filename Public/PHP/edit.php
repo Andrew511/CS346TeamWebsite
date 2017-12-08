@@ -1,9 +1,28 @@
 
 <?php
+  session_start()  ;
+  $dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
+  $pdir = dirname(__FILE__) ;
+  $temp[] = preg_split("[/]" , $pdir) ;
+  $pubDir = "";
+  for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
+  {
+  	$pubDir = $pubDir . "/" . $temp[0][$i] ;
+  }
+  require_once($dir.'/initialize.php') ;
+  global $db ;
+  if(!isset($_SESSION['ID']))
+  	{
+  		header("Location:" . $pubDir . "/Login.php") ;
+  	}
+  	else
+  	{
+  		$UN = $_SESSION['username'] ;
+  		$id = $_SESSION['ID'] ;
+  		$role = $_SESSION['role'] ;
+  	}
   $answersCount = 0;
   $char = 97;
-  define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
-  require_once(SITE_ROOT.'/Private/PHP/initialize.php');
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['question_list'];
     $q = edit_question($id);
@@ -20,7 +39,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UWO WebCLICKER</title>
     <link rel="stylesheet" type="text/css" href="../CSS/p1indiva.css" />
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface"
@@ -60,7 +79,7 @@ foreach($keywords as $keywords){
             <div>
               <p>Type your question below:</p>
               <textarea class="questionText" name="question_text">
-<?php 
+<?php
 echo $q['QuestionText'];?>
 </textarea>
               <select id="answerTypes" name="types">
@@ -96,7 +115,7 @@ echo $q['QuestionText'];?>
                 Type the answer options and select the correct answer.
                 <br><p>
                   <?php
-                  
+
                   if($q['QuestionType'] === "multiple") {
                     foreach($answers as $answers){
                       if("{$answers['Correct']}"){
@@ -192,9 +211,9 @@ echo "{$answers['AnswerText']}";
                     echo "<textarea name=\"answer\" id=\"answer\">";
                     $count = count($answers);
                     foreach($answers as $answers){
-                      echo "{$answers['ShortAnswer']}";    
+                      echo "{$answers['ShortAnswer']}";
                       if($count > 1){
-                        echo " | ";    
+                        echo " | ";
                       }
                       $count--;
                     }
@@ -204,6 +223,7 @@ echo "{$answers['AnswerText']}";
               </div>
               <p>
               <button type="button" id="add_answer">Add more answer choices</button>
+              <button type="button" id="reset">Reset Answers</button>
               <input type="hidden" id="a_count" value="<?php echo $answersCount;?>">
               </p>
               <button type="submit" name="status" value="1">Save as Draft</button>

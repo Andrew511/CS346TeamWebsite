@@ -137,8 +137,17 @@ function add_answer_options(){
   }
 }
 
+function reset_answers() {
+  var div = document.getElementById("answer_options"), i;
+  while(div.hasChildNodes()){
+    div.removeChild(div.lastChild);
+  }
+  document.getElementById("add_answer").style.display = "initial";
+}
+
 window.onload = function() {
-  var submit = document.getElementsByName("submit"), i;
+  var submit = document.getElementsByName("submit"), i,
+  reset = document.getElementById("reset");
   if(document.getElementById("a_count")){
     count = parseInt(document.getElementById("a_count").value);
   }
@@ -146,6 +155,7 @@ window.onload = function() {
     count = 0;
   }
   document.getElementById("add_answer").onclick = add_answer_options;
+  reset.onclick = reset_answers;
   for(i = 0; i < submit.length; i+=1){
     submit[i].onclick = update_answers;
   }

@@ -60,7 +60,7 @@ function add_correct_submission($questionId) {
 	global $db;
 
   try{
-    $query = "UPDATE Questions 
+    $query = "UPDATE Questions
               SET CorrectSubmissions = CorrectSubmissions + 1
 			  WHERE QuestionId = :questionId
               ";
@@ -123,22 +123,43 @@ function get_question_answers($questionId) {
 /*
 // returns an array which should have the average score stored at index 'Score' UNTESTED
 */
-function get_avg($questionId) {
+function update_average($questionId) {
   global $db;
 
   try {
-    $query = "SELECT AVG(Score) AS Average FROM Scores
+    $query = "UPDATE Questions
+              SET ClassAverage =
+              (SELECT AVG(Score)
+              FROM Scores
+              WHERE QuestionId = :questionId)
               WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
     $stmt->execute([":questionId" => $questionId]);
-    return  $stmt->fetch(PDO::FETCH_ASSOC);
+    return  true;
   } catch (PDOException $e) {
       db_disconnect();
-      exit("Aborting: There was a database error when listing " .
+      exit("Aborting: There was a database error when updating " .
            "the class average for the question.");
   }
 }
 
+function get_average($id){
+  global $db;
+
+  try{
+    $query = "SELECT ClassAverage
+              FROM Questions
+              WHERE QuestionId = :id";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of active questions.");
+  }
+}
+/*
+Not sure if anyone is using this - if someone is feel free to uncomment
 function set_status($questionId, $statusId) { // can be used to set to draft or activate as well as deactivate a single question
   global $db;
 
@@ -154,17 +175,17 @@ function set_status($questionId, $statusId) { // can be used to set to draft or 
         exit("Aborting: There was a database error when changing " .
              "the question status.");
     }
-}
+}*/
 
-function deactivate_all() {
+function deactivate_all($time) {
   global $db;
 
     try {
       $query = "UPDATE Questions
-                SET Status = 4
+                SET Status = 4, ActivationEnd = :endTime
                 WHERE Status = 3";
       $stmt = $db->prepare($query);
-      $stmt->execute();
+      $stmt->execute([":endTime" => $time]);
       return true;
     } catch (PDOException $e) {
         db_disconnect();
@@ -311,6 +332,22 @@ function insert_keywords($id, $keyword){
     db_disconnect();
     exit("Aborting: there was a database error when inserting a new " .
           "question.");
+  }
+}
+
+function view_question($id) {
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE QuestionId = :id";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":id" => $id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the requested question.");
   }
 }
 
@@ -498,7 +535,7 @@ function get_completed_question_list() {
   try{
     $query = "SELECT *
               FROM Questions
-              WHERE Status=2";
+              WHERE Status=2 OR Status=4";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);

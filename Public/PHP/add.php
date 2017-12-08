@@ -48,7 +48,6 @@
         }
         echo count($_POST['answer']);
         foreach($_POST['answer'] as $a){
-          echo $a;
           add_answer($id, $a, 1, count($_POST['choices']));
         }
       }
