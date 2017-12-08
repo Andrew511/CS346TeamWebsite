@@ -24,6 +24,7 @@ $student = get_student_by_username($_SESSION['username']);
         $totalScore = $question['PointsAvailable'];
         $numcorrect = 0;
         $correctAnswers = "";
+		$studentAnswer = "";
 		if ($question['QuestionType'] !== "short") {
 			foreach ($answers as $answer) {
 				if ($answer['Correct'] === 1) {
@@ -37,6 +38,7 @@ $student = get_student_by_username($_SESSION['username']);
          if ($question['QuestionType'] === "multiple") { 
             for ($i = 0; $i < count($answers); $i += 1 ) {
                if (isset($_POST["radio'$i'"])) {
+					$studentAnswer = $_POST["radio'$i'"];
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["radio'$i'"]) {
                             if ($answer['Correct'] === 1) {
@@ -51,6 +53,7 @@ $student = get_student_by_username($_SESSION['username']);
 		else if ($question['QuestionType'] === "checkbox") { 
             for ($i = 0; $i < count($answers); $i += 1 ) {
                if (isset($_POST["checkbox'$i'"])) {
+					$studentAnswer = $_POST["checkbox'$i'"];
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["checkbox'$i'"]) {
                             if ($answer['Correct'] === 1) {
@@ -65,6 +68,7 @@ $student = get_student_by_username($_SESSION['username']);
 		else if ($question['QuestionType'] === "short") { 
             for ($i = 0; $i < count($answers); $i += 1 ) {
                if (isset($_POST["text"])) {
+					$studentAnswer = $_POST["text"];
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["text"]) {
                             if ($answer['Correct'] === 1) {
@@ -79,10 +83,13 @@ $student = get_student_by_username($_SESSION['username']);
         }
         ?>
         <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?>
+		<p> <?php echo "Correct Answers: "; 
+		echo $correctAnswers;
+		?>
         <p> <?php echo $question['QuestionText']; ?> </p>
 
         <?php
-        add_score($_POST['QuestionId'], $student['StudentId'], $score);
+        add_score($_POST['QuestionId'], $student['StudentId'], $score, $studentAnswer );
         ?>
       </div>
     </div>

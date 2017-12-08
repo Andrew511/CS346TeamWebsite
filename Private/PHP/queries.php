@@ -41,15 +41,15 @@ function get_student_by_username($username) {
 }
 
 
-function add_score($questionId, $studentId, $score) {
+function add_score($questionId, $studentId, $score, $studentAnswer) {
   global $db;
 
   try{
-    $query = "INSERT INTO Scores (QuestionId, UserId, Score)
-              VALUES (:questionId, :userId, :score)
+    $query = "INSERT INTO Scores (QuestionId, UserId, Score, StudentAnswer)
+              VALUES (:questionId, :userId, :score, :studentAnswer)
               ";
     $stmt = $db->prepare($query);
-    $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score]);
+    $stmt->execute(["questionId" => $questionId, "userId" => $studentId, "score" => $score, "studentAnswer" => $studentAnswer]);
   } catch (PDOException $e) {
     db_disconnect();
     exit("There was an error inserting the score to the database.");
