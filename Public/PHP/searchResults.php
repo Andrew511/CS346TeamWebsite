@@ -100,38 +100,40 @@ if(!isset($_SESSION['ID']))
       if(is_array($questionId)){
         $questionId = array_unique($questionId, SORT_REGULAR);
       }
-    //  $questionId = $questionId[0];
-      echo "<pre>";
-      print_r($questionId);
-      echo "</pre>";
+
+      $a = [];
+      for($i = 0; $i < sizeof($questionId); $i++){
+        for($j = 0; $j < sizeof($questionId[$i]); $j++){
+          for($k = 0; $k < sizeof($questionId[$i][$j]); $k++ ){
+            if(!in_array($questionId[$i][$j][$k]['QuestionId'], $a)){
+              array_push($a, $questionId[$i][$j][$k]["QuestionId"]);
+            }
+          }
+        }
+      }
 
     echo "<form method=\"post\" action=\"showQuestionResult.php\"
             target=\"blank\">";
     echo "<select name=\"results\">";
 
-      for($i = 0; $i < sizeof($questionId[0]); $i++){
-        for($j = 0; $j < sizeof($questionId[0][$i]); $j++){
-          $q = $questionId[0][$i][$j];
-          $q =   array_unique($q);
-          //$qid = $questionId[0][$i][$j]['QuestionId'];
-          $qid = $q['QuestionId'];
-          $result = search_questions($qid);
-          foreach($result as $result){
-            echo "<option value=\"";
-            echo "{$result['QuestionId']}";
-            echo "\">";
-            echo "{$result['QuestionId']}";
-            echo ": Section ";
-            echo "{$result['Section']}";
-            echo ", ";
-            echo "{$result['Description']}";
-          }
-          }
-        }
-      echo "</select>";
+    for($i = 0; $i < sizeof($a); $i++){
+      $qid = $a[$i];
+      $result = search_questions($qid);
+      foreach($result as $result){
+        echo "<option value=\"";
+        echo "{$result['QuestionId']}";
+        echo "\">";
+        echo "{$result['QuestionId']}";
+        echo ": Section ";
+        echo "{$result['Section']}";
+        echo ", ";
+        echo "{$result['Description']}";
+        echo "</option>";
+      }
+    }
+    ?>
+  </select>
 
-      print_r($q)
-      ?>
         <div>
         <input type="submit" value="View">
         </div>
