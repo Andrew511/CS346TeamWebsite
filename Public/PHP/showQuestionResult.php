@@ -43,14 +43,13 @@ if(!isset($_SESSION['ID']))
             <?php
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               $qid = $_POST['results'];
-							echo $qid;
               $keywords = get_keyword_list($qid);
               $students_answers = search_student_answers($qid, $id);
 							$student_score = student_search_score($qid, $id);
-              $answer_choices = get_answer_choice($qid);
+              $answer_choices = get_answer_choices($qid);
               $question = get_question($qid);
 
-              echo "<h1>$id</h1>";
+              echo "<h1>$qid</h1>";
               echo "<p>You answer selections <ul>";
               foreach($students_answers as $s){
                 echo "<li>";
@@ -72,12 +71,15 @@ if(!isset($_SESSION['ID']))
 								}
 							}
 							echo "</ul></p>";
-							print_r($question);
+					//		print_r($question);
 						//	foreach($question as $question){
+								echo "<h2>Question Description</h2>";
+								echo "<p>";
 								echo $question['Description'];
-								echo "<br>";
+								echo "</p>";
+								echo "<p>";
 								echo $question['QuestionText'];
-								echo "<br>";
+								echo "</p>";
 //							}
             }
              ?>
