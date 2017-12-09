@@ -342,10 +342,6 @@ textarea {
   height: 50px;
 }
 
-#errorMessage {
-  display: none;
-}
-
 /*styling that is used across all pages*/
 
 body {
@@ -746,9 +742,6 @@ textarea {
   height: 50px;
 }
 
-#errorMessage {
-  display: none;
-}
 
 body {
   margin: 0px;
@@ -1138,9 +1131,6 @@ textarea {
   height: 35px;
 }
 
-#errorMessage {
-  display: none;
-}
 
 body {
   margin: 0px;
