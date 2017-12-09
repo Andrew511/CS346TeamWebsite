@@ -77,12 +77,7 @@ $student = get_student_by_username($UN);
             for ($i = 0; $i < count($answers); $i += 1 ) {
 
                if (isset($_POST["checkbox$i"])) {
-                   if ($i !== count($answers)-1) {
                     $studentAnswer .= $_POST["checkbox$i"] . "|";
-                   }
-                   else {
-                    $studentAnswer .= $_POST["checkbox$i"]
-                   }
 
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["checkbox$i"]) {
