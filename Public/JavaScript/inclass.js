@@ -83,7 +83,7 @@ function draw_graph(counts){
 	  correctA = document.getElementsByName("correct_answers[]");
     //draws the bars for the questions with more than one answer, i.e. checkboxes and select
     if(correctA.length > 1){
-      for(j = 0; j < answers.length; j+=1){
+      for(j = 0; j < CBAnswers.length; j+=1){
         k = 0;
         while(k < CBAnswers.length){
           if(CBAnswers[k] == correctA[j].value){
