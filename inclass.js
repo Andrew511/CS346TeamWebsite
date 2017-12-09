@@ -154,7 +154,7 @@ window.onload = function () {
 
   var timeout_id,  time_text = document.getElementById("timer");
 
-  timeout_id = setInterval(update_graph, 1000);
+  timeout_id = setInterval(update_graph, 5000);
   draw_labels();
   timer();
 
