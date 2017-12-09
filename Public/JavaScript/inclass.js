@@ -78,7 +78,7 @@ function draw_graph(counts){
   }
   else { //if it's not a short answer
     space = width/sections;
-    correctA = document.getElementsByName("correct_answers[]");
+    correctA = document.getElementsByName("answers[]");
     //draws the bars for the questions with more than one answer, i.e. checkboxes and select
     if(correctA.length > 1){
       for(j = 0; j < answers.length; j+=1){
@@ -141,7 +141,7 @@ function draw_labels() {
   ctx.textBaseline = "baseline";
   for(i = 0; i<sections; i+=1){
     text_height = ctx.measureText(answers[i]).width;
-    ctx.fillText(answers[i].value, 50+margin, canvas.height);
+    ctx.fillText(answers[i].value, margin, canvas.height);
     margin += text_height;
   }
   if(document.getElementsByName("type")[0].value == "short"){
