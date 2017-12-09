@@ -553,15 +553,24 @@ function search($keyword, $section , $score, $pointsAvailable) {
 
     try {
       $query = "SELECT * FROM Questions
-                WHERE (Keywords IS NULL OR Keywords = :keyword)
-				AND (Section IS NULL OR Section = :section)
-				AND (Score IS NULL OR Score = :score)
-				AND (PointsAvailable IS NULL OR PointsAvailable = :pointsAvailable)
-				AND (Status = :status)
+                WHERE (Keywords IS NULL OR Keywords ="
+					foreach($keyword as $key => $value){
+					 $query .= '$value';}
+					
+				$query."AND (Section IS NULL OR Section ="
+				foreach($section as $key => $value){
+				$query .= '$value';}
+				$query."AND (Score IS NULL OR Score ="
+				foreach($score as $key => $value){
+				$query .= '$value';}
+				$query."AND (PointsAvailable IS NULL OR PointsAvailable =" 
+				foreach($pointsAvailable as $key => $value){
+				$query .= '$value';}
+				$query."AND (Status = :status)
                 INNER JOIN Keywords ON Questions.QuestionId = Keywords.QuestionId
 				INNER JOIN Scores ON Questions.QuestionId = Scores.QuestionId";
       $stmt = $db->prepare($query);
-      $stmt->execute(["keyword"=>$keyword,"section"=>$section,"score"=>$score ,"pointsAvailable"=>$pointsAvailable,"status"=>4]);
+      $stmt->execute(["status"=>4]);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         db_disconnect();
