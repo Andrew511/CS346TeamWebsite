@@ -45,53 +45,67 @@ $student = get_student_by_username($UN);
         $correctAnswers = "";
 		$studentAnswer = "";
 		if ($question['QuestionType'] !== "short") {
+            $i = 1;
 			foreach ($answers as $answer) {
-				if ($answer['Correct'] === 1) {
+
+				if ($answer['Correct'] == 1) {
 				$numcorrect = $numcorrect + 1;
-				$correctAnswers .= $answer['AnswerText'];
-				}   
+                $correctAnswers .= $answer['AnswerText'] . ", ";
+                }   
+                $i += 1;
 			}
 		} else {
-			$numcorrect = 1;
+            $correctAnswers = $answers[0]['ShortAnswer'];
+            $numcorrect = 1;
 		}
         $scorePerCorrect = ($totalScore - 1) / $numcorrect;
-         if ($question['QuestionType'] === "multiple") { 
-            for ($i = 0; $i < count($answers); $i += 1 ) {
-               if (isset($_POST["radio'$i'"])) {
-					$studentAnswer = $_POST["radio'$i'"];
+
+         if ($question['QuestionType'] == "multiple") { 
+
+               if (isset($_POST["radio"])) {
+					$studentAnswer = $_POST["radio"];
                     foreach ($answers as $answer) {
-                        if ($answer['AnswerText'] === $_POST["radio'$i'"]) {
-                            if ($answer['Correct'] === 1) {
+                        if ($answer['AnswerText'] === $_POST["radio"]) {
+                            if ($answer['Correct'] == 1) {
                            $score += $scorePerCorrect;
-                           $correctAnswers += "$i ";
+                            }
+                        } 
+                    }
+                }
+        }
+		else if ($question['QuestionType'] == "checkbox") { 
+            for ($i = 0; $i < count($answers); $i += 1 ) {
+
+               if (isset($_POST["checkbox$i"])) {
+                   if ($i !== count($answers)-1) {
+                    $studentAnswer .= $_POST["checkbox$i"] . "|";
+                   }
+                   else {
+                    $studentAnswer .= $_POST["checkbox$i"]
+                   }
+
+                    foreach ($answers as $answer) {
+                        if ($answer['AnswerText'] === $_POST["checkbox$i"]) {
+                            if ($answer['Correct'] == 1) {
+                           $score += $scorePerCorrect;
+                            }
+                            else {
+                                if ($score > 1) {
+                                    $score -= $scorePerCorrect;
+                                }
                             }
                         } 
                     }
                 }
             }
         }
-		else if ($question['QuestionType'] === "checkbox") { 
-            for ($i = 0; $i < count($answers); $i += 1 ) {
-               if (isset($_POST["checkbox'$i'"])) {
-					$studentAnswer = $_POST["checkbox'$i'"];
-                    foreach ($answers as $answer) {
-                        if ($answer['AnswerText'] === $_POST["checkbox'$i'"]) {
-                            if ($answer['Correct'] === 1) {
-                           $score += $scorePerCorrect;
-                           $correctAnswers += "$i ";
-                            }
-                        } 
-                    }
-                }
-            }
-        }
-		else if ($question['QuestionType'] === "short") { 
+		else if ($question['QuestionType'] == "short") { 
             for ($i = 0; $i < count($answers); $i += 1 ) {
                if (isset($_POST["text"])) {
 					$studentAnswer = $_POST["text"];
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["text"]) {
-                            if ($answer['Correct'] === 1) {
+                            if ($answer['Correct'] == 1) {
                            $score = $totalScore;
 						   break;
                             }
