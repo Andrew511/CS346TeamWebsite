@@ -25,34 +25,10 @@ if(!isset($_SESSION['ID']))
     $id = $_SESSION['ID'] ;
     $role = $_SESSION['role'] ;
   }
-$q = get_completed_question_list();
-
-
-
-
-  /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // this is a POST request and thus a form submission: process the form data
-
-    /* to be completed:
-       1) retrieve the question based on the form data
-       2) disconnect from the database
-    */
-    $q = display_SEC_table();
-	$points = display_PAV_table();
-	$p = display_S_table();
-	$k = display_K_table();
-  /* else {
-    // this is a GET request: no form data to process
-
-    /* to be completed:
-       null out the question to be used below
-    */
-
-   /* $q = NULL;
-	$p = NULL;
-	$k = NULL;
-
-  }*/
+$q = display_SEC_table();
+$points = display_PAV_table();
+$p = display_S_table();
+$k = display_K_table();
 
 ?>
 <!DOCTYPE html>

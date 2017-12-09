@@ -159,24 +159,6 @@ function get_average($id){
     exit("There was an error fetching the list of active questions.");
   }
 }
-/*
-Not sure if anyone is using this - if someone is feel free to uncomment
-function set_status($questionId, $statusId) { // can be used to set to draft or activate as well as deactivate a single question
-  global $db;
-
-    try {
-      $query = "UPDATE Questions
-                SET Status = :status
-                WHERE QuestionId = :questionId";
-      $stmt = $db->prepare($query);
-      $stmt->execute(["questionId" => $questionId, "status" => $statusId ]);
-      return  true;
-    } catch (PDOException $e) {
-        db_disconnect();
-        exit("Aborting: There was a database error when changing " .
-             "the question status.");
-    }
-}*/
 
 function deactivate_all($time) {
   global $db;
@@ -194,8 +176,6 @@ function deactivate_all($time) {
              "the questions.");
     }
 }
-
-
 
 //tested & works on webdev server
 function add_question($id, $status, $type, $text, $points, $section, $description) {
@@ -289,11 +269,6 @@ function get_active_question($id) {
 }
 
 
-/*
-tested & works on webdev server
-checks if the id the instructor is inserting already exist,
-if it does not exist, then insert it into the database
-*/
 function check_id($id){
   global $db;
 
@@ -315,11 +290,8 @@ function check_id($id){
             "the question ID.");
   }
 }
-/*
-tested & works on webdev server
-call this function after the function to add the question to the database to
-make sure we also update the keywords table
-*/
+
+
 function insert_keywords($id, $keyword){
   global $db;
 
@@ -546,68 +518,6 @@ function get_completed_question_list() {
     exit("There was an error fetching the list of questions available to edit.");
   }
 }
-
-
-//function to search by given parameters and return to the Students only deactivated Questions
-/*
-function search($keyword, $section , $score, $pointsAvailable) {
-    global $db;
-
-    try {
-      $query = "SELECT * FROM Questions
-                WHERE (Keywords IS NULL OR Keywords ="
-					foreach($keyword as $key => $value){
-					 $query .= '$value';}
-
-				$query."AND (Section IS NULL OR Section ="
-				foreach($section as $key => $value){
-				$query .= '$value';}
-				$query."AND (Score IS NULL OR Score ="
-				foreach($score as $key => $value){
-				$query .= '$value';}
-				$query."AND (PointsAvailable IS NULL OR PointsAvailable ="
-				foreach($pointsAvailable as $key => $value){
-				$query .= '$value';}
-				$query."AND (Status = :status)
-                INNER JOIN Keywords ON Questions.QuestionId = Keywords.QuestionId
-				INNER JOIN Scores ON Questions.QuestionId = Scores.QuestionId";
-      $stmt = $db->prepare($query);
-      $stmt->execute(["status"=>4]);
-      return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        db_disconnect();
-        exit("Aborting: There was a database error when retrieving " .
-             "the search results.");
-    }
-}
-
-
-function search($keyword, $section, $score, $points){
-  global $db;
-  try {
-    $query = "SELECT Questions.QuestionId, Questions.Description,
-              Questions.Section
-              FROM Questions
-              INNER JOIN Keywords INNER JOIN Answers INNER JOIN Scores
-              ON Answers.QuestionId = Questions.QuestionId
-              AND Keywords.QuestionId = Scores.QuestionId
-              WHERE (Keywords.Keyword = :keyword
-              OR Questions.Section = :section
-              OR Questions.PointsAvailable = :points)
-              AND Questions.Status = 4
-              ORDER BY Questions.QuestionId";
-    $stmt = $db->prepare($query);
-    $stmt->execute([":keyword" => $keyword, ":section" => $section,
-                    ":points" => $points, ":score" => $score]);
-    return $stmt->fetchall(PDO::FETCH_ASSOC);
-  }
-  catch(PDOException $e){
-    db_disconnect();
-    exit("Aborting: There was a database error when retrieving " .
-         "the search results.");
-  }
-}
-*/
 
 function search_keyword($keyword){
   global $db;
