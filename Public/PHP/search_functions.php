@@ -303,7 +303,7 @@ elseif(is_array($keyword) && is_array($section) && !is_array($score) &&
     $pid = search_points_available($pointsAv);
   }
 }
-if(!is_array($keyword) && !is_array($section) && !is_array($score) &&
+elseif(!is_array($keyword) && !is_array($section) && !is_array($score) &&
     is_array($pointsAv)){
       $count = 0;
       foreach($pointsAv as $pointsAv){
@@ -323,7 +323,7 @@ if(!is_array($keyword) && !is_array($section) && !is_array($score) &&
       $scoreid = search_score($score);
     }
 }
-if(!is_array($keyword) && !is_array($section) && is_array($score) &&
+elseif(!is_array($keyword) && !is_array($section) && is_array($score) &&
     !is_array($pointsAv)){
       $count = 0;
       foreach($score as $score){
@@ -343,7 +343,7 @@ if(!is_array($keyword) && !is_array($section) && is_array($score) &&
         $pid = search_points_available($pointsAv);
       }
 }
-if(is_array($keyword) && !is_array($section) && !is_array($score) &&
+elseif(is_array($keyword) && !is_array($section) && !is_array($score) &&
     !is_array($pointsAv)){
   $count = 0;
   foreach($keyword as $keyword){
@@ -363,13 +363,14 @@ if(is_array($keyword) && !is_array($section) && !is_array($score) &&
     $pid = search_points_available($pointsAv);
   }
 }
-if(!is_array($keyword) && is_array($section) && !is_array($score) &&
+elseif(!is_array($keyword) && is_array($section) && !is_array($score) &&
     !is_array($pointsAv)){
   $count = 0;
   foreach($section as $section){
     $result = search_section($section);
     if($result){
       $sctid[$count] = $result;
+  //  array_push($sctid, $result);
     }
     $count++;
   }
@@ -383,7 +384,7 @@ if(!is_array($keyword) && is_array($section) && !is_array($score) &&
     $pid = search_points_available($pointsAv);
   }
 }
-if(!is_array($keyword) && !is_array($section) && !is_array($score) &&
+elseif(!is_array($keyword) && !is_array($section) && !is_array($score) &&
     !is_array($pointsAv)){
   if($keyword){
     $kid = search_keyword($keyword);
