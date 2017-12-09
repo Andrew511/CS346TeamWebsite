@@ -22,8 +22,7 @@ if(!isset($_SESSION['ID']))
 		$role = $_SESSION['role'] ;
 	}
 
-  define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
-  require_once(SITE_ROOT.'/Private/PHP/initialize.php');
+
 
 
 

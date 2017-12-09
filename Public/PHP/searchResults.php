@@ -20,8 +20,7 @@ if(!isset($_SESSION['ID']))
 		$id = $_SESSION['ID'] ;
 		$role = $_SESSION['role'] ;
 	}
-  define("SITE_ROOT", "/var/www/students/team6/CS346TeamWebsite");
-  require_once(SITE_ROOT.'/Private/PHP/initialize.php');
+  
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // this is a POST request and thus a form submission: process the form data
