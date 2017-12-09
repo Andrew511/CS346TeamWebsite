@@ -5,6 +5,11 @@
       "taskName": "task-changePassword",
       "appliesTo": "Public/PHP/changePassword.php",
       "type": "launch"
+    },
+    {
+      "taskName": "task-reviewPrevious",
+      "appliesTo": "Public/PHP/reviewPrevious.php",
+      "type": "launch"
     }
   ]
 }

@@ -54,16 +54,11 @@ if(!isset($_SESSION['ID']))
 		$oldPass = $_POST['oldPassword'] ;
 		$newPass1 = $_POST['newPassword'] ;
 		$newPass2 = $_POST['confirmPassword'] ;
-	if($newPass1 === $newPass2 && strpos($newPass1 , $UN) == false && $newPass1 !=== $oldPass)
+	if($newPass1 === $newPass2 && strpos($newPass1 , $UN) == false && strpos($newPass1 , $oldPass) == false)
 	{
 		$newPass = $newPass1 ;
-	}
-	else
-	{
-		echo "Your new password does not meet the standards." ;
-	}
-	if($role === "student")
-	{
+		if($role === "student")
+		{
 		try
 		{
 			$query = "SELECT Salt FROM Students WHERE StudentId = :id" ;
@@ -85,7 +80,7 @@ if(!isset($_SESSION['ID']))
 			$query = "UPDATE Students SET PasswordChanges = :pwc WHERE StudentId = :id" ;
 			$stmt = $db->prepare($query) ;
 			$stmt->execute(["pwc" => $pwc , "id" => $id]) ;
-			echo "Password Changed." ;
+			echo "Password Changed.<br>" ;
 		}
 		catch (PDOException $e)
 		{
@@ -115,7 +110,7 @@ if(!isset($_SESSION['ID']))
 			$query = "UPDATE Instructors SET PasswordChanges = :pwc WHERE InstructorId = :id" ;
 			$stmt = $db->prepare($query) ;
 			$stmt->execute(["pwc" => $pwc , "id" => $id]) ;
-			echo "Password Changed." ;
+			echo "Password Changed.<br>" ;
 		}
 		catch (Exception $e)
 		{
@@ -123,8 +118,14 @@ if(!isset($_SESSION['ID']))
 		}
 	}
 	}
+	else
+	{
+		echo "Your new password does not meet the standards.<br>" ;
+	}
+	
+	}
 			  
-			  ?>
+	 ?>
                 <label>
                   Username:
                   <input type="text" name="username" value=<?PHP echo htmlspecialchars($UN); ?>  readonly><br/>
