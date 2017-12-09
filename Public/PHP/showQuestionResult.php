@@ -42,11 +42,13 @@ if(!isset($_SESSION['ID']))
           <div class="searchContainer">
             <?php
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-              $id = $_POST['results'];
-              $keywords = get_keyword_list($id);
-              $students_answers = get_student_answers($id);
-              $answer_choices = get_answer_choices($id);
-              $question = get_question($id);
+              $qid = $_POST['results'];
+							echo $qid;
+              $keywords = get_keyword_list($qid);
+              $students_answers = search_student_answers($qid, $id);
+							$student_score = student_search_score($qid, $id);
+              $answer_choices = get_answer_choice($qid);
+              $question = get_question($qid);
 
               echo "<h1>$id</h1>";
               echo "<p>You answer selections <ul>";
@@ -55,6 +57,28 @@ if(!isset($_SESSION['ID']))
                 echo "{$s['StudentAnswer']}";
                 echo "</li>";
               }
+							echo "</ul></p>";
+							echo "<p>Correct Answer: <ul>";
+							foreach($answer_choices as $answers){
+								if("{$answers['Correct']}"){
+									echo "<li>";
+									echo "{$answers['AnswerText']}";
+									echo "</li>";
+								}
+								else if("{$answers['ShortAnswer']}"){
+									echo "</li>";
+									echo "{$answers['ShortAnswer']}";
+									echo "</li>";
+								}
+							}
+							echo "</ul></p>";
+							print_r($question);
+						//	foreach($question as $question){
+								echo $question['Description'];
+								echo "<br>";
+								echo $question['QuestionText'];
+								echo "<br>";
+//							}
             }
              ?>
           </div>

@@ -72,7 +72,7 @@ if(!isset($_SESSION['ID']))
             <h1>Search Results</h1>
             <div>
 			<?php
-
+/*
       echo "<pre>";
       print_r($keyword);
       echo "</pre>";
@@ -84,14 +84,14 @@ if(!isset($_SESSION['ID']))
       echo "</pre>";
       echo "<pre>";
       print_r($pointsAv);
-      echo "</pre>";
+      echo "</pre>";*/
 
       $kid = [];
       $scoreid = [];
       $pid = [];
       $sctid = [];
       include_once 'search_functions.php';
-
+/*
       echo "<pre>";
       print_r($kid);
       echo "</pre>";
@@ -104,7 +104,7 @@ if(!isset($_SESSION['ID']))
       echo "<pre>";
       print_r($sctid);
       echo "</pre>";
-
+*/
       $questionId = [];
       if(!empty($kid)){
         $questionId[] = $kid;
@@ -120,39 +120,45 @@ if(!isset($_SESSION['ID']))
       }
     //  $questionId = array_unique(array_merge($kid, $scoreid, $pid, $sctid));
     $questionId = array_unique($questionId, SORT_REGULAR);
-      echo "<pre>";
+  /*    echo "<pre>";
       print_r($questionId);
-      echo "</pre>";
-/*
-      $questions_unique = array_unique($question, SORT_REGULAR);
-      echo "<pre>";
-      print_r($questions_unique);
-      echo "</pre>";
-      foreach($questions_unique as $key=>$value){
-        if(empty($value)){
-          unset($questions_unique[$key]);
+      echo "</pre>"; */
+      foreach($questionId as $key=>$value){
+    //    echo $key;
+  //      print_r($questionId[$key]);
+        foreach($questionId[$key] as $k=>$v){
+    //      echo $questionId[$key][$k]['QuestionId'];
+          $id = $questionId[$key][$k]['QuestionId'];
+          $result = search_questions($id);
+          if($result){
+            $q[] = $result;
+          }
         }
       }
+/*
+      print_r($result);
+*/
+      echo "<form method=\"post\" action=\"showQuestionResult.php\"
+              targe=\"blank\">";
+      echo "<select name=\"results\">";
 
-      echo "<form action=\"showQuestionResult.php\" method=\"post\">";
-      echo "<select id=\"results\" name=\"results\">";
-      if(empty($questions_unique))
-      {
+      if(!empty($result)){
+        foreach($result as $key=>$value){
+          echo "<option value=\"";
+          echo $result[$key]['QuestionId'];
+          echo "\">Q";
+          echo $result[$key]['QuestionId'];
+          echo ": Section ";
+          echo $result[$key]['Section'];
+          echo ": ";
+          echo $result[$key]['Description'];
+          echo "</option>";
+        }
+      }
+      else {
         echo "<option>No Results Matching Criteria</option>";
       }
-      else{
-        $questions_unique = array_unique($questions_unique[0], SORT_REGULAR);
-          foreach($questions_unique as $key=>$value){
-            echo "<option value=\"$questions_unique[$key]['QuestionId']\">Q";
-            echo $questions_unique[$key]['QuestionId'];
-            echo ": Section ";
-            echo $questions_unique[$key]['Section'];
-            echo ": ";
-            echo $questions_unique[$key]['Description'];
-            echo "</option>";
-        }
-      }
-      echo "</select>";*/
+      echo "</select>";
       ?>
         <div>
         <input type="submit" value="View">

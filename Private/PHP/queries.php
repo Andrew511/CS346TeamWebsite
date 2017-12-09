@@ -92,10 +92,11 @@ function get_question($questionId) {
   global $db;
 
   try {
-    $query = "SELECT * FROM Questions
+    $query = "SELECT *
+              FROM Questions
               WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
-    $stmt->execute(["questionId" => $questionId]);
+    $stmt->execute([":questionId" => $questionId]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
       db_disconnect();
@@ -664,6 +665,58 @@ function search_score($score){
               FROM Scores WHERE Score = ?";
     $stmt = $db->prepare($query);
     $stmt->execute([$score]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the score");
+  }
+}
+
+function student_search_score($qid, $id){
+  global $db;
+
+  try{
+    $query = "SELECT Score
+              FROM Scores WHERE QuestionId = :qid
+              AND UserId = :id";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":qid"=>$qid, ":id"=>$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the score");
+  }
+}
+
+function search_student_answers($qid, $sid){
+  global $db;
+
+  try{
+    $query = "SELECT StudentAnswer
+              FROM Scores WHERE Score = :score
+              AND UserId = :id";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":score"=>$score, ":id"=>$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the score");
+  }
+}
+
+function search_questions($id){
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE QuestionId = ?
+              AND Status = 4";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id]);
     return $stmt->fetchall(PDO::FETCH_ASSOC);
   }
   catch(PDOException $e) {
