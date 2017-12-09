@@ -55,13 +55,7 @@
           <div id="errorMessage">
             Let the instructor know that there are no active questions in the
             database.
-          </div>
-          <div id="studentHomePage">
-            <p>
-              Are you currently in class? Has the instructor activated the next
-              question?<br/>
-              Then click this button right away.
-            </p>
+            
             <form action="showActive.php" id="showQuestion" class="questions">
               <div>
                 <input type="submit" value="Show Question"/>

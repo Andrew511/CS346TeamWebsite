@@ -31,10 +31,6 @@ if(!isset($_SESSION['ID']))
     <div class="border">
       <?php include 'header.php' ?>
       <div id="flexContainer">
-        <div id="errorMessage">
-          Let the instructor know that there are no active questions in the
-          database.
-        </div>
         <div id="studentHomePage">
           <p>
             Are you currently in class? Has the instructor activated the next
