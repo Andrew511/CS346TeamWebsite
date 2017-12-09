@@ -85,25 +85,22 @@ if(!isset($_SESSION['ID']))
       include_once 'search_functions.php';
       $questionId = [];
       if(!empty($kid)){
-      array_unique($kid);
       array_push($questionId, $kid);
       }
       if(!empty($scoreid)){
-        array_unique($scoreid);
       array_push($questionId, $scoreid);
       }
       if(!empty($pid)){
-      array_unique($pid);
       array_push($questionId, $pid);
       }
       if(!empty($sctid)){
-      array_unique($sctid);
       array_push($questionId, $sctid);
       }
 
       if(is_array($questionId)){
         $questionId = array_unique($questionId, SORT_REGULAR);
       }
+    //  $questionId = $questionId[0];
       echo "<pre>";
       print_r($questionId);
       echo "</pre>";
@@ -114,7 +111,10 @@ if(!isset($_SESSION['ID']))
 
       for($i = 0; $i < sizeof($questionId[0]); $i++){
         for($j = 0; $j < sizeof($questionId[0][$i]); $j++){
-          $qid = $questionId[0][$i][$j]['QuestionId'];
+          $q = $questionId[0][$i][$j];
+          $q =   array_unique($q);
+          //$qid = $questionId[0][$i][$j]['QuestionId'];
+          $qid = $q['QuestionId'];
           $result = search_questions($qid);
           foreach($result as $result){
             echo "<option value=\"";
@@ -129,6 +129,8 @@ if(!isset($_SESSION['ID']))
           }
         }
       echo "</select>";
+
+      print_r($q)
       ?>
         <div>
         <input type="submit" value="View">
