@@ -71,8 +71,6 @@ if(!isset($_SESSION['ID']))
 								}
 							}
 							echo "</ul></p>";
-					//		print_r($question);
-						//	foreach($question as $question){
 								echo "<h2>Question Description</h2>";
 								echo "<p>";
 								echo $question['Description'];
@@ -80,7 +78,6 @@ if(!isset($_SESSION['ID']))
 								echo "<p>";
 								echo $question['QuestionText'];
 								echo "</p>";
-//							}
             }
              ?>
           </div>
