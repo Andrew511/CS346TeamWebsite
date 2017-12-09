@@ -99,12 +99,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               }
               else {
                 foreach($answers as $answers){
-                  echo "<input type=\"hidden\" class=\"answer\" name=\"answers[]\"
-                  value=\"";
-                  echo "{$answers['AnswerText']}";
-                  echo "\">";
+
 									if("{$answers['Correct']}"){
 										echo "<input type=\"hidden\" class=\"answer\" name=\"correct_answers[]\"
+	                  value=\"";
+	                  echo "{$answers['AnswerText']}";
+	                  echo "\">";
+									}
+									else {
+										echo "<input type=\"hidden\" class=\"answer\" name=\"answers[]\"
 	                  value=\"";
 	                  echo "{$answers['AnswerText']}";
 	                  echo "\">";
