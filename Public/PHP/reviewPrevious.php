@@ -29,7 +29,7 @@ if(!isset($_SESSION['ID']))
        1) retrieve the question based on the form data
        2) disconnect from the database
     */
-    $q = get_question_list();
+    $q = display_SEC_table();
 	$points = display_PAV_table();
 	$p = display_S_table();
 	$k = display_K_table();

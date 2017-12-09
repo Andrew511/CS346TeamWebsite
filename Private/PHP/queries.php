@@ -583,6 +583,20 @@ function display_PAV_table() { //function to populate all the scores in the data
   }
 }
 
+function display_SEC_table() { //function to populate all the scores in the database.
+  global $db;
+
+  try{
+    $query = "SELECT DISTINCT Section FROM Questions";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of sections.");
+  }
+}
+
 function display_S_table() { //function to populate all the scores in the database.
   global $db;
 
