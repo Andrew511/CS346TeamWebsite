@@ -48,6 +48,7 @@ $student = get_student_by_username($UN);
 			foreach ($answers as $answer) {
 				if ($answer['Correct'] === 1) {
 				$numcorrect = $numcorrect + 1;
+				$correctAnswers .= $answer['AnswerText'];
 				}   
 			}
 		} else {
@@ -92,7 +93,6 @@ $student = get_student_by_username($UN);
                         if ($answer['AnswerText'] === $_POST["text"]) {
                             if ($answer['Correct'] === 1) {
                            $score = $totalScore;
-                           $correctAnswers += $answer['AnswerText'];
 						   break;
                             }
                         } 
