@@ -688,8 +688,7 @@ input[type='text'], input[type='number'] {
 }
 
 #keywordSearch  {
-  margin: 15px;
-  margin-left: auto;
+  margin-left: 0;
   margin-right: 3px;
   box-sizing: border-box;
 }
@@ -1074,6 +1073,7 @@ input[type='text'], input[type='number'] {
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 5px;
 }
 
 #keywordSearch  {
