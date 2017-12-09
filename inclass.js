@@ -77,16 +77,44 @@ function draw_graph(counts){
       }
     }
   }
-  else { //if it's not a short answer
-    correctA = document.getElementsByName("correct_answers[]");
+  else if(document.getElementsByName("type")[0].value == "checkbox")
+  {//checkbox special case
+	  var CBAnswers = counts[interval]['StudentAnswer'].split("|") ;
+	  correctA = document.getElementsByName("correct_answers[]");
     //draws the bars for the questions with more than one answer, i.e. checkboxes and select
     if(correctA.length > 1){
       for(j = 0; j < answers.length; j+=1){
         k = 0;
+        while(k < CBAnswers.length){
+          if(CBAnswers[k] == correctA[j].value){
+			correct+=1;
+          }
+		  if(CBAnswers[k] == correctA[j].value){
+          height += 20;
+          ctx.fillRect(space * j+1, canvas.height-20-height, 15, height);
+          document.getElementById("right").innerHTML = "Correct: " + correct;
+        }
+        else if(CBAnswers[k] == answers[j].value) {
+          height2 += 20;
+          wrong +=1;
+          ctx.fillRect(10+margin, canvas.height-20-height2, 15, height2);
+          document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
+        }
+		  k+= 1 ;
+        }
+      }
+  }
+ /* else { //if it's not a short answer
+    correctA = document.getElementsByName("correct_answers[]");
+    //draws the bars for the questions with more than one answer, i.e. checkboxes and select
+   /* if(correctA.length > 1){
+      for(j = 0; j < answers.length; j+=1){
+        k = 0;
         while(k < correctA.length){
           if(counts[interval]['StudentAnswer'] == correctA[k].value){
-            correct+=1;
+			correct+=1;
           }
+		  k+= 1 ;
         }
         if(counts[interval]['StudentAnswer'] == answers[j].value){
           height += 20;
@@ -102,8 +130,9 @@ function draw_graph(counts){
         k+=1;
       }
 
-    }
+    } */
     else {
+		correctA = document.getElementsByName("correct_answers[]");
       //draws the bars for the questions where there is only one answer i.e multiple choice
       for(j = 0; j < answers.length; j+=1){
         if(counts[interval]['StudentAnswer'] == answers[j].value &&
@@ -154,7 +183,7 @@ window.onload = function () {
 
   var timeout_id,  time_text = document.getElementById("timer");
 
-  timeout_id = setInterval(update_graph, 5000);
+  timeout_id = setInterval(update_graph, 1000);
   draw_labels();
   timer();
 
