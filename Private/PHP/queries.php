@@ -695,10 +695,10 @@ function search_student_answers($qid, $sid){
 
   try{
     $query = "SELECT StudentAnswer
-              FROM Scores WHERE Score = :score
+              FROM Scores WHERE QuestionId = :qid
               AND UserId = :id";
     $stmt = $db->prepare($query);
-    $stmt->execute([":score"=>$score, ":id"=>$id]);
+    $stmt->execute([":qid"=>$qid, ":id"=>$sid]);
     return $stmt->fetchall(PDO::FETCH_ASSOC);
   }
   catch(PDOException $e) {

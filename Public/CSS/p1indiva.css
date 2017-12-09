@@ -294,13 +294,6 @@ input[type='text'], input[type='number'] {
   margin-right: auto;
 }
 
-#keywordSearch  {
-  margin: 20px;
-  margin-left: auto;
-  margin-right: 5px;
-  box-sizing: border-box;
-}
-
 #keywordButton {
   padding-left: 10px;
   padding-right: 10px;
@@ -410,7 +403,7 @@ canvas {
 /*
 Responsive design things begin here.
 */
-@media screen and (max-width: 800px) 
+@media screen and (max-width: 800px)
 {
 #loginHeader, #resetHeader {
   font-family: 'Abril Fatface', cursive;
@@ -458,7 +451,7 @@ Responsive design things begin here.
   height: 40px;
   margin-right: 4px;
   font-size: 15px;
-} 
+}
 
 #resetLink:link, #loginLink:link {
   color: #00344D;
@@ -800,7 +793,7 @@ th {
 
 }/*800px style*/
 
-@media screen and (max-width: 450px) 
+@media screen and (max-width: 450px)
 {
   #loginHeader, #resetHeader {
   font-family: 'Abril Fatface', cursive;
@@ -848,7 +841,7 @@ th {
   height: 40px;
   margin-right: 4px;
   font-size: 12px;
-} 
+}
 
 #resetLink:link, #loginLink:link {
   color: #00344D;
