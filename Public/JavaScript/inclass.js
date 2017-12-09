@@ -83,22 +83,40 @@ function draw_graph(counts){
 	  correctA = document.getElementsByName("correct_answers[]");
     //draws the bars for the questions with more than one answer, i.e. checkboxes and select
     if(correctA.length > 1){
-      for(j = 0; j < CBAnswers.length; j+=1){
+      for(j = 0; j < correctA.length; j+=1){
         k = 0;
         while(k < CBAnswers.length){
           if(CBAnswers[k] == correctA[j].value){
 			correct+=1;
           }
 		  if(CBAnswers[k] == correctA[j].value){
-          height += 20;
-          ctx.fillRect(space * j+1, canvas.height-20-height, 15, height);
-          document.getElementById("right").innerHTML = "Correct: " + correct;
+			var p = 0 ;
+			for(p = 0 ; p < answers.length ; p++)
+			{
+				if(answers[p].value == CBAnswers[k])
+				{
+					alert(p) ;
+					height += 20;
+					ctx.fillRect(space * p+1, canvas.height-20-height, 15, height);
+					document.getElementById("right").innerHTML = "Correct: " + correct;
+				}
+			}
+
         }
         else if(CBAnswers[k] == answers[j].value) {
-          height2 += 20;
-          wrong +=1;
-          ctx.fillRect(10+margin, canvas.height-20-height2, 15, height2);
-          document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
+			var p = 0 ;
+			for(p = 0 ; p < answers.length ; p++)
+			{
+				if(answers[p].value == CBAnswers[k])
+				{
+					height2 += 20;
+					wrong +=1;
+					alert(p) ;
+					ctx.fillRect(space * p+1, canvas.height-20-height2, 15, height2);
+					document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
+				}
+			}
+
         }
 		  k+= 1 ;
         }
@@ -129,7 +147,6 @@ function draw_graph(counts){
         }
         k+=1;
       }
-
     } */
     else {
 		correctA = document.getElementsByName("correct_answers[]");
