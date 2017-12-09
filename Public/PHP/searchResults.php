@@ -78,88 +78,56 @@ if(!isset($_SESSION['ID']))
             <h1>Search Results</h1>
             <div>
 			<?php
-
-      echo "<pre>";
-      print_r($section);
-      echo "</pre>";
       $kid = [];
       $scoreid = [];
       $pid = [];
       $sctid = [];
       include_once 'search_functions.php';
-
-      echo "<pre>";
-      print_r($sctid);
-      echo "</pre>";
       $questionId = [];
       if(!empty($kid)){
-      //  $questionId[] = $kid;
+      array_unique($kid);
       array_push($questionId, $kid);
       }
       if(!empty($scoreid)){
-      //  $questioId[] = $scoreid;
+        array_unique($scoreid);
       array_push($questionId, $scoreid);
       }
       if(!empty($pid)){
-      //  $questionId[] = $pid;
+      array_unique($pid);
       array_push($questionId, $pid);
       }
       if(!empty($sctid)){
-      //  $questionId[] = $sctid;
+      array_unique($sctid);
       array_push($questionId, $sctid);
       }
-      echo "Section arr";
+
+      if(is_array($questionId)){
+        $questionId = array_unique($questionId, SORT_REGULAR);
+      }
       echo "<pre>";
-      print_r($sctid);
+      print_r($questionId);
       echo "</pre>";
-      $q = [];
-    $questionId = array_unique($questionId);
-    echo "<pre>";
-    print_r($questionId);
-    echo "</pre>";
-      foreach($questionId as $key=>$value){
-        foreach($questionId[$key] as $k=>$v){
-          $id = $questionId[$key][$k]['QuestionId'];
-          $result = search_questions($id);
-        //  print_r($result);
-          if($result){
-          //  $q[] = $result;
-            array_push($q, $result);
+
+    echo "<form method=\"post\" action=\"showQuestionResult.php\"
+            target=\"blank\">";
+    echo "<select name=\"results\">";
+
+      for($i = 0; $i < sizeof($questionId[0]); $i++){
+        for($j = 0; $j < sizeof($questionId[0][$i]); $j++){
+          $qid = $questionId[0][$i][$j]['QuestionId'];
+          $result = search_questions($qid);
+          foreach($result as $result){
+            echo "<option value=\"";
+            echo "{$result['QuestionId']}";
+            echo "\">";
+            echo "{$result['QuestionId']}";
+            echo ": Section ";
+            echo "{$result['Section']}";
+            echo ", ";
+            echo "{$result['Description']}";
+          }
           }
         }
-      }
-
-      echo "<pre>";
-      print_r($q);
-      echo "</pre>";
-      echo "<form method=\"post\" action=\"showQuestionResult.php\"
-              target=\"blank\">";
-      echo "<select name=\"results\">";
-
-      if(!empty($q)){
-        foreach($q as $q2){
-          //echo $q2;
-        //  echo $value;
-        //  print_r($q2);
-          foreach($q2 as $r){
-            echo $r;
-            print_r($r);
-            echo "<option value=\"";
-            echo $r['QuestionId'];
-            echo "\">Q";
-            echo $r['QuestionId'];
-            echo ": Section ";
-            echo $r['Section'];
-            echo ": ";
-            echo $r['Description'];
-            echo "</option>";
-          }
-          }
-
-      }
-      else {
-        echo "<option>No Results Matching Criteria</option>";
-      }
       echo "</select>";
       ?>
         <div>

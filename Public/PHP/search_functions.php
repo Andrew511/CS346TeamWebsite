@@ -370,7 +370,6 @@ elseif(!is_array($keyword) && is_array($section) && !is_array($score) &&
     $result = search_section($section);
     if($result){
       $sctid[$count] = $result;
-  //  array_push($sctid, $result);
     }
     $count++;
   }
