@@ -1,35 +1,38 @@
 <?php
-	
-	session_start()  ;
+
+session_start()  ;
+
 $dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
 $pdir = dirname(__FILE__) ;
 $temp[] = preg_split("[/]" , $pdir) ;
 $pubDir = "";
 for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
 {
-	$pubDir = $pubDir . "/" . $temp[0][$i] ;
+
+  $pubDir = $pubDir . "/" . $temp[0][$i] ;
+
 }
 require_once($dir.'/initialize.php') ;
 global $db ;
 if(!isset($_SESSION['ID']))
-	{
-		header("Location:" . $pubDir . "/Login.php") ;
-	}
-	else
-	{
-		$UN = $_SESSION['username'] ;
-		$id = $_SESSION['ID'] ;
-		$role = $_SESSION['role'] ;
-	}
 
-
+  {
+    header("Location:" . $pubDir . "/Login.php") ;
+  }
+  else
+  {
+    $UN = $_SESSION['username'] ;
+    $id = $_SESSION['ID'] ;
+    $role = $_SESSION['role'] ;
+  }
+$q = get_completed_question_list();
 
 
 
 
   /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // this is a POST request and thus a form submission: process the form data
-    
+
     /* to be completed:
        1) retrieve the question based on the form data
        2) disconnect from the database
@@ -44,11 +47,11 @@ if(!isset($_SESSION['ID']))
     /* to be completed:
        null out the question to be used below
     */
-    
+
    /* $q = NULL;
 	$p = NULL;
 	$k = NULL;
-    
+
   }*/
 
 ?>
@@ -73,9 +76,9 @@ if(!isset($_SESSION['ID']))
               <div id="keyword">
               </div>
               <div id="searchOptions">
-			
-				
-                <select name="keywordSearch" id="keywordSearch" size="4" class="options"
+
+
+                <select name="keywordSearch[]" id="keywordSearch" size="4" class="options"
                   multiple>
 				  <?php
 				  foreach ($k as $k)
@@ -86,9 +89,9 @@ if(!isset($_SESSION['ID']))
 							echo "{$k['Keyword']}";
 							echo "</option>";
 							}
-							?>               
+							?>
                 </select>
-                <select name="section" id="section" size="4" class="options"
+                <select name="section[]" id="section" size="4" class="options"
                   multiple>
 				  <?php foreach ($q as $q)
 							{
@@ -98,9 +101,9 @@ if(!isset($_SESSION['ID']))
 							echo "{$q['Section']}";
 							echo "</option>";
 							}
-							?>        
+							?>
                 </select>
-                <select name="pointsAvailable" id="pointsAvailable" size="4" class="options"
+                <select name="pointsAvailable[]" id="pointsAvailable" size="4" class="options"
                   multiple>
 				  <?php  foreach ($points as $points)
 							{
@@ -112,9 +115,9 @@ if(!isset($_SESSION['ID']))
 							}
 							?>
                 </select>
-                <select name="score" id="score" size="4" class="options"
+                <select name="score[]" id="score" size="4" class="options"
                   multiple>
-				  <?php 
+				  <?php
 						foreach ($p as $p)
 						{
 							echo "<option value=\"";
@@ -132,7 +135,7 @@ if(!isset($_SESSION['ID']))
           </div>
         </div>
         </div>
-	</div>	
+	</div>
     <?php include 'footer.php';?>
   </body>
 </html>

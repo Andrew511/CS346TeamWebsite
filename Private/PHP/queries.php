@@ -92,10 +92,11 @@ function get_question($questionId) {
   global $db;
 
   try {
-    $query = "SELECT * FROM Questions
+    $query = "SELECT *
+              FROM Questions
               WHERE QuestionId = :questionId";
     $stmt = $db->prepare($query);
-    $stmt->execute(["questionId" => $questionId]);
+    $stmt->execute([":questionId" => $questionId]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
       db_disconnect();
@@ -484,7 +485,7 @@ function get_student_answers($id) {
   global $db;
 
   try{
-    $query = "SELECT StudentAnswer
+    $query = "SELECT StudentAnswer, Score
               FROM Scores WHERE QuestionId = ?";
     $stmt = $db->prepare($query);
     $stmt->execute([$id]);
@@ -548,6 +549,7 @@ function get_completed_question_list() {
 
 
 //function to search by given parameters and return to the Students only deactivated Questions
+/*
 function search($keyword, $section , $score, $pointsAvailable) {
     global $db;
 
@@ -556,14 +558,14 @@ function search($keyword, $section , $score, $pointsAvailable) {
                 WHERE (Keywords IS NULL OR Keywords ="
 					foreach($keyword as $key => $value){
 					 $query .= '$value';}
-					
+
 				$query."AND (Section IS NULL OR Section ="
 				foreach($section as $key => $value){
 				$query .= '$value';}
 				$query."AND (Score IS NULL OR Score ="
 				foreach($score as $key => $value){
 				$query .= '$value';}
-				$query."AND (PointsAvailable IS NULL OR PointsAvailable =" 
+				$query."AND (PointsAvailable IS NULL OR PointsAvailable ="
 				foreach($pointsAvailable as $key => $value){
 				$query .= '$value';}
 				$query."AND (Status = :status)
@@ -577,6 +579,150 @@ function search($keyword, $section , $score, $pointsAvailable) {
         exit("Aborting: There was a database error when retrieving " .
              "the search results.");
     }
+}
+
+
+function search($keyword, $section, $score, $points){
+  global $db;
+  try {
+    $query = "SELECT Questions.QuestionId, Questions.Description,
+              Questions.Section
+              FROM Questions
+              INNER JOIN Keywords INNER JOIN Answers INNER JOIN Scores
+              ON Answers.QuestionId = Questions.QuestionId
+              AND Keywords.QuestionId = Scores.QuestionId
+              WHERE (Keywords.Keyword = :keyword
+              OR Questions.Section = :section
+              OR Questions.PointsAvailable = :points)
+              AND Questions.Status = 4
+              ORDER BY Questions.QuestionId";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":keyword" => $keyword, ":section" => $section,
+                    ":points" => $points, ":score" => $score]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e){
+    db_disconnect();
+    exit("Aborting: There was a database error when retrieving " .
+         "the search results.");
+  }
+}
+*/
+
+function search_keyword($keyword){
+  global $db;
+
+  try{
+    $query = "SELECT QuestionId
+              FROM Keywords WHERE Keyword = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$keyword]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the keyword.");
+  }
+}
+
+function search_section($section){
+  global $db;
+
+  try{
+    $query = "SELECT QuestionId
+              FROM Questions WHERE Section = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$section]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the section.");
+  }
+}
+
+function search_points_available($points){
+  global $db;
+
+  try{
+    $query = "SELECT QuestionId
+              FROM Questions WHERE PointsAvailable = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$points]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the points available.");
+  }
+}
+
+function search_score($score){
+  global $db;
+
+  try{
+    $query = "SELECT QuestionId
+              FROM Scores WHERE Score = ?";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$score]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the score");
+  }
+}
+
+function student_search_score($qid, $id){
+  global $db;
+
+  try{
+    $query = "SELECT Score
+              FROM Scores WHERE QuestionId = :qid
+              AND UserId = :id";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":qid"=>$qid, ":id"=>$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the score");
+  }
+}
+
+function search_student_answers($qid, $sid){
+  global $db;
+
+  try{
+    $query = "SELECT StudentAnswer
+              FROM Scores WHERE Score = :score
+              AND UserId = :id";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":score"=>$score, ":id"=>$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the score");
+  }
+}
+
+function search_questions($id){
+  global $db;
+
+  try{
+    $query = "SELECT *
+              FROM Questions
+              WHERE QuestionId = ?
+              AND Status = 4";
+    $stmt = $db->prepare($query);
+    $stmt->execute([$id]);
+    return $stmt->fetchall(PDO::FETCH_ASSOC);
+  }
+  catch(PDOException $e) {
+    db_disconnect();
+    exit("There was an error fetching the list of questions matching the score");
+  }
 }
 
 function display_PAV_table() { //function to populate all the scores in the database.
