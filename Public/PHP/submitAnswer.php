@@ -1,7 +1,26 @@
 <?php 
-require_once('../../Private/PHP/initialize.php');
-session_start();
-$student = get_student_by_username($_SESSION['username']);
+	session_start()  ;
+$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
+$pdir = dirname(__FILE__) ;
+$temp[] = preg_split("[/]" , $pdir) ;
+$pubDir = "";
+for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
+{
+	$pubDir = $pubDir . "/" . $temp[0][$i] ;
+}
+require_once($dir.'/initialize.php') ;
+global $db ;
+if(!isset($_SESSION['ID']))
+	{
+		header("Location:" . $pubDir . "/Login.php") ;
+	}
+	else
+	{
+		$UN = $_SESSION['username'] ;
+		$id = $_SESSION['ID'] ;
+		$role = $_SESSION['role'] ;
+	}
+$student = get_student_by_username($UN);
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +48,7 @@ $student = get_student_by_username($_SESSION['username']);
 			foreach ($answers as $answer) {
 				if ($answer['Correct'] === 1) {
 				$numcorrect = $numcorrect + 1;
+				$correctAnswers .= $answer['AnswerText'];
 				}   
 			}
 		} else {
@@ -73,7 +93,6 @@ $student = get_student_by_username($_SESSION['username']);
                         if ($answer['AnswerText'] === $_POST["text"]) {
                             if ($answer['Correct'] === 1) {
                            $score = $totalScore;
-                           $correctAnswers += $answer['AnswerText'];
 						   break;
                             }
                         } 

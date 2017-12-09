@@ -1,9 +1,15 @@
 <?PHP
 session_start() ;
 //is there a different file I should require?
-$dir = '/var/www/students/team6/CS346TeamWebsite/Private/PHP' ;
-$pdir = '/students/team6/CS346TeamWebsite/Public/PHP' ;
-require_once($dir.'/initialize.php') ;
+$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
+$pdir = dirname(__FILE__) ;
+$temp[] = preg_split("[/]" , $pdir) ;
+$pubDir = "";
+for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
+{
+	$pubDir = $pubDir . "/" . $temp[0][$i] ;
+}
+require_once($dir . "/initialize.php") ;
 ?>	
 <!DOCTYPE html>
 <html>
@@ -56,7 +62,7 @@ require_once($dir.'/initialize.php') ;
 						$query = "UPDATE Students SET LastLogin = :lastLogin WHERE StudentId = :id" ;
 						$stmt = $db->prepare($query) ;
 						$stmt->execute(["lastLogin" => $lastLogin , "id" => $id]) ;
-						header("Location: " .$pdir . "/studentHome.php") ;
+						header("Location: " .$pubDir . "/studentHome.php") ;
 					}
 					else
 					{
@@ -93,7 +99,7 @@ require_once($dir.'/initialize.php') ;
 						$query = "UPDATE Instructors SET LastLogin = :lastLogin WHERE InstructorId = :id" ;
 						$stmt = $db->prepare($query) ;
 						$stmt->execute(["lastLogin" => $lastLogin , "id" => $id]) ;
-						header("Location: " .$pdir . "/instructorHome.php") ;
+						header("Location: " .$pubDir . "/instructorHome.php") ;
 					}
 					else
 					{
@@ -142,4 +148,3 @@ require_once($dir.'/initialize.php') ;
     </div>
   </body>
 </html>  
- 
