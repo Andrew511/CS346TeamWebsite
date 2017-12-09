@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
               if($question['QuestionType'] === "short"){
                 foreach($answers as $answers){
-                  echo "<input type=\"hidden\" class=\"answer\" name=\"answers[]\"
+                  echo "<input type=\"hidden\" class=\"answer\" name=\"correct_answers[]\"
                   value=\"";
                   echo "{$answers['ShortAnswer']}";
                   echo "\">";
@@ -103,6 +103,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   value=\"";
                   echo "{$answers['AnswerText']}";
                   echo "\">";
+									if("{$answers['Correct']}"){
+										echo "<input type=\"hidden\" class=\"answer\" name=\"correct_answers[]\"
+	                  value=\"";
+	                  echo "{$answers['AnswerText']}";
+	                  echo "\">";
+									}
                 }
               }
 
