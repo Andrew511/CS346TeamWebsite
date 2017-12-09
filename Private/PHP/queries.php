@@ -453,7 +453,7 @@ function get_question_list() { //function to populate all the questions the inst
 
   try{
     $query = "SELECT *
-              FROM Questions";
+              FROM Questions ORDER BY QuestionId";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
@@ -518,7 +518,7 @@ function get_deactivated_question_list() {
   try{
     $query = "SELECT *
               FROM Questions
-              WHERE Status=4";
+              WHERE Status=4 ORDER BY QuestionId";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
@@ -535,7 +535,8 @@ function get_completed_question_list() {
   try{
     $query = "SELECT *
               FROM Questions
-              WHERE Status=2 OR Status=4";
+              WHERE Status=2 OR Status=4
+              ORDER BY QuestionId";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
