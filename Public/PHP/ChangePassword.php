@@ -54,7 +54,7 @@ if(!isset($_SESSION['ID']))
 		$oldPass = $_POST['oldPassword'] ;
 		$newPass1 = $_POST['newPassword'] ;
 		$newPass2 = $_POST['confirmPassword'] ;
-	if($newPass1 === $newPass2 && strpos($newPass1 , $UN) == false && $newPass1 !=== $oldPass)
+	if($newPass1 === $newPass2 && strpos($newPass1 , $UN) == false && strpos($newPass1 , $oldPass) == false)
 	{
 		$newPass = $newPass1 ;
 	}
