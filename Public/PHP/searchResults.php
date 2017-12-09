@@ -145,7 +145,7 @@ if(!isset($_SESSION['ID']))
       print_r($result);
 */
       echo "<form method=\"post\" action=\"showQuestionResult.php\"
-              targe=\"blank\">";
+              target=\"blank\">";
       echo "<select name=\"results\">";
 
       if(!empty($result)){

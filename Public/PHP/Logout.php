@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 	//clears session variables
 	$_SESSION = array() ;
 	session_destroy() ;
-	header("Location: ".$pdir."/Login.php") ;
+	 header("Location:" . $pubDir . "/Login.php") ;
 }
 	
 ?>
