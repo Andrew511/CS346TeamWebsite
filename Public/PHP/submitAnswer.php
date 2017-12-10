@@ -1,16 +1,16 @@
 <?php
 	session_start()  ;
-$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
-$pdir = dirname(__FILE__) ;
-$temp[] = preg_split("[/]" , $pdir) ;
-$pubDir = "";
-for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
-{
-	$pubDir = $pubDir . "/" . $temp[0][$i] ;
-}
-require_once($dir.'/initialize.php') ;
-global $db ;
-if(!isset($_SESSION['ID']))
+	$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
+	$pdir = dirname(__FILE__) ;
+	$temp[] = preg_split("[/]" , $pdir) ;
+	$pubDir = "";
+	for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
+	{
+		$pubDir = $pubDir . "/" . $temp[0][$i] ;
+	}
+	require_once($dir.'/initialize.php') ;
+	global $db ;
+	if(!isset($_SESSION['ID']))
 	{
 		header("Location:" . $pubDir . "/Login.php") ;
 	}
@@ -20,7 +20,7 @@ if(!isset($_SESSION['ID']))
 		$id = $_SESSION['ID'] ;
 		$role = $_SESSION['role'] ;
 	}
-$student = get_student_by_username($UN);
+	$student = get_student_by_username($UN);
 ?>
 
 <!DOCTYPE html>
@@ -108,15 +108,18 @@ $student = get_student_by_username($UN);
             }
         }
         ?>
-        <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?>
-		<p> <?php echo "Correct Answers: ";
-		echo $correctAnswers;
-		?>
+
+		<p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?></p>
+		<p> <?php echo "Correct Answers: "; 
+			echo $correctAnswers;
+			?>
+		</p>
+
         <p> <?php echo $question['QuestionText']; ?> </p>
 
         <?php
         add_score($_POST['QuestionId'], $student['StudentId'], $score, $studentAnswer );
-		if ($score === $totalScore) {
+		if ($score == $totalScore) {
 			add_correct_submission($question['QuestionId']);
 		}
         ?>
