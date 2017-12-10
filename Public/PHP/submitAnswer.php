@@ -110,7 +110,7 @@
         ?>
 
 		<p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?></p>
-		<p> <?php echo "Correct Answers: "; 
+		<p> <?php echo "Correct Answers: ";
 			echo $correctAnswers;
 			?>
 		</p>
@@ -118,10 +118,10 @@
         <p> <?php echo $question['QuestionText']; ?> </p>
 
         <?php
-        add_score($_POST['QuestionId'], $student['StudentId'], $score, $studentAnswer );
-		if ($score == $totalScore) {
-			add_correct_submission($question['QuestionId']);
-		}
+      add_score($_POST['QuestionId'], $student['StudentId'], $score, $studentAnswer );
+  		if ($score == $totalScore) {
+  			add_correct_submission($_POST['QuestionId']);
+  		}
         ?>
       </div>
     </div>

@@ -65,7 +65,7 @@ function add_correct_submission($questionId) {
 			  WHERE QuestionId = :questionId
               ";
     $stmt = $db->prepare($query);
-    $stmt->execute(["questionId" => $questionId]);
+    $stmt->execute([":questionId" => $questionId]);
   } catch (PDOException $e) {
     db_disconnect();
     exit("There was an error incrementing the correct submissions.");
