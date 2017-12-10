@@ -223,8 +223,8 @@
               <button type="button" id="reset">Reset Answers</button>
               <input type="hidden" id="a_count" value="<?php echo $answersCount;?>">
               </p>
-              <button type="submit" name="status" value="1">Save as Draft</button>
-              <button type="submit" name="status" value="2">Update</button>
+              <button type="submit" name="submit" value="1">Save as Draft</button>
+              <button type="submit" name="submit" value="2">Update</button>
             </div>
           </form>
         </div>
