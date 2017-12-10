@@ -5,6 +5,12 @@
 var seconds = 0, minutes = 0, hours = 0, t, time_text, ctx, height = 0, height2 = 0,
 text_height = 0, interval=0, margin = 0, correct = 0, wrong = 0;
 
+var heights = new Array(256) ;
+for(var q = 0 ; q < heights.length ; q+=1)
+{
+	heights[q] = 0 ;
+}
+
 //function for timer
 function timer()
 {
@@ -72,7 +78,8 @@ function draw_graph(counts)
   ctx.fillStyle = "black";
   ctx.textBaseline = "baseline";
   ctx.font = "14px sans-serif";
-  //draws bars for short answers
+  //draws bars for short answers 
+  
   if(document.getElementsByName("type")[0].value == "short")
   {
   for(j = 0; j < answers.length; j+=1)
@@ -88,7 +95,7 @@ function draw_graph(counts)
 	  {
         height2 += 20;
         wrong +=1;
-        ctx.fillRect(space * j + 1, canvas.height-20-height2, 15, height2);
+        ctx.fillRect(500, canvas.height-20-height2, 15, height2);
         document.getElementById("wrong").innerHTML = "Incorrect: " + wrong; //updates incorrect count
       }//else if
     }//for
@@ -117,8 +124,8 @@ function draw_graph(counts)
 				if(answers[p].value == CBAnswers[k])
 				{
 					//alert(p) ;
-					height += 20;
-					ctx.fillRect(space * p+1, canvas.height-20-height, 15, height);
+					heights[p] += 20;
+					ctx.fillRect(space * p+1, canvas.height-20-heights[p], 15, heights[p]);
 					document.getElementById("right").innerHTML = "Correct: " + correct;
 				}//if
 			}//for
@@ -130,10 +137,10 @@ function draw_graph(counts)
 			{
 				if(answers[p].value == CBAnswers[k])
 				{
-					height2 += 20;
+					heights[p] += 20;
 					wrong +=1;
 					//alert(p) ;
-					ctx.fillRect(space * p+1, canvas.height-20-height2, 15, height2);
+					ctx.fillRect(space * p+1, canvas.height-20-heights[p], 15, heights[p]);
 					document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
 				}//if
 			}//for
@@ -195,7 +202,7 @@ function draw_labels()
   }
   if(document.getElementsByName("type")[0].value == "short")
   {
-    ctx.fillText("Other", size * i+1, canvas.height);
+    ctx.fillText("Other", 500, canvas.height);
   }
 
 
