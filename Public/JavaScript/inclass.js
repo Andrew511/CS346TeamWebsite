@@ -116,7 +116,7 @@ function draw_graph(counts)
 			{
 				if(answers[p].value == CBAnswers[k])
 				{
-					alert(p) ;
+					//alert(p) ;
 					height += 20;
 					ctx.fillRect(space * p+1, canvas.height-20-height, 15, height);
 					document.getElementById("right").innerHTML = "Correct: " + correct;
@@ -132,7 +132,7 @@ function draw_graph(counts)
 				{
 					height2 += 20;
 					wrong +=1;
-					alert(p) ;
+					//alert(p) ;
 					ctx.fillRect(space * p+1, canvas.height-20-height2, 15, height2);
 					document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
 				}//if
@@ -165,8 +165,6 @@ else
         ctx.fillRect(space * j+1, canvas.height-20-height2, 15, height2);
         document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
       }//else if
-
-
      }//for
    }//else
  }//else if
@@ -190,9 +188,9 @@ function draw_labels()
   {
     split = answers[i].value.split(" ");
     //text_height = ctx.measureText(answers[i]).width;
-    text_height = ctx.measureText(split[0]);
-    text_height = ctx.measureText(split[0]);
-    ctx.fillText(answers[i].value, size * i+1, canvas.height);
+    text_height = ctx.measureText(split[0]).value;
+  //  text_height = ctx.measureText(split[0]);
+    ctx.fillText(split[0], size * i+1, canvas.height);
     margin += text_height;
   }
   if(document.getElementsByName("type")[0].value == "short")
