@@ -65,7 +65,7 @@ if(!isset($_SESSION['ID']))
             
               ?>
                <input type="text" id="text" name="text">
-               <label for="text"> <?php echo $answer['AnswerText'];?> </label>
+               
               <?php 
             
            } ?>
