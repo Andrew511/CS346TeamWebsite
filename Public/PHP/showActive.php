@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<?php    session_start()  ;
+<?php    
+session_start()  ;
 $dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
 $pdir = dirname(__FILE__) ;
 $temp[] = preg_split("[/]" , $pdir) ;
@@ -21,6 +21,7 @@ if(!isset($_SESSION['ID']))
 		$role = $_SESSION['role'] ;
 	}
 ?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
