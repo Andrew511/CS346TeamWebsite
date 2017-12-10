@@ -124,7 +124,7 @@ function draw_graph(counts)
 			{
 				if(answers[p].value == CBAnswers[k])
 				{
-					//alert(p) ;
+					
 					heights[p] += 20;
 					ctx.fillRect(space * p+1, canvas.height-20-heights[p], 15, heights[p]);
 					document.getElementById("right").innerHTML = "Correct: " + correct;
@@ -140,7 +140,7 @@ function draw_graph(counts)
 				{
 					heights[p] += 20;
 					wrong +=1;
-					//alert(p) ;
+					
 					ctx.fillRect(space * p+1, canvas.height-20-heights[p], 15, heights[p]);
 					document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
 				}//if
