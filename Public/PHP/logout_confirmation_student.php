@@ -8,7 +8,7 @@
       rel="stylesheet"/>
   </head>
   <body>
-    <?php include 'student_navigation.php';?>
+    <?php include_once 'student_navigation.php';?>
     <div class="border">
       <?php include 'header.php' ?>
       <div id="flexContainer">
@@ -20,6 +20,6 @@
         </div>
       </div>
     </div>
-    <?php include 'footer.php';?>
+    <?php include_once 'footer.php';?>
   </body>
 </html>
