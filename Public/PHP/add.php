@@ -42,11 +42,9 @@
         else{
           $unchecked = $_POST['choices'];
         }
-        echo count($unchecked);
         foreach($unchecked as $c){
           add_answer($id, $c, 0, count($_POST['choices']));
         }
-        echo count($_POST['answer']);
         foreach($_POST['answer'] as $a){
           add_answer($id, $a, 1, count($_POST['choices']));
         }
