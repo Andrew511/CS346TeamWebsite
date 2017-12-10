@@ -138,6 +138,7 @@ function add_answer_options(){
 }
 
 function reset_answers() {
+  count = 0;
   var div = document.getElementById("answer_options"), i;
   while(div.hasChildNodes()){
     div.removeChild(div.lastChild);

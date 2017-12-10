@@ -68,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               echo "<th>First Name</th>";
               echo "<th>Username</th>";
               echo "<th>Q Id</th>";
-              echo "<th>Points Earned</th>";
               echo "<th>Total Points</th>";
+              echo "<th>Points Earned</th>";
             echo "</tr>";
             foreach($scores as $scores){
               echo "<tr>";

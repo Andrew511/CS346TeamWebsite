@@ -1,4 +1,4 @@
-<?php 
+<?php
 	session_start()  ;
 	$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
 	$pdir = dirname(__FILE__) ;
@@ -33,9 +33,9 @@
       rel="stylesheet"/>
   </head>
   <body>
-    <?php include 'student_navigation.php';?>
+    <?php include_once 'student_navigation.php';?>
     <div class="border">
-      <?php include 'header.php' ?>
+      <?php include_once 'header.php' ?>
       <div id="flexContainer">
         <?php $question = get_question($_POST['QuestionId']);
         $answers = get_question_answers($question['QuestionId']);
@@ -51,7 +51,7 @@
 				if ($answer['Correct'] == 1) {
 				$numcorrect = $numcorrect + 1;
                 $correctAnswers .= $answer['AnswerText'] . ", ";
-                }   
+                }
                 $i += 1;
 			}
 		} else {
@@ -60,7 +60,7 @@
 		}
         $scorePerCorrect = ($totalScore - 1) / $numcorrect;
 
-         if ($question['QuestionType'] == "multiple") { 
+         if ($question['QuestionType'] == "multiple") {
 
                if (isset($_POST["radio"])) {
 					$studentAnswer = $_POST["radio"];
@@ -69,11 +69,11 @@
                             if ($answer['Correct'] == 1) {
                            $score += $scorePerCorrect;
                             }
-                        } 
+                        }
                     }
                 }
         }
-		else if ($question['QuestionType'] == "checkbox") { 
+		else if ($question['QuestionType'] == "checkbox") {
             for ($i = 0; $i < count($answers); $i += 1 ) {
 
                if (isset($_POST["checkbox$i"])) {
@@ -89,12 +89,12 @@
                                     $score -= $scorePerCorrect;
                                 }
                             }
-                        } 
+                        }
                     }
                 }
             }
         }
-		else if ($question['QuestionType'] == "short") { 
+		else if ($question['QuestionType'] == "short") {
             for ($i = 0; $i < count($answers); $i += 1 ) {
                if (isset($_POST["text"])) {
 					$studentAnswer = $_POST["text"];
@@ -104,26 +104,28 @@
                            $score = $totalScore;
 						   break;
                             }
-                        } 
+                        }
                     }
                 }
             }
         }
         ?>
-        <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?></p>
+
+    <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?></p>
 		<p> <?php echo "Correct Answers: "; 
 			echo $correctAnswers;
 			?></p>
+
         <p> <?php echo $question['QuestionText']; ?> </p>
 
         <?php
         add_score($_POST['QuestionId'], $student['StudentId'], $score, $studentAnswer );
-		if ($score === $totalScore) {
+		if ($score == $totalScore) {
 			add_correct_submission($question['QuestionId']);
 		}
         ?>
       </div>
     </div>
-    <?php include 'footer.php';?>
+    <?php include_once 'footer.php';?>
   </body>
 </html>

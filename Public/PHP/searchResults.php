@@ -63,13 +63,14 @@
   </head>
 
   <body>
-    <?php include 'student_navigation.php';?>
+    <?php include_once 'student_navigation.php';?>
     <div class="border">
-      <?php include 'header.php' ?>
+      <?php include_once 'header.php' ?>
       <div class="flexContainer">
           <div class="searchContainer">
             <h1>Search Results</h1>
             <div>
+
 				<?php
 					$kid = [];
 					$scoreid = [];
@@ -132,6 +133,6 @@
           </div>
       </div>
     </div>
-    <?php include 'footer.php';?>
+    <?php include_once 'footer.php';?>
   </body>
 </html>
