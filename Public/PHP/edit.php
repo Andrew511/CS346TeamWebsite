@@ -62,15 +62,13 @@
             <input type="text" name="description" value="<?php echo $q['Description']?>">
             <p>Keywords (Please separate keywords by ,)</p>
             <input type="text" name="keywords" value="<?php
-$count = count($keywords);
-foreach($keywords as $keywords){
-  echo "{$keywords['Keyword']}";
-  if($count>1){
-    echo ", ";
-  }
-  $count--;
-}
-            ?>">
+				$count = count($keywords);
+				foreach($keywords as $keywords){
+				echo "{$keywords['Keyword']}";
+				if($count>1){echo ", ";}
+				   $count--;
+			   }
+			?>">
             <br>
             <p>Book Section:</p>
             <input type="text" name="section" value="<?php echo $q['Section'];?>">
@@ -79,9 +77,8 @@ foreach($keywords as $keywords){
             <div>
               <p>Type your question below:</p>
               <textarea class="questionText" name="question_text">
-<?php
-echo $q['QuestionText'];?>
-</textarea>
+			  <?php echo $q['QuestionText'];?>
+			  </textarea>
               <select id="answerTypes" name="types">
                 <?php
                 if($q['QuestionType'] === "multiple"){
@@ -126,7 +123,7 @@ echo $q['QuestionText'];?>
                         echo "\" checked>";
                         echo "</labe>";
                         echo "<textarea name=\"answer_choices\">";
-echo "{$answers['AnswerText']}";
+						echo "{$answers['AnswerText']}";
                         echo "</textarea>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
                         echo "{$answers['AnswerText']}";
@@ -139,7 +136,7 @@ echo "{$answers['AnswerText']}";
                         echo " \"><br>";
                         echo "</labe>";
                         echo "<textarea name=\"answer_choices\">";
-echo "{$answers['AnswerText']}";
+						echo "{$answers['AnswerText']}";
                         echo "</textarea>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
                         echo "{$answers['AnswerText']}";
@@ -158,7 +155,7 @@ echo "{$answers['AnswerText']}";
                         echo "\" checked>";
                         echo "</label>";
                         echo "<textarea name=\"answer_choices\">";
-echo "{$answers['AnswerText']}";
+						echo "{$answers['AnswerText']}";
                         echo "</textarea>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
                         echo "{$answers['AnswerText']}";
@@ -172,7 +169,7 @@ echo "{$answers['AnswerText']}";
                         echo "\">";
                         echo "</label>";
                         echo "<textarea name=\"answer_choices\">";
-echo "{$answers['AnswerText']}";
+						echo "{$answers['AnswerText']}";
                         echo "</textarea>";
                         echo "<input type=\"hidden\" name=\"choices[]\" value=\"";
                         echo "{$answers['AnswerText']}";

@@ -1,16 +1,16 @@
 <?php
-session_start()  ;
-$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
-$pdir = dirname(__FILE__) ;
-$temp[] = preg_split("[/]" , $pdir) ;
-$pubDir = "";
-for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
-{
-	$pubDir = $pubDir . "/" . $temp[0][$i] ;
-}
-require_once($dir.'/initialize.php') ;
-global $db ;
-if(!isset($_SESSION['ID']))
+	session_start()  ;
+	$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
+	$pdir = dirname(__FILE__) ;
+	$temp[] = preg_split("[/]" , $pdir) ;
+	$pubDir = "";
+	for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
+	{
+		$pubDir = $pubDir . "/" . $temp[0][$i] ;
+	}
+	require_once($dir.'/initialize.php') ;
+	global $db ;
+	if(!isset($_SESSION['ID']))
 	{
 		header("Location:" . $pubDir . "/Login.php") ;
 	}
@@ -20,15 +20,15 @@ if(!isset($_SESSION['ID']))
 		$id = $_SESSION['ID'] ;
 		$role = $_SESSION['role'] ;
 	}
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $id = $_POST['question_list'];
-  $time = time();
-  $activate_start = date('Y/m/d h:i:s a', $time);
-  activate_question($id, 3, $activate_start);
-  $q = get_active_question($id);
-  $answers = get_answer_choices($id);
-  $print = get_answer_choices($id);
-}
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$id = $_POST['question_list'];
+	$time = time();
+	$activate_start = date('Y/m/d h:i:s a', $time);
+	activate_question($id, 3, $activate_start);
+	$q = get_active_question($id);
+	$answers = get_answer_choices($id);
+	$print = get_answer_choices($id);
+	}
 ?>
 
 <!DOCTYPE html>

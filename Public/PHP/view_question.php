@@ -1,16 +1,16 @@
 <?php
-session_start()  ;
-$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
-$pdir = dirname(__FILE__) ;
-$temp[] = preg_split("[/]" , $pdir) ;
-$pubDir = "";
-for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
-{
-	$pubDir = $pubDir . "/" . $temp[0][$i] ;
-}
-require_once($dir.'/initialize.php') ;
-global $db ;
-if(!isset($_SESSION['ID']))
+	session_start()  ;
+	$dir = realpath(__DIR__ . '/../..').'/Private/PHP' ;
+	$pdir = dirname(__FILE__) ;
+	$temp[] = preg_split("[/]" , $pdir) ;
+	$pubDir = "";
+	for($i = 3 ; $i < sizeof($temp[0]) ; $i++)
+	{
+		$pubDir = $pubDir . "/" . $temp[0][$i] ;
+	}
+	require_once($dir.'/initialize.php') ;
+	global $db ;
+	if(!isset($_SESSION['ID']))
 	{
 		header("Location:" . $pubDir . "/Login.php") ;
 	}
@@ -20,11 +20,11 @@ if(!isset($_SESSION['ID']))
 		$id = $_SESSION['ID'] ;
 		$role = $_SESSION['role'] ;
 	}
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $id = $_POST['question_list'];
-  $question = view_question($id);
-  $answers = get_question_answers($id);
-}
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		$id = $_POST['question_list'];
+		$question = view_question($id);
+		$answers = get_question_answers($id);
+	}
 ?>
 
 <!DOCTYPE html>
