@@ -1,10 +1,15 @@
-
 /*jslint browser: true */
 /*jslint white: true */
 "use strict";
 
 var seconds = 0, minutes = 0, hours = 0, t, time_text, ctx, height = 0, height2 = 0,
 text_height = 0, interval=0, margin = 0, correct = 0, wrong = 0;
+
+var heights = new Array(256) ;
+for(var q = 0 ; q < heights.length ; q+=1)
+{
+	heights[q] = 0 ;
+}
 
 //function for timer
 function timer()
@@ -73,7 +78,8 @@ function draw_graph(counts)
   ctx.fillStyle = "black";
   ctx.textBaseline = "baseline";
   ctx.font = "14px sans-serif";
-  //draws bars for short answers
+  //draws bars for short answers 
+  
   if(document.getElementsByName("type")[0].value == "short")
   {
   for(j = 0; j < answers.length; j+=1)
@@ -101,7 +107,6 @@ function draw_graph(counts)
     //draws the bars for the questions with more than one answer, i.e. checkboxes and select
     if(correctA.length > 1)
 	   {
-      var heights = new array(answers.length) ;	   
       for(j = 0; j < correctA.length; j+=1)
 	  {
         k = 0;
