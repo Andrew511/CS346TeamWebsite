@@ -144,7 +144,7 @@ function draw_graph(counts)
 			{
 				if(answers[p].value == CBAnswers[k])
 				{
-					//alert(p) ;
+					
 					heights[p] += 20;
 					ctx.fillRect(space * p+1, canvas.height-20-heights[p], 15, heights[p]);
 					document.getElementById("right").innerHTML = "Correct: " + correct;
@@ -160,7 +160,7 @@ function draw_graph(counts)
 				{
 					heights[p] += 20;
 					wrong +=1;
-					//alert(p) ;
+					
 					ctx.fillRect(space * p+1, canvas.height-20-heights[p], 15, heights[p]);
 					document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
 				}//if
@@ -218,10 +218,8 @@ function draw_labels()
   ctx.textBaseline = "baseline";
   for(i = 0; i<sections; i+=1)
   {
-    split = answers[i].value.split(" ");
-    //text_height = ctx.measureText(answers[i]).width;
+    split = answers[i].value.split(" ");  
     text_height = ctx.measureText(split[0]).value;
-  //  text_height = ctx.measureText(split[0]);
     ctx.fillText(split[0], size * i+1, canvas.height);
     margin += text_height;
   }
