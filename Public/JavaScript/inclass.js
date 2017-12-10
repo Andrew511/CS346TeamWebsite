@@ -122,6 +122,7 @@ function draw_graph(counts){
         }
       }
   }
+  }
  /* else { //if it's not a short answer
     correctA = document.getElementsByName("correct_answers[]");
     //draws the bars for the questions with more than one answer, i.e. checkboxes and select
