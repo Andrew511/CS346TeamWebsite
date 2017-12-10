@@ -20,12 +20,6 @@ if(!isset($_SESSION['ID']))
 		$id = $_SESSION['ID'] ;
 		$role = $_SESSION['role'] ;
 	}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $id = $_POST['id'];
-  $end = date('Y/m/d h:i:s a' , time());
-
-}
 ?>
 
 <!DOCTYPE html>
