@@ -63,7 +63,7 @@ $student = get_student_by_username($UN);
          if ($question['QuestionType'] == "multiple") {
 
                if (isset($_POST["radio"])) {
-					$studentAnswer = $_POST["radio"];
+					          $studentAnswer = $_POST["radio"];
                     foreach ($answers as $answer) {
                         if ($answer['AnswerText'] === $_POST["radio"]) {
                             if ($answer['Correct'] == 1) {
@@ -97,14 +97,12 @@ $student = get_student_by_username($UN);
 		else if ($question['QuestionType'] == "short") {
             for ($i = 0; $i < count($answers); $i += 1 ) {
                if (isset($_POST["text"])) {
-					$studentAnswer = $_POST["text"];
-                    foreach ($answers as $answer) {
-                        if ($answer['AnswerText'] === $_POST["text"]) {
-                            if ($answer['Correct'] == 1) {
-                           $score = $totalScore;
-						   break;
-                            }
-                        }
+					        $studentAnswer = $_POST["text"];
+                  foreach ($answers as $answer) {
+                      if ($answer['ShortAnswer'] === $_POST["text"]) {
+                            $score = $totalScore;
+					                  break;
+                      }
                     }
                 }
             }
