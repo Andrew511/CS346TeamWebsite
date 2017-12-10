@@ -75,6 +75,10 @@ function draw_graph(counts)
   sections = answers.length, width, j, count, correctA, space;
   width = canvas.width;
   space = width / sections;
+  if(document.getElementsByName("type")[0].value == "short")
+  {
+	  space = width/(sections+1) ;
+  }
   ctx.fillStyle = "black";
   ctx.textBaseline = "baseline";
   ctx.font = "14px sans-serif";
@@ -86,17 +90,33 @@ function draw_graph(counts)
   {
       if(counts[interval]['StudentAnswer'] == answers[j].value)
 	  {
-        height += 20;
+        heights[j] += 20;
         correct+=1;
-        ctx.fillRect(space * j + 1, canvas.height-20-height, 15, height);
+        ctx.fillRect(space * j + 1, canvas.height-20-heights[j], 15, heights[j]);
         document.getElementById("right").innerHTML = "Correct: " + correct; //updates the correct count
       }//if
       else if(counts[interval]['StudentAnswer'] != answers[j].value)
 	  {
-        height2 += 20;
-        wrong +=1;
-        ctx.fillRect(500, canvas.height-20-height2, 15, height2);
-        document.getElementById("wrong").innerHTML = "Incorrect: " + wrong; //updates incorrect count
+		  for(var p = 0 ; p < answers.length ; p+=1)
+		  {
+			  var stillCorrect = false ;
+			  if(counts[interval]['StudentAnswer'] == answers[p].value)
+			  {
+				  heights[p] += 20 ;
+				  correct += 1 ;
+				  ctx.fillRect(space * p + 1 , canvas.height-20-heights[p] , 15 , heights[p]) ;
+				  document.getElementById("right").innerHTML = "Correct: " + correct; //updates the correct count
+				  stillCorrect = true ;
+				  break ;
+			  }
+		  }
+		if(stillCorrect == false)
+		{
+			height2 += 20;
+			wrong +=1;
+			ctx.fillRect(space * answers.length, canvas.height-20-height2, 15, height2);
+			document.getElementById("wrong").innerHTML = "Incorrect: " + wrong; //updates incorrect count
+		}
       }//else if
       break;
     }//for
@@ -124,7 +144,7 @@ function draw_graph(counts)
 			{
 				if(answers[p].value == CBAnswers[k])
 				{
-					
+					//alert(p) ;
 					heights[p] += 20;
 					ctx.fillRect(space * p+1, canvas.height-20-heights[p], 15, heights[p]);
 					document.getElementById("right").innerHTML = "Correct: " + correct;
@@ -140,7 +160,7 @@ function draw_graph(counts)
 				{
 					heights[p] += 20;
 					wrong +=1;
-					
+					//alert(p) ;
 					ctx.fillRect(space * p+1, canvas.height-20-heights[p], 15, heights[p]);
 					document.getElementById("wrong").innerHTML = "Incorrect: " + wrong;
 				}//if
@@ -189,6 +209,10 @@ function draw_labels()
   sections = answers.length, width, size, testWidth, words, split;
   width = canvas.width;
   size = width/sections;
+  if(document.getElementsByName("type")[0].value == "short")
+  {
+	  size = width/(sections+1) ;
+  }
   ctx.fillStyle = "black";
   ctx.font = "14px sans-serif";
   ctx.textBaseline = "baseline";
@@ -203,7 +227,7 @@ function draw_labels()
   }
   if(document.getElementsByName("type")[0].value == "short")
   {
-    ctx.fillText("Other", 500, canvas.height);
+    ctx.fillText("Other", size * i+1, canvas.height);
   }
 
 
