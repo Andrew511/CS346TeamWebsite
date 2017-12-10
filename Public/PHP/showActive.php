@@ -63,11 +63,11 @@ if(!isset($_SESSION['ID']))
 
             elseif ($question['QuestionType'] === "short") { 
             
-             foreach ($answers as $answer) { ?>
+              ?>
                <input type="text" id="text" name="text">
                <label for="text"> <?php echo $answer['AnswerText'];?> </label>
               <?php 
-             }
+            
            } ?>
           <input type="submit" value="Submit">
         </form>
