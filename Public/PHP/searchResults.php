@@ -112,12 +112,12 @@ if(!isset($_SESSION['ID']))
         }
       }
 
-      asort($a);
+
 
     echo "<form method=\"post\" action=\"showQuestionResult.php\"
             target=\"blank\">";
     echo "<select name=\"results\">";
-
+    sort($a);
     for($i = 0; $i < sizeof($a); $i++){
       $qid = $a[$i];
       $result = search_questions($qid);
