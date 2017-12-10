@@ -111,10 +111,11 @@
         }
         ?>
 
-    <p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?></p>
+		<p> Score on Question <?php echo $question['QuestionId']; ?> <?php echo "$score/$totalScore"; ?></p>
 		<p> <?php echo "Correct Answers: "; 
 			echo $correctAnswers;
-			?></p>
+			?>
+		</p>
 
         <p> <?php echo $question['QuestionText']; ?> </p>
 
