@@ -50,6 +50,7 @@
 
                 <select name="keywordSearch[]" id="keywordSearch" size="4" class="options"
                   multiple>
+                  <optgroup label="Keyword">
 				  <?php
 				  foreach ($k as $k)
 							{
@@ -60,9 +61,11 @@
 							echo "</option>";
 							}
 							?>
+            </optgroup>
                 </select>
                 <select name="section[]" id="section" size="4" class="options"
                   multiple>
+                <optgroup label="Section">
 				  <?php foreach ($q as $q)
 							{
 							echo "<option value=\"";
@@ -72,9 +75,11 @@
 							echo "</option>";
 							}
 							?>
+            </optgroup>
                 </select>
                 <select name="pointsAvailable[]" id="pointsAvailable" size="4" class="options"
                   multiple>
+                  <optgroup label="Points Available">
 				  <?php  foreach ($points as $points)
 							{
 							echo "<option value=\"";
@@ -84,9 +89,11 @@
 							echo "</option>";
 							}
 							?>
+            </optgroup>
                 </select>
                 <select name="score[]" id="score" size="4" class="options"
                   multiple>
+                  <optgroup label="My Score">
 				  <?php
 						foreach ($p as $p)
 						{
@@ -97,7 +104,7 @@
 							echo "</option>";
 							}
 							?>
-                  <option></option>
+                </optgroup>
                 </select>
                 <input type="submit" value="Search" id="searchButton"/>
               </div>
