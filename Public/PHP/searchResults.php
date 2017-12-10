@@ -112,6 +112,8 @@ if(!isset($_SESSION['ID']))
         }
       }
 
+      asort($a);
+
     echo "<form method=\"post\" action=\"showQuestionResult.php\"
             target=\"blank\">";
     echo "<select name=\"results\">";
