@@ -78,8 +78,8 @@ function draw_graph(counts)
   ctx.fillStyle = "black";
   ctx.textBaseline = "baseline";
   ctx.font = "14px sans-serif";
-  //draws bars for short answers 
-  
+  //draws bars for short answers
+
   if(document.getElementsByName("type")[0].value == "short")
   {
   for(j = 0; j < answers.length; j+=1)
@@ -98,6 +98,7 @@ function draw_graph(counts)
         ctx.fillRect(500, canvas.height-20-height2, 15, height2);
         document.getElementById("wrong").innerHTML = "Incorrect: " + wrong; //updates incorrect count
       }//else if
+      break;
     }//for
   }//if
   else if(document.getElementsByName("type")[0].value == "checkbox")
