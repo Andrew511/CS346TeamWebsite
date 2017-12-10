@@ -639,7 +639,8 @@ function display_PAV_table() { //function to populate all the scores in the data
   global $db;
 
   try{
-    $query = "SELECT DISTINCT PointsAvailable FROM Questions";
+    $query = "SELECT DISTINCT PointsAvailable FROM Questions
+              ORDER BY PointsAvailable";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
@@ -653,7 +654,8 @@ function display_SEC_table() { //function to populate all the scores in the data
   global $db;
 
   try{
-    $query = "SELECT DISTINCT Section FROM Questions";
+    $query = "SELECT DISTINCT Section FROM Questions
+              ORDER BY Section";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
@@ -667,7 +669,8 @@ function display_S_table() { //function to populate all the scores in the databa
   global $db;
 
   try{
-    $query = "SELECT DISTINCT Score FROM Scores";
+    $query = "SELECT DISTINCT Score FROM Scores
+              ORDER BY Score";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
@@ -681,7 +684,8 @@ function display_K_table() { //function to populate all the keywords in the data
   global $db;
 
   try{
-    $query = "SELECT DISTINCT Keyword FROM Keywords";
+    $query = "SELECT DISTINCT Keyword FROM Keywords
+              ORDER BY Keyword";
     $stmt = $db->prepare($query);
     $stmt->execute();
     return $stmt->fetchall(PDO::FETCH_ASSOC);
