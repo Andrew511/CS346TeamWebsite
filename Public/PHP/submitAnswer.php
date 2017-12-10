@@ -118,7 +118,7 @@ $student = get_student_by_username($UN);
 
         <?php
         add_score($_POST['QuestionId'], $student['StudentId'], $score, $studentAnswer );
-		if ($score === $totalScore) {
+		if ($score == $totalScore) {
 			add_correct_submission($question['QuestionId']);
 		}
         ?>
