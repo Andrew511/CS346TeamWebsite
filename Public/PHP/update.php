@@ -20,8 +20,8 @@
       delete_answers($id);
     }
 
-    if(isset($_POST['submit'])){
-      if($types === 'multiple'){
+    if($types === 'multiple'){
+      if(isset($_POST['choices'])){
         $answer_options = $_POST['choices'];
         $number = count($answer_options);
         if(isset($_POST['submit'])){
@@ -36,42 +36,57 @@
             }
           }
         }
-      }
-      elseif ($types === 'checkbox'){
-        if(isset($_POST['submit'])){
-          $array = $_POST['answer'];
-          $unchecked = array_diff($_POST['choices'], $_POST['answer']);
-        }
-        else{
-          $unchecked = $_POST['choices'];
-        }
-        echo count($unchecked);
-        foreach($unchecked as $c){
-          add_answer($id, $c, 0, count($_POST['choices']));
-        }
-        echo count($_POST['answer']);
-        foreach($_POST['answer'] as $a){
-          echo $a;
-          add_answer($id, $a, 1, count($_POST['choices']));
+        else {
+          $correct = 0;
+          add_answer($id, $a, $correct, $number);
         }
       }
-      elseif ($types === 'dropdown'){
+    }
+    elseif ($types === 'checkbox'){
+      if(isset($_POST['answer']) && isset($_POST['choices'])){
+        $array = $_POST['answer'];
         $unchecked = array_diff($_POST['choices'], $_POST['answer']);
+      }
+      elseif(isset($_POST['choices'])){
+        $unchecked = $_POST['choices'];
+      }
+      if(!empty($unchecked)){
         foreach($unchecked as $c){
           add_answer($id, $c, 0, count($_POST['choices']));
         }
+      }
+      if(isset($_POST['answer'])){
         foreach($_POST['answer'] as $a){
           add_answer($id, $a, 1, count($_POST['choices']));
         }
       }
-      elseif ($types === 'short'){
-        $answer = $_POST['answer'];
-        $answer_arr = array();
-        $answer_arr = explode("|", $answer);
-        foreach($answer_arr as $a){
-          add_short($id, $a);
+    }
+    elseif ($types === 'dropdown'){
+      if(isset($_POST['choices']) && isset($_POST['answer'])){
+        if(is_array($_POST['choices']) && is_array($_PoST['answer'])){
+          $unchecked = array_diff($_POST['choices'], $_POST['answer']);
+          foreach($unchecked as $c){
+            add_answer($id, $c, 0, count($_POST['choices']));
+          }
+          foreach($_POST['answer'] as $a){
+            add_answer($id, $a, 1, count($_POST['choices']));
+            }
+          }
+        elseif(!is_array($_POST['choices'])){
+          foreach($_POST['answer'] as $answer){
+            add_answer($id, $c, 0, count($_POST['choices']));
+          }
         }
       }
+    }
+    elseif ($types === 'short'){
+      $answer = $_POST['answer'];
+      $answer_arr = array();
+      $answer_arr = explode("|", $answer);
+      foreach($answer_arr as $a){
+        add_short($id, $a);
+      }
+
     }
     echo "Your question was successfully updated in the database!";
   }
